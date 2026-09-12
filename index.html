@@ -562,7 +562,7 @@
                         <!-- Flagship 1: RetinaXAI -->
                         <div class="project-card overflow-hidden">
                             <!-- Visual on Top (Contained fixed aspect ratio, linking to repo) -->
-                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                            <a href="https://github.com/M-shahzan/Retinaxai" target="_blank" rel="noopener noreferrer"
                                 class="block w-full aspect-video md:aspect-[21/9] bg-[#F1F5F9] border-b border-[#E2E8F0] relative overflow-hidden group">
                                 <svg class="w-full h-full p-6 sm:p-10 text-[#0369A1]/90 transition-transform duration-300 group-hover:scale-105"
                                     viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -585,11 +585,11 @@
                                     <circle cx="280" cy="140" r="20" fill="#0369A1" fill-opacity="0.35"
                                         filter="blur(6px)" />
                                     <text x="30" y="45" fill="#0369A1" font-family="JetBrains Mono, monospace"
-                                        font-size="14" font-weight="600">RetinaXAI // Deep Neural Saliency Map</text>
+                                        font-size="14" font-weight="600">RetinaXAI // Multi-Task Deep Learning Pipeline</text>
                                     <text x="30" y="70" fill="#475569" font-family="Inter, sans-serif"
-                                        font-size="12">ResNet-50 + Grad-CAM Heatmap Localization</text>
-                                    <text x="470" y="45" fill="#0F172A" font-family="JetBrains Mono, monospace"
-                                        font-size="14" font-weight="600">AUC: 96.4%</text>
+                                        font-size="12">EfficientNet-B3 + Grad-CAM Heatmaps (IDRiD Dataset)</text>
+                                    <text x="440" y="45" fill="#0F172A" font-family="JetBrains Mono, monospace"
+                                        font-size="14" font-weight="600">0.92 ROC-AUC</text>
                                 </svg>
                                 <div
                                     class="absolute bottom-3 right-3 bg-white/95 border border-[#E2E8F0] px-3 py-1 rounded text-[12px] font-mono text-[#0369A1] font-semibold shadow-sm">
@@ -602,32 +602,28 @@
                                 <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                                     <h3 class="text-[22px] font-bold text-[#0F172A]">RetinaXAI: Explainable Retinal
                                         Disease Diagnostics</h3>
-                                    <span class="tag-primary font-mono font-semibold">96.4% AUC</span>
+                                    <span class="tag-primary font-mono font-semibold">0.92 ROC-AUC (DME)</span>
                                 </div>
 
                                 <p class="body-text mb-5 max-w-4xl">
-                                    Deep learning clinical assistance pipeline designed to classify diabetic retinopathy
-                                    and macular pathology from retinal fundus scans. Incorporates Grad-CAM visual
-                                    heatmaps that project diagnostic saliency regions onto fundus photography for
-                                    clinical interpretability and physician validation.
+                                    Multi-task deep learning pipeline for diabetic retinopathy (5-class severity) and DME (binary) detection, built on EfficientNet-B3 with dual classification heads. Uses Grad-CAM to generate visual saliency heatmaps for clinical interpretability, with a risk-triage output layer and Streamlit deployment. Trained and validated on the real-world IDRiD dataset.
                                 </p>
 
                                 <!-- Tags (Max 4-5 + '+N more' expand button) -->
                                 <div class="flex flex-wrap gap-2 items-center mb-6">
                                     <span class="tag-primary">PyTorch</span>
-                                    <span class="tag-primary">Computer Vision</span>
+                                    <span class="tag-primary">EfficientNet-B3</span>
                                     <span class="tag-primary">Grad-CAM</span>
-                                    <span class="tag-primary">ResNet-50</span>
+                                    <span class="tag-primary">Streamlit</span>
                                     <span class="tag-secondary tag-hidden hidden">Medical Imaging</span>
-                                    <span class="tag-secondary tag-hidden hidden">FastAPI</span>
-                                    <span class="tag-secondary tag-hidden hidden">Streamlit</span>
+                                    <span class="tag-secondary tag-hidden hidden">IDRiD Dataset</span>
                                     <button
                                         class="tag-expand-btn text-[13px] font-mono text-[#0369A1] hover:underline cursor-pointer ml-1 py-1 font-semibold"
-                                        data-expanded="false" data-label-more="+3 more">+3 more</button>
+                                        data-expanded="false" data-label-more="+2 more">+2 more</button>
                                 </div>
 
                                 <div>
-                                    <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                    <a href="https://github.com/M-shahzan/Retinaxai" target="_blank" rel="noopener noreferrer"
                                         class="btn-primary inline-flex h-11 min-h-[44px] items-center px-5 gap-2">
                                         <span class="material-symbols-outlined text-[18px]">code</span>
                                         <span>View on GitHub</span>
@@ -639,7 +635,7 @@
                         <!-- Flagship 2: SightLite -->
                         <div class="project-card overflow-hidden">
                             <!-- Visual on Top -->
-                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                            <a href="https://github.com/M-shahzan/SightLite" target="_blank" rel="noopener noreferrer"
                                 class="block w-full aspect-video md:aspect-[21/9] bg-[#F1F5F9] border-b border-[#E2E8F0] relative overflow-hidden group">
                                 <svg class="w-full h-full p-6 sm:p-10 text-[#0369A1]/90 transition-transform duration-300 group-hover:scale-105"
                                     viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -652,7 +648,7 @@
                                         stroke-dasharray="3 3" />
                                     <rect x="90" y="98" width="40" height="12" fill="#0369A1" />
                                     <text x="93" y="107" fill="#FFFFFF" font-family="JetBrains Mono, monospace"
-                                        font-size="8" font-weight="700">OBJ 98%</text>
+                                        font-size="8" font-weight="700">UI / PII</text>
                                     <!-- Edge Neural Stream Arrow -->
                                     <path d="M230 150 L340 150" stroke="#0369A1" stroke-width="2"
                                         stroke-dasharray="4 4" />
@@ -661,15 +657,15 @@
                                     <rect x="360" y="70" width="190" height="160" rx="12" stroke="#CBD5E1"
                                         stroke-width="2" fill="#FFFFFF" />
                                     <text x="380" y="115" fill="#0F172A" font-family="JetBrains Mono, monospace"
-                                        font-size="16" font-weight="700">TFLite INT8</text>
+                                        font-size="16" font-weight="700">Vision Transformer</text>
                                     <text x="380" y="140" fill="#0369A1" font-family="JetBrains Mono, monospace"
-                                        font-size="14" font-weight="600">38 FPS @ Edge</text>
+                                        font-size="14" font-weight="600">SIH26171</text>
                                     <text x="380" y="165" fill="#475569" font-family="Inter, sans-serif"
-                                        font-size="12">Latency: &lt; 15ms</text>
+                                        font-size="12">Local ViT + Server LLM</text>
                                     <text x="380" y="185" fill="#475569" font-family="Inter, sans-serif"
-                                        font-size="12">Footprint: 12MB</text>
+                                        font-size="12">Backed by ISRO</text>
                                     <text x="30" y="45" fill="#0369A1" font-family="JetBrains Mono, monospace"
-                                        font-size="14" font-weight="600">SightLite // On-Device Visual Assistance</text>
+                                        font-size="14" font-weight="600">SightLite // On-Device Visual Perception System</text>
                                 </svg>
                                 <div
                                     class="absolute bottom-3 right-3 bg-white/95 border border-[#E2E8F0] px-3 py-1 rounded text-[12px] font-mono text-[#0369A1] font-semibold shadow-sm">
@@ -682,32 +678,27 @@
                                 <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                                     <h3 class="text-[22px] font-bold text-[#0F172A]">SightLite: Real-Time Edge Visual
                                         Assistant</h3>
-                                    <span class="tag-primary font-mono font-semibold">38 FPS Edge</span>
+                                    <span class="tag-primary font-mono font-semibold">SIH26171</span>
                                 </div>
 
                                 <p class="body-text mb-5 max-w-4xl">
-                                    High-efficiency, on-device computer vision assistant engineered for real-time
-                                    spatial navigation in resource-constrained edge environments. Leverages 8-bit
-                                    post-training quantization and MobileNetV3 backbones to achieve sub-15ms inference
-                                    latencies on embedded devices.
+                                    On-device visual perception system for lightweight browser agents, developed for Smart India Hackathon 2026 (Problem Statement SIH26171, backed by ISRO). Uses a hybrid client-server architecture — a local Vision Transformer for UI element detection and PII redaction, paired with a server-side LLM for action-command generation.
                                 </p>
 
                                 <!-- Tags (Max 4-5 + '+N more' expand button) -->
                                 <div class="flex flex-wrap gap-2 items-center mb-6">
-                                    <span class="tag-primary">TensorFlow Lite</span>
-                                    <span class="tag-primary">MobileNetV3</span>
-                                    <span class="tag-primary">OpenCV</span>
+                                    <span class="tag-primary">ViT</span>
                                     <span class="tag-primary">Edge AI</span>
-                                    <span class="tag-secondary tag-hidden hidden">INT8 Quantization</span>
-                                    <span class="tag-secondary tag-hidden hidden">Python</span>
-                                    <span class="tag-secondary tag-hidden hidden">ONNX Runtime</span>
+                                    <span class="tag-primary">Hybrid Architecture</span>
+                                    <span class="tag-primary">SIH 2026</span>
+                                    <span class="tag-secondary tag-hidden hidden">ISRO</span>
                                     <button
                                         class="tag-expand-btn text-[13px] font-mono text-[#0369A1] hover:underline cursor-pointer ml-1 py-1 font-semibold"
-                                        data-expanded="false" data-label-more="+3 more">+3 more</button>
+                                        data-expanded="false" data-label-more="+1 more">+1 more</button>
                                 </div>
 
                                 <div>
-                                    <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                    <a href="https://github.com/M-shahzan/SightLite" target="_blank" rel="noopener noreferrer"
                                         class="btn-primary inline-flex h-11 min-h-[44px] items-center px-5 gap-2">
                                         <span class="material-symbols-outlined text-[18px]">code</span>
                                         <span>View on GitHub</span>
@@ -721,79 +712,75 @@
                     <div class="mt-14 text-left">
                         <h3 class="text-[22px] font-bold text-[#0F172A] mb-5">Other Projects</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <!-- Other Project 1 -->
-                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                            <!-- Other Project 1: Titanic Survival Prediction -->
+                            <a href="https://github.com/M-shahzan/titanic-survival-ml" target="_blank" rel="noopener noreferrer"
                                 class="project-card p-6 block group">
                                 <div class="flex justify-between items-start mb-2">
                                     <h4
                                         class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
-                                        Customer Churn Prediction Model</h4>
+                                        Titanic Survival Prediction</h4>
                                     <span
                                         class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
                                 </div>
-                                <p class="meta-text text-[#475569] mb-4">ML model predicting enterprise customer
-                                    attrition with 95% test accuracy using Python &amp; Scikit-learn.</p>
+                                <p class="meta-text text-[#475569] mb-4">End-to-end Kaggle ML pipeline (EDA, feature engineering, model comparison). Best CV F1: 77.6% (Random Forest); Kaggle score 0.77751 (top ~23%).</p>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="tag-primary text-[12px]">Scikit-learn</span>
+                                    <span class="tag-primary text-[12px]">Random Forest</span>
+                                </div>
+                            </a>
+
+                            <!-- Other Project 2: Smart Procurement Hub -->
+                            <a href="https://github.com/M-shahzan/supplier-recommendation" target="_blank" rel="noopener noreferrer"
+                                class="project-card p-6 block group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4
+                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
+                                        Smart Procurement Hub</h4>
+                                    <span
+                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
+                                </div>
+                                <p class="meta-text text-[#475569] mb-4">AI-assisted supplier recommendation and PO automation platform for businesses. Combines Random Forest and KNN models with multi-factor weighted scoring across risk, financial health, and performance metrics, with supplier ratings and risk profiling.</p>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="tag-primary text-[12px]">Flask</span>
+                                    <span class="tag-primary text-[12px]">Random Forest</span>
+                                    <span class="tag-primary text-[12px]">KNN</span>
                                     <span class="tag-primary text-[12px]">Pandas</span>
-                                    <span class="tag-secondary text-[12px]">Classification</span>
                                 </div>
                             </a>
 
-                            <!-- Other Project 2 -->
-                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                            <!-- Other Project 3: Restaurant Management System -->
+                            <a href="https://github.com/M-shahzan/Restraunt-management-system" target="_blank" rel="noopener noreferrer"
                                 class="project-card p-6 block group">
                                 <div class="flex justify-between items-start mb-2">
                                     <h4
                                         class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
-                                        Stock Market Analysis &amp; Visualization</h4>
+                                        Restaurant Management System</h4>
                                     <span
                                         class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
                                 </div>
-                                <p class="meta-text text-[#475569] mb-4">Time-series financial analytics pipeline
-                                    connecting real-time market data to interactive dashboards.</p>
+                                <p class="meta-text text-[#475569] mb-4">Full-stack restaurant web app for browsing menus, booking tables, and placing orders.</p>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="tag-primary text-[12px]">Django</span>
+                                    <span class="tag-primary text-[12px]">SQL</span>
+                                    <span class="tag-primary text-[12px]">Tailwind CSS</span>
+                                </div>
+                            </a>
+
+                            <!-- Other Project 4: Job Opportunity Notifier -->
+                            <a href="https://github.com/M-shahzan/Job-opportunity" target="_blank" rel="noopener noreferrer"
+                                class="project-card p-6 block group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4
+                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
+                                        Job Opportunity Notifier</h4>
+                                    <span
+                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
+                                </div>
+                                <p class="meta-text text-[#475569] mb-4">Local job-matching platform connecting job seekers with nearby opportunities via automated job data ingestion, keyword/criteria-based matching, and email/SMS/push notification alerts.</p>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="tag-primary text-[12px]">Python</span>
-                                    <span class="tag-primary text-[12px]">Tableau</span>
-                                    <span class="tag-secondary text-[12px]">SQL</span>
-                                </div>
-                            </a>
-
-                            <!-- Other Project 3 -->
-                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
-                                class="project-card p-6 block group">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h4
-                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
-                                        Sentiment Analysis of User Reviews</h4>
-                                    <span
-                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
-                                </div>
-                                <p class="meta-text text-[#475569] mb-4">Deep learning NLP pipeline classifying
-                                    multi-category sentiment from unstructured customer feedback.</p>
-                                <div class="flex flex-wrap gap-1.5">
-                                    <span class="tag-primary text-[12px]">TensorFlow</span>
-                                    <span class="tag-primary text-[12px]">NLP</span>
-                                    <span class="tag-secondary text-[12px]">Keras</span>
-                                </div>
-                            </a>
-
-                            <!-- Other Project 4 -->
-                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
-                                class="project-card p-6 block group">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h4
-                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
-                                        Movie Recommendation Engine</h4>
-                                    <span
-                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
-                                </div>
-                                <p class="meta-text text-[#475569] mb-4">Collaborative filtering model with matrix
-                                    factorization predicting personalized user recommendations.</p>
-                                <div class="flex flex-wrap gap-1.5">
-                                    <span class="tag-primary text-[12px]">Python</span>
-                                    <span class="tag-primary text-[12px]">Surprise</span>
-                                    <span class="tag-secondary text-[12px]">RecSys</span>
+                                    <span class="tag-primary text-[12px]">Flask</span>
+                                    <span class="tag-primary text-[12px]">Automation</span>
                                 </div>
                             </a>
                         </div>
@@ -811,7 +798,7 @@
 
                     <!-- Vertical Timeline Container -->
                     <div class="relative border-l-2 border-[#CBD5E1] ml-3 sm:ml-4 pl-6 sm:pl-10 space-y-10">
-                        <!-- Entry 1 -->
+                        <!-- Entry 1: SIH 2026 — SightLite -->
                         <div class="relative">
                             <!-- Timeline Dot on Left Line -->
                             <div
@@ -819,94 +806,82 @@
                             </div>
 
                             <!-- Date Left-Aligned Above Entry -->
-                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2021 — Present</p>
+                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2026 — Present</p>
 
                             <div class="timeline-card p-6">
-                                <h3 class="text-[18px] font-bold text-[#0F172A]">Senior Data Scientist</h3>
-                                <p class="meta-text text-[#475569] mb-3">Innovate Corp</p>
+                                <h3 class="text-[18px] font-bold text-[#0F172A]">SIH 2026 — SightLite (Selected, Internal Round)</h3>
+                                <p class="meta-text text-[#475569] mb-3">Team Dcoders</p>
                                 <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
-                                    <li>Led development of predictive models, improving forecast accuracy by 25%.</li>
-                                    <li>Mentored junior data scientists and established team best practices for
-                                        analysis.</li>
-                                    <li>Deployed scalable ML pipelines on AWS for real-time analytics.</li>
+                                    <li>Selected for Smart India Hackathon 2026, Problem Statement SIH26171 (on-device visual perception for browser agents, backed by ISRO)</li>
+                                    <li>Leading a 6-member team through architecture design, correcting an initial fully-offline assumption to a hybrid client-server model</li>
                                 </ul>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="tag-primary text-[12px]">Python</span>
-                                    <span class="tag-primary text-[12px]">TensorFlow</span>
-                                    <span class="tag-primary text-[12px]">AWS</span>
-                                    <span class="tag-secondary text-[12px]">SQL</span>
+                                    <span class="tag-primary text-[12px]">SIH 2026</span>
+                                    <span class="tag-primary text-[12px]">Team Leadership</span>
+                                    <span class="tag-primary text-[12px]">ISRO</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Entry 2 -->
+                        <!-- Entry 2: RetinaXAI — Major Project -->
                         <div class="relative">
                             <div
                                 class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
                             </div>
-                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2019 — 2021</p>
+                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2026 — Present</p>
 
                             <div class="timeline-card p-6">
-                                <h3 class="text-[18px] font-bold text-[#0F172A]">Data Scientist</h3>
-                                <p class="meta-text text-[#475569] mb-3">Data Solutions Inc.</p>
+                                <h3 class="text-[18px] font-bold text-[#0F172A]">RetinaXAI — Major Project (In Progress)</h3>
+                                <p class="meta-text text-[#475569] mb-3">Team: Shahzan, Shuraiq, Rayan, Raqi · Guide: Mr. Affan</p>
                                 <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
-                                    <li>Developed NLP models for sentiment analysis on customer feedback datasets.</li>
-                                    <li>Created automated Tableau dashboards for executive KPI tracking.</li>
-                                    <li>Reduced client churn by 15% through data-driven targeting insights.</li>
+                                    <li>Building a multi-task EfficientNet-B3 model for diabetic retinopathy and DME detection with Grad-CAM explainability</li>
+                                    <li>Completed Review 1; currently in a structured 9-session implementation deep-dive targeting 60% codebase understanding before Review 2</li>
                                 </ul>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="tag-primary text-[12px]">R</span>
+                                    <span class="tag-primary text-[12px]">PyTorch</span>
+                                    <span class="tag-primary text-[12px]">EfficientNet-B3</span>
+                                    <span class="tag-primary text-[12px]">Grad-CAM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Entry 3: Applied Machine Learning -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
+                            </div>
+                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2026 — Present</p>
+
+                            <div class="timeline-card p-6">
+                                <h3 class="text-[18px] font-bold text-[#0F172A] mb-3">Applied Machine Learning — Self-Directed Program</h3>
+                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
+                                    <li>Working through a structured, project-based ML curriculum: covered EDA, Logistic Regression, Decision Trees, Random Forests, cross-validation, and sklearn pipelines via an end-to-end Kaggle project (Titanic — 77.6% CV F1, top ~23% leaderboard)</li>
+                                    <li>Currently applying gradient boosting (XGBoost) to a Kaggle regression project (House Price Prediction)</li>
+                                </ul>
+                                <div class="flex flex-wrap gap-2">
                                     <span class="tag-primary text-[12px]">Scikit-learn</span>
-                                    <span class="tag-secondary text-[12px]">Tableau</span>
+                                    <span class="tag-primary text-[12px]">XGBoost</span>
+                                    <span class="tag-primary text-[12px]">Kaggle</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Entry 3 -->
+                        <!-- Entry 4: B.E. in Computer Science and Engineering (Data Science) -->
                         <div class="relative">
                             <div
                                 class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
                             </div>
-                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">Summer 2018</p>
+                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2023 — Present</p>
 
                             <div class="timeline-card p-6">
-                                <h3 class="text-[18px] font-bold text-[#0F172A]">Data Science Intern</h3>
-                                <p class="meta-text text-[#475569] mb-3">Tech Forward LLC</p>
+                                <h3 class="text-[18px] font-bold text-[#0F172A]">B.E. in Computer Science and Engineering (Data Science)</h3>
+                                <p class="meta-text text-[#475569] mb-3">Anjuman Institute of Technology and Management (VTU)</p>
                                 <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
-                                    <li>Assisted with data cleaning and feature engineering pipelines for large
-                                        datasets.</li>
-                                    <li>Performed exploratory data analysis to identify user behavior trends.</li>
-                                    <li>Built a recommendation engine prototype using collaborative filtering
-                                        algorithms.</li>
+                                    <li>Final-year student, expected graduation in 2027</li>
                                 </ul>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="tag-primary text-[12px]">Python</span>
-                                    <span class="tag-primary text-[12px]">Pandas</span>
-                                    <span class="tag-secondary text-[12px]">Jupyter</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Entry 4 -->
-                        <div class="relative">
-                            <div
-                                class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
-                            </div>
-                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2017 — 2019</p>
-
-                            <div class="timeline-card p-6">
-                                <h3 class="text-[18px] font-bold text-[#0F172A]">M.S. in Data Science</h3>
-                                <p class="meta-text text-[#475569] mb-3">Metropolis University</p>
-                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
-                                    <li>Specialized in Machine Learning and Big Data Architectures.</li>
-                                    <li>Thesis: “Real-time Anomaly Detection in IoT Sensor Streams”.</li>
-                                    <li>Relevant coursework: Neural Networks, Statistical Inference, Distributed
-                                        Systems.</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="tag-primary text-[12px]">Machine Learning</span>
-                                    <span class="tag-primary text-[12px]">Big Data</span>
-                                    <span class="tag-secondary text-[12px]">Statistics</span>
+                                    <span class="tag-primary text-[12px]">VTU</span>
+                                    <span class="tag-primary text-[12px]">Data Science</span>
                                 </div>
                             </div>
                         </div>
@@ -915,81 +890,48 @@
             </section>
 
             <!-- 6. CONTACT SECTION (Wide layout, Equal Margins) -->
-            <section id="contact" class="section-pad fade-in-section border-t border-[#E2E8F0]">
-                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left">
-                    <!-- Left-Aligned Heading -->
-                    <div class="text-left mb-6">
-                        <h2 class="section-title mb-2 flex items-center gap-3">
+            <section id="contact" class="py-24 sm:py-32 min-h-[50vh] flex flex-col justify-center fade-in-section border-t border-[#E2E8F0]">
+                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+                    <div class="max-w-2xl mx-auto text-center">
+                        <h2 class="section-title mb-4 flex items-center justify-center gap-3">
                             <span class="section-marker">05.</span>
                             Get In Touch
                         </h2>
-                        <p class="body-text max-w-2xl text-left">
-                            Whether you have an inquiry about a machine learning project, research collaboration, or
-                            just want to connect, my inbox is always open.
+                        <p class="body-text text-[17px] leading-relaxed mb-8 text-[#475569]">
+                            Open to internships, collaborations, or just a conversation about machine learning and AI. Feel free to reach out.
                         </p>
-                    </div>
 
-                    <!-- Left-Aligned Stacked Form Fields -->
-                    <form class="text-left space-y-4 max-w-2xl"
-                        onsubmit="event.preventDefault(); alert('Thank you! Message submitted.');">
-                        <div>
-                            <label for="form-name" class="block meta-text font-semibold text-[#0F172A] mb-1">Your
-                                Name</label>
-                            <input id="form-name" type="text" required placeholder="Jane Doe"
-                                class="w-full h-11 min-h-[44px] bg-white border border-[#CBD5E1] rounded-lg px-4 text-[16px] text-[#0F172A] focus:border-[#0369A1] focus:outline-none transition-colors placeholder:text-[#94A3B8]" />
+                        <!-- Centered Row of Social Icons -->
+                        <div class="flex items-center justify-center gap-4">
+                            <!-- GitHub -->
+                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                aria-label="Mohammed Shahzan on GitHub"
+                                class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
+                                <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M12 2C6.477 2 2 6.477 2 12.013c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.218.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.82c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .267.18.577.688.48C19.135 20.175 22 16.43 22 12.013 22 6.477 17.523 2 12 2z">
+                                    </path>
+                                </svg>
+                            </a>
+
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/in/mohammed-shahzan-armar-2ab1a82a4?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                                target="_blank" rel="noopener noreferrer" aria-label="Mohammed Shahzan on LinkedIn"
+                                class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
+                                <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z">
+                                    </path>
+                                </svg>
+                            </a>
+
+                            <!-- Email -->
+                            <a href="mailto:shahzanarmar01@gmail.com" target="_blank" rel="noopener noreferrer"
+                                aria-label="Send email to Mohammed Shahzan"
+                                class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
+                                <span class="material-symbols-outlined text-[20px]">mail</span>
+                            </a>
                         </div>
-
-                        <div>
-                            <label for="form-email" class="block meta-text font-semibold text-[#0F172A] mb-1">Email
-                                Address</label>
-                            <input id="form-email" type="email" required placeholder="jane@example.com"
-                                class="w-full h-11 min-h-[44px] bg-white border border-[#CBD5E1] rounded-lg px-4 text-[16px] text-[#0F172A] focus:border-[#0369A1] focus:outline-none transition-colors placeholder:text-[#94A3B8]" />
-                        </div>
-
-                        <div>
-                            <label for="form-message"
-                                class="block meta-text font-semibold text-[#0F172A] mb-1">Message</label>
-                            <textarea id="form-message" rows="4" required
-                                placeholder="Tell me about your project or question..."
-                                class="w-full bg-white border border-[#CBD5E1] rounded-lg p-3 text-[16px] text-[#0F172A] focus:border-[#0369A1] focus:outline-none transition-colors placeholder:text-[#94A3B8] resize-y"></textarea>
-                        </div>
-
-                        <button type="submit"
-                            class="btn-primary flex h-12 w-full min-h-[44px] items-center justify-center font-semibold">
-                            <span>Send Message</span>
-                        </button>
-                    </form>
-
-                    <!-- Left-Aligned Row of Social Icons at Bottom -->
-                    <div class="mt-8 flex items-center gap-4 text-left">
-                        <!-- GitHub -->
-                        <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
-                            aria-label="Mohammed Shahzan on GitHub"
-                            class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
-                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M12 2C6.477 2 2 6.477 2 12.013c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.218.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.82c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .267.18.577.688.48C19.135 20.175 22 16.43 22 12.013 22 6.477 17.523 2 12 2z">
-                                </path>
-                            </svg>
-                        </a>
-
-                        <!-- LinkedIn -->
-                        <a href="https://www.linkedin.com/in/mohammed-shahzan-2ab1a82a4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                            target="_blank" rel="noopener noreferrer" aria-label="Mohammed Shahzan on LinkedIn"
-                            class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
-                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z">
-                                </path>
-                            </svg>
-                        </a>
-
-                        <!-- Email -->
-                        <a href="mailto:shahzanarmar01@gmail.com" target="_blank" rel="noopener noreferrer"
-                            aria-label="Send email to Mohammed Shahzan"
-                            class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
-                            <span class="material-symbols-outlined text-[20px]">mail</span>
-                        </a>
                     </div>
                 </div>
             </section>
@@ -1000,15 +942,15 @@
             <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left sm:flex sm:items-center sm:justify-between">
                 <div>
                     <p class="meta-text font-medium text-[#0F172A]">
-                        Mohammed Shahzan Armar · Data Science student — ML Engineer
+                        Mohammed Shahzan Armar · Final-Year Data Science Student | ML Engineer
                     </p>
                     <p class="meta-text text-[#64748B] mt-1">
-                        Built with HTML, Vanilla CSS &amp; JS. Clean light theme design.
+                        Built with HTML, Vanilla CSS &amp; JS.
                     </p>
                 </div>
                 <div class="mt-4 sm:mt-0">
                     <p class="meta-text text-[#64748B]">
-                        © 2024 Mohammed Shahzan Armar. All rights reserved.
+                        © 2026 Mohammed Shahzan Armar. All rights reserved.
                     </p>
                 </div>
             </div>

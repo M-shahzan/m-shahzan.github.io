@@ -84,6 +84,10 @@
 
           // Close mobile menu if open
           closeMobileMenu();
+
+          // Ensure active nav link updates promptly during and after smooth scroll
+          setTimeout(updateActiveNav, 100);
+          setTimeout(updateActiveNav, 450);
         }
       });
     });
@@ -94,7 +98,7 @@
     var sections = document.querySelectorAll('section[id]');
     var navLinks = document.querySelectorAll('header nav a[href^="#"], #mobile-menu nav a[href^="#"]');
     var currentId = '';
-    var scrollPos = window.scrollY + 120;
+    var scrollPos = window.scrollY + 140;
 
     sections.forEach(function (sec) {
       var top = sec.offsetTop;
@@ -106,6 +110,13 @@
 
     if (window.scrollY < 80) {
       currentId = 'home';
+    }
+
+    // If near or at the bottom of the page, ensure the last section ('contact') is activated
+    var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    var clientHeight = window.innerHeight || document.documentElement.clientHeight;
+    if ((clientHeight + Math.ceil(window.scrollY)) >= (scrollHeight - 90)) {
+      currentId = 'contact';
     }
 
     navLinks.forEach(function (link) {
