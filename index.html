@@ -1,280 +1,470 @@
 <!DOCTYPE html>
-<html class="dark scroll-smooth" lang="en">
+<html class="scroll-smooth" lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Mohammed Shahzan - Data Scientist Portfolio</title>
-    <script src="https://unpkg.com/tailwindcss-cdn@3.4.1/tailwindcss.js"></script>
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-    
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mohammed Shahzan Armar — Data Science student — ML Engineer</title>
+
+    <!-- Google Fonts & Material Symbols -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind = {
-            config: {
-                darkMode: "class",
-                theme: {
-                    extend: {
-                        colors: {
-                            "primary": "#13b6ec",
-                            "background-light": "#f6f8f8",
-                            "background-dark": "#101d22",
-                        },
-                        fontFamily: {
-                            "display": ["Inter", "sans-serif"]
-                        },
-                        borderRadius: {
-                            "DEFAULT": "0.25rem",
-                            "lg": "0.5rem",
-                            "xl": "0.75rem",
-                            "full": "9999px"
-                        },
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bgLight: '#F8FAFC',
+                        cardLight: '#FFFFFF',
+                        accentPrimary: '#0369A1',
+                        accentSecondary: '#6366F1',
+                        textPrimary: '#0F172A',
+                        textMuted: '#475569',
+                        borderBase: '#E2E8F0'
                     },
-                },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
             }
         }
     </script>
-    
 
+    <!-- Premium Light Theme & Wide Responsive Layout with Equal Side Margins -->
     <style>
+        :root {
+            --bg-color: #F8FAFC;
+            --card-color: #FFFFFF;
+            --accent-primary: #0369A1;
+            --accent-primary-hover: #075985;
+            --accent-secondary: #6366F1;
+            --text-primary: #0F172A;
+            --text-muted: #475569;
+            --border-color: #E2E8F0;
+        }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            background-color: var(--bg-color) !important;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
         }
-        html {
-            scroll-behavior: smooth;
+
+        /* Typography Hierarchy */
+        .section-title {
+            font-size: 30px;
+            line-height: 1.25;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
         }
+
+        .section-marker {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        .body-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .meta-text {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        /* Spacing System (8 / 16 / 24 / 32 / 48 / 64px) */
+        .section-pad {
+            padding-top: 64px;
+            padding-bottom: 64px;
+        }
+
+        /* Animations (200–400ms, ease-out) */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Hero Tagline One-Time Entrance */
+        @keyframes taglineFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tagline {
+            animation: taglineFadeIn 400ms ease-out 200ms both;
+        }
+
+        /* Nav Links & Underline */
+        .nav-link {
+            position: relative;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 200ms ease-out;
+            text-decoration: none;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-primary);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 200ms ease-out;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-primary) !important;
+        }
+
+        /* Interactive Buttons */
+        .btn-primary {
+            background-color: var(--accent-primary) !important;
+            color: #FFFFFF !important;
+            font-weight: 600;
+            font-size: 15px;
+            border-radius: 8px;
+            transition: transform 200ms ease-out, box-shadow 200ms ease-out, background-color 200ms ease-out;
+            box-shadow: 0 2px 6px rgba(3, 105, 161, 0.25);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-primary-hover) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(3, 105, 161, 0.35);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-outline {
+            background-color: #FFFFFF !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            font-weight: 600;
+            font-size: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+            transition: transform 200ms ease-out, border-color 200ms ease-out, color 200ms ease-out, box-shadow 200ms ease-out;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-primary) !important;
+            color: var(--accent-primary) !important;
+            box-shadow: 0 4px 12px rgba(3, 105, 161, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline:active {
+            transform: translateY(0);
+        }
+
+        /* Card Hover Lift */
         .project-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--card-color) !important;
+            border: 1px solid var(--border-color) !important;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            transition: transform 250ms ease-out, box-shadow 250ms ease-out, border-color 250ms ease-out;
         }
+
         .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(19, 200, 236, 0.1), 0 8px 10px -6px rgba(19, 200, 236, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px -4px rgba(3, 105, 161, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.04) !important;
+            border-color: #BAE6FD !important;
         }
-        .project-card:hover .project-image {
-            transform: scale(1.05);
+
+        .timeline-card {
+            background-color: var(--card-color) !important;
+            border: 1px solid var(--border-color) !important;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            transition: transform 250ms ease-out, box-shadow 250ms ease-out, border-color 250ms ease-out;
         }
-        .project-image {
-            transition: transform 0.3s ease-in-out;
+
+        .timeline-card:hover {
+            transform: translateX(3px);
+            box-shadow: 0 8px 20px -4px rgba(3, 105, 161, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+            border-color: #BAE6FD !important;
+        }
+
+        /* Tech Tag Badges */
+        .tag-primary {
+            background-color: #F0F9FF !important;
+            color: #0369A1 !important;
+            border: 1px solid #BAE6FD !important;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 3px 10px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .tag-secondary {
+            background-color: #EEF2FF !important;
+            color: #4338CA !important;
+            border: 1px solid #C7D2FE !important;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 3px 10px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* Mobile Drawer */
+        #mobile-menu {
+            transition: max-height 300ms ease-out, opacity 250ms ease-out;
+        }
+
+        #mobile-menu.hidden-menu {
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        #mobile-menu.open-menu {
+            max-height: 440px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Input elements focus */
+        input:focus,
+        textarea:focus {
+            border-color: var(--accent-primary) !important;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.15) !important;
+        }
+
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in-section,
+            .project-card,
+            .timeline-card,
+            .hero-tagline,
+            .nav-link,
+            .nav-link::after {
+                animation: none !important;
+                transition: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+            }
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+
+<body class="bg-[#F8FAFC]">
     <div class="relative flex min-h-screen w-full flex-col">
-        <!-- TopNavBar -->
-        <header class="sticky top-0 z-50 w-full border-b border-gray-200/50 dark:border-white/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
-            <div class="container mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
-                <div class="flex items-center gap-3">
-                    <div class="size-6 text-primary">
-                        <svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                            <path clip-rule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z" fill-rule="evenodd"></path>
-                            <path clip-rule="evenodd" d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z" fill-rule="evenodd"></path>
+        <!-- TopNavBar (Wide max-w-6xl with equal side padding px-6 sm:px-10 lg:px-16) -->
+        <header class="sticky top-0 z-50 w-full border-b border-[#E2E8F0] bg-white/95 backdrop-blur-md">
+            <div class="w-full max-w-6xl mx-auto flex h-16 items-center justify-between px-6 sm:px-10 lg:px-16">
+                <a href="#home"
+                    class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1] rounded-lg p-1">
+                    <div
+                        class="size-7 text-[#0369A1] transition-transform duration-200 group-hover:scale-110 flex items-center justify-center">
+                        <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                            <path clip-rule="evenodd"
+                                d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z"
+                                fill-rule="evenodd"></path>
+                            <path clip-rule="evenodd"
+                                d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z"
+                                fill-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <h2 class="text-lg font-bold text-gray-900 dark:text-white">Mohammed Shahzan Armar</h2>
-                </div>
-                <nav class="hidden items-center gap-8 md:flex">
-                    <a class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#home">Home</a>
-                    <a class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#about">About</a>
-                    <a class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#experience">Experience</a>
-                    <a class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#projects">Projects</a>
-                    <a class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#contact">Contact</a>
-                    <button class="flex h-9 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary px-4 text-sm font-bold text-white transition-colors hover:bg-primary/90">
-                        <span class="truncate">Download CV</span>
-                    </button>
+                    <span class="text-[16px] font-bold text-[#0F172A] tracking-tight">Mohammed Shahzan Armar</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden items-center gap-7 md:flex">
+                    <a class="nav-link" href="#home">Home</a>
+                    <a class="nav-link" href="#about">About</a>
+                    <a class="nav-link" href="#skills">Skills</a>
+                    <a class="nav-link" href="#projects">Projects</a>
+                    <a class="nav-link" href="#experience">Experience</a>
+                    <a class="nav-link" href="#contact">Contact</a>
+                    <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                        class="btn-primary flex h-10 min-h-[44px] items-center justify-center px-5">
+                        <span class="text-[14px]">GitHub</span>
+                    </a>
                 </nav>
-                <button id="mobile-menu-btn" class="md:hidden text-gray-900 dark:text-white">
-                    <span class="material-symbols-outlined">menu</span>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    class="md:hidden flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-[#0F172A] hover:bg-[#F1F5F9] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
+                    <span id="mobile-menu-icon" class="material-symbols-outlined text-2xl">menu</span>
                 </button>
+            </div>
+
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobile-menu"
+                class="hidden-menu md:hidden border-t border-[#E2E8F0] bg-white px-6 py-3 shadow-md">
+                <nav class="flex flex-col space-y-1">
+                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
+                        href="#home">Home</a>
+                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
+                        href="#about">About</a>
+                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
+                        href="#skills">Skills</a>
+                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
+                        href="#projects">Projects</a>
+                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
+                        href="#experience">Experience</a>
+                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
+                        href="#contact">Contact</a>
+                    <div class="pt-2">
+                        <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                            class="btn-primary flex h-11 w-full min-h-[44px] items-center justify-center rounded-lg px-4 text-[16px]">
+                            <span>View GitHub Profile</span>
+                        </a>
+                    </div>
+                </nav>
             </div>
         </header>
 
         <!-- Main Content -->
         <main class="flex-grow">
-            <!-- HOME SECTION -->
-            <section id="home" class="relative py-20 md:py-32 min-h-screen flex items-center">
-                <div class="absolute inset-0 z-0 opacity-10 dark:opacity-5 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]">
-                    <svg aria-hidden="true" class="absolute inset-0 h-full w-full">
-                        <defs>
-                            <pattern height="32" id="grid-pattern" patternunits="userSpaceOnUse" width="32" x="50%" y="50%">
-                                <path d="M0 32V.5H32" fill="none" stroke="currentColor"></path>
-                            </pattern>
-                        </defs>
-                        <rect fill="url(#grid-pattern)" height="100%" width="100%"></rect>
-                    </svg>
-                </div>
-                <div class="container mx-auto px-4">
-                    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
-                        <div class="z-10 flex flex-col items-start gap-6">
-                            <p class="font-medium text-primary">Hi, my name is</p>
-                            <h1 class="text-5xl font-black tracking-tighter text-gray-900 dark:text-white sm:text-6xl md:text-7xl">
+            <!-- 1. HERO SECTION (Wide layout, Equal Margins, Left-Aligned) -->
+            <section id="home" class="section-pad relative flex items-center">
+                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 text-left">
+                        <!-- Hero Text Block -->
+                        <div class="w-full lg:w-7/12 flex flex-col items-start text-left">
+                            <div class="mb-4">
+                                <span class="tag-primary">
+                                    Hi, my name is
+                                </span>
+                            </div>
+
+                            <h1
+                                class="text-[36px] sm:text-[46px] lg:text-[54px] font-extrabold text-[#0F172A] leading-[1.12] mb-3 break-words text-left">
                                 Mohammed Shahzan Armar
                             </h1>
-                            <h2 class="text-2xl font-bold tracking-tight text-gray-600 dark:text-gray-300 sm:text-3xl">
-                                Data Scientist | Machine Learning Engineer | AI Enthusiast
+
+                            <h2 class="text-[20px] sm:text-[24px] font-bold text-[#0369A1] mb-4 text-left">
+                                Data Science student — ML Engineer
                             </h2>
-                            <p class="max-w-md text-base text-gray-500 dark:text-gray-400">
-                                Turning Data into Actionable Insights. I specialize in creating intelligent systems that solve complex business problems.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-4">
-                                <a href="#projects" class="flex h-12 min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary px-6 text-base font-bold text-background-dark shadow-lg shadow-primary/20 transition-transform hover:scale-105">
-                                    <span class="truncate">View Projects</span>
-                                </a>
-                                <button class="flex h-12 min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-gray-300 bg-transparent px-6 text-base font-bold text-gray-700 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary dark:border-gray-600 dark:text-gray-300 dark:hover:border-primary dark:hover:text-primary">
-                                    <span class="truncate">Download Resume</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="relative flex h-full min-h-80 items-center justify-center lg:min-h-0">
-                            <div class="absolute z-0 aspect-square w-full max-w-md rounded-full bg-primary/20 blur-3xl"></div>
-                            <div class="relative z-10 aspect-square w-full max-w-md overflow-hidden rounded-full border-4 border-white dark:border-gray-800 shadow-2xl">
-                                <img class="h-full w-full object-cover" alt="Professional headshot of Mohammed Shahzan"  src="static/profile.jpg"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <!-- ABOUT SECTION -->
-            <section id="about" class="py-12 sm:py-16 lg:py-24">
-                <div class="container mx-auto max-w-5xl px-4">
-                    <div class="grid grid-cols-1 items-center gap-12 md:grid-cols-5 md:gap-16">
-                        <div class="md:col-span-2">
-                            <div class="aspect-square w-full max-w-sm mx-auto overflow-hidden rounded-xl shadow-lg">
-                                <div class="h-full w-full bg-cover bg-center bg-no-repeat" style='background-image: url("static/profile.jpg");'></div>
-                            </div>
-                        </div>
-                        <div class="md:col-span-3">
-                            <div class="mb-4">
-                                <p class="text-3xl font-black tracking-tight text-gray-900 dark:text-white sm:text-4xl">About Me</p>
-                            </div>
-                            <p class="text-base font-normal leading-relaxed text-gray-600 dark:text-gray-300">
-                                A passionate and results-driven Data Scientist with a Master's degree in Computer Science, specializing in Natural Language Processing and predictive modeling. With a proven track record of leveraging data to uncover insights and drive business decisions, I thrive on solving complex problems and building robust machine learning models. My expertise spans from data wrangling and analysis to deploying scalable solutions that make a real-world impact.
+                            <p class="hero-tagline body-text mb-8 max-w-2xl text-left">
+                                Turning Data into Actionable Insights. I specialize in building explainable computer
+                                vision diagnostics, lightweight edge AI models, and production machine learning
+                                pipelines that solve complex business problems.
                             </p>
-                            <h3 class="mt-8 mb-4 text-lg font-bold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">My Toolkit</h3>
-                            <div class="flex flex-wrap gap-2">
-                                <div class="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-sm font-medium text-primary dark:text-primary/90">Python</div>
-                                <div class="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-sm font-medium text-primary dark:text-primary/90">Pandas</div>
-                                <div class="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-sm font-medium text-primary dark:text-primary/90">Scikit-learn</div>
-                                <div class="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-sm font-medium text-primary dark:text-primary/90">TensorFlow</div>
-                                <div class="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-sm font-medium text-primary dark:text-primary/90">SQL</div>
-                                <div class="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-sm font-medium text-primary dark:text-primary/90">Power BI</div>
-                                <div class="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-sm font-medium text-primary dark:text-primary/90">NLP</div>
-                            </div>
-                            <div class="mt-8">
-                                <a href="#projects" class="flex h-11 w-fit min-w-[120px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg bg-primary px-5 text-base font-bold text-white shadow-lg transition-transform hover:scale-105 active:scale-95">
-                                    <span class="truncate">Explore My Work</span>
-                                    <span class="material-symbols-outlined text-xl">arrow_forward</span>
+
+                            <!-- Hero CTA Buttons -->
+                            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                                <a href="#projects"
+                                    class="btn-primary flex h-12 min-h-[44px] w-full sm:w-auto items-center justify-center px-6">
+                                    <span>View Featured Projects</span>
+                                </a>
+                                <a href="#contact"
+                                    class="btn-outline flex h-12 min-h-[44px] w-full sm:w-auto items-center justify-center px-6">
+                                    <span>Get In Touch</span>
                                 </a>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
 
-            <!-- EXPERIENCE SECTION -->
-            <section id="experience" class="py-16 sm:py-24">
-                <div class="container mx-auto px-4">
-                    <div class="mb-16 text-center">
-                        <p class="text-4xl font-black leading-tight tracking-[-0.033em] text-slate-900 dark:text-white sm:text-5xl">Experience & Education</p>
-                        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">My professional and academic journey.</p>
-                    </div>
-                    <div class="relative mx-auto max-w-4xl">
-                        <div class="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-primary/20"></div>
-                        
-                        <!-- Timeline Item 1 -->
-                        <div class="relative mb-12 flex w-full items-center justify-between md:odd:flex-row-reverse">
-                            <div class="hidden md:block md:w-5/12"></div>
-                            <div class="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary ring-4 ring-background-dark">
-                                <span class="material-symbols-outlined text-lg text-background-dark">work</span>
-                            </div>
-                            <div class="w-full rounded-xl border border-white/10 bg-slate-800/20 p-6 shadow-lg backdrop-blur-sm transition-all hover:border-primary/50 hover:shadow-primary/10 md:w-5/12">
-                                <p class="mb-1 text-sm font-medium text-primary">2021 - Present</p>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Senior Data Scientist</h3>
-                                <p class="mb-4 text-slate-600 dark:text-slate-400">Innovate Corp</p>
-                                <ul class="mb-4 list-disc space-y-2 pl-5 text-sm text-slate-700 dark:text-slate-300">
-                                    <li>Led the development of predictive models, improving forecast accuracy by 25%.</li>
-                                    <li>Mentored junior data scientists and established best practices for data analysis.</li>
-                                    <li>Engineered and deployed machine learning pipelines on AWS for real-time analytics.</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Python</span>
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">TensorFlow</span>
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">AWS</span>
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">SQL</span>
+                        <!-- Right Visual Block on Desktop (Scannable ML Metric Card) -->
+                        <div class="w-full lg:w-5/12 flex justify-start lg:justify-end">
+                            <div
+                                class="w-full max-w-md rounded-xl border border-[#E2E8F0] bg-white p-6 sm:p-7 shadow-sm text-left">
+                                <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-4 mb-5">
+                                    <div class="flex items-center gap-2">
+                                        <span class="size-2.5 rounded-full bg-[#0369A1] animate-pulse"></span>
+                                        <span class="meta-text font-mono text-[#0F172A] font-semibold">Flagship ML
+                                            Pipelines</span>
+                                    </div>
+                                    <span class="meta-text font-mono text-[#0369A1] font-semibold">v2.4 Active</span>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Timeline Item 2 -->
-                        <div class="relative mb-12 flex w-full items-center justify-between md:odd:flex-row-reverse">
-                            <div class="hidden md:block md:w-5/12"></div>
-                            <div class="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary ring-4 ring-background-dark">
-                                <span class="material-symbols-outlined text-lg text-background-dark">work</span>
-                            </div>
-                            <div class="w-full rounded-xl border border-white/10 bg-slate-800/20 p-6 shadow-lg backdrop-blur-sm transition-all hover:border-primary/50 hover:shadow-primary/10 md:w-5/12">
-                                <p class="mb-1 text-sm font-medium text-primary">2019 - 2021</p>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Data Scientist</h3>
-                                <p class="mb-4 text-slate-600 dark:text-slate-400">Data Solutions Inc.</p>
-                                <ul class="mb-4 list-disc space-y-2 pl-5 text-sm text-slate-700 dark:text-slate-300">
-                                    <li>Developed and implemented NLP models for sentiment analysis on customer feedback.</li>
-                                    <li>Created interactive dashboards using Tableau to visualize key business metrics.</li>
-                                    <li>Contributed to a 15% reduction in customer churn through data-driven insights.</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">R</span>
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Scikit-learn</span>
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Tableau</span>
-                                </div>
-                            </div>
-                        </div>
+                                <div class="space-y-4">
+                                    <div class="rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] p-4">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="meta-text text-[#0F172A] font-semibold">RetinaXAI (Medical
+                                                CV)</span>
+                                            <span class="meta-text font-mono text-[#0369A1] font-bold">96.4% AUC</span>
+                                        </div>
+                                        <p class="meta-text text-[#475569]">Explainable saliency heatmaps with Grad-CAM
+                                        </p>
+                                    </div>
 
-                        <!-- Timeline Item 3 -->
-                        <div class="relative mb-12 flex w-full items-center justify-between md:odd:flex-row-reverse">
-                            <div class="hidden md:block md:w-5/12"></div>
-                            <div class="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary ring-4 ring-background-dark">
-                                <span class="material-symbols-outlined text-lg text-background-dark">school</span>
-                            </div>
-                            <div class="w-full rounded-xl border border-white/10 bg-slate-800/20 p-6 shadow-lg backdrop-blur-sm transition-all hover:border-primary/50 hover:shadow-primary/10 md:w-5/12">
-                                <p class="mb-1 text-sm font-medium text-primary">Summer 2018</p>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Data Science Intern</h3>
-                                <p class="mb-4 text-slate-600 dark:text-slate-400">Tech Forward LLC</p>
-                                <ul class="mb-4 list-disc space-y-2 pl-5 text-sm text-slate-700 dark:text-slate-300">
-                                    <li>Assisted in data cleaning and preprocessing for large-scale datasets.</li>
-                                    <li>Performed exploratory data analysis to identify trends and patterns.</li>
-                                    <li>Developed a proof-of-concept recommendation engine using collaborative filtering.</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Python</span>
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Pandas</span>
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Jupyter</span>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] p-4">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="meta-text text-[#0F172A] font-semibold">SightLite (Edge
+                                                AI)</span>
+                                            <span class="meta-text font-mono text-[#0369A1] font-bold">38 FPS</span>
+                                        </div>
+                                        <p class="meta-text text-[#475569]">12MB quantized MobileNet on-device inference
+                                        </p>
+                                    </div>
 
-                        <!-- Timeline Item 4 -->
-                        <div class="relative mb-12 flex w-full items-center justify-between md:odd:flex-row-reverse">
-                            <div class="hidden md:block md:w-5/12"></div>
-                            <div class="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary ring-4 ring-background-dark">
-                                <span class="material-symbols-outlined text-lg text-background-dark">school</span>
-                            </div>
-                            <div class="w-full rounded-xl border border-white/10 bg-slate-800/20 p-6 shadow-lg backdrop-blur-sm transition-all hover:border-primary/50 hover:shadow-primary/10 md:w-5/12">
-                                <p class="mb-1 text-sm font-medium text-primary">2017 - 2019</p>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">M.S. in Data Science</h3>
-                                <p class="mb-4 text-slate-600 dark:text-slate-400">Metropolis University</p>
-                                <ul class="mb-4 list-disc space-y-2 pl-5 text-sm text-slate-700 dark:text-slate-300">
-                                    <li>Specialized in Machine Learning and Big Data Technologies.</li>
-                                    <li>Thesis Project: "Real-time Anomaly Detection in IoT Sensor Data".</li>
-                                    <li>Relevant Coursework: Advanced Algorithms, Statistical Learning, Neural Networks.</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Machine Learning</span>
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Big Data</span>
-                                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Statistics</span>
+                                    <div class="pt-3 flex items-center justify-between meta-text border-t border-[#E2E8F0]">
+                                        <span class="text-[#475569]">GitHub Repositories:</span>
+                                        <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                            class="text-[#0369A1] font-semibold hover:underline font-mono">
+                                            github.com/M-shahzan ↗
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -282,126 +472,460 @@
                 </div>
             </section>
 
-            <!-- PROJECTS SECTION -->
-            <section id="projects" class="py-12">
-                <div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-                    <div class="py-12 text-center">
-                        <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Featured Projects</h2>
-                        <p class="mt-4 text-lg leading-8 text-gray-600 dark:text-gray-400">
-                            A selection of my work in data science, machine learning, and visualization.
+            <!-- 2. ABOUT SECTION (Wide layout, Equal Margins) -->
+            <section id="about" class="section-pad fade-in-section border-t border-[#E2E8F0]">
+                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left">
+                    <h2 class="section-title mb-6 flex items-center gap-3">
+                        <span class="section-marker">01.</span>
+                        About Me
+                    </h2>
+
+                    <div class="space-y-4 body-text max-w-4xl text-left">
+                        <p>
+                            I am a Data Science student and Machine Learning Engineer specializing in Computer Vision,
+                            Natural Language Processing, and scalable predictive modeling. I am dedicated to turning
+                            complex datasets into interpretable, high-impact systems.
+                        </p>
+                        <p>
+                            My recent research and engineering focus centers on explainable artificial intelligence
+                            (XAI) in healthcare diagnostics—such as automated retinal disease detection using Grad-CAM
+                            saliency maps—and optimizing neural network architectures for resource-constrained edge
+                            devices with quantized inference.
+                        </p>
+                        <p>
+                            With a strong foundation spanning statistical learning theory, deep neural networks, and
+                            modern MLOps tooling, I prioritize building machine learning solutions that are
+                            mathematically sound, transparent, and engineered for production reliability.
                         </p>
                     </div>
-                    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-                        <!-- Project Card 1 -->
-                        <div class="project-card flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-lg backdrop-blur-sm">
-                            <div class="overflow-hidden">
-                                <div class="project-image w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAe2Wc3kJXrBP_IofVI1011Jqm5df_ZQJrXIDDoVbvcteR0DDF5fgRYKFaGzMvqptjL5HgBiTKVSw0y6eapblKQ6DJozYVJXjCb1TU0PQBNIX5EqhKtlEjPSrIgzXqdlkgHvLS1FMFOHgjxNQdgST8gmQLXTENEnCYZg9IeRKWttOB7g3zEE5FuIy_uDmpvM9aV_4e0Jkhqxfj_UoqR9QJa_0nvXhs9t2vm4jZQmZ9ka8B739gagg12Fw1CZY3vgHbd-vG6YPWCETsA");'></div>
+                </div>
+            </section>
+
+            <!-- 3. CORE COMPETENCIES / SKILLS (Wide 2x2 Grid, Equal Margins) -->
+            <section id="skills" class="section-pad fade-in-section border-t border-[#E2E8F0]">
+                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left">
+                    <h2 class="section-title mb-8 flex items-center gap-3">
+                        <span class="section-marker">02.</span>
+                        Core Competencies
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                        <!-- Category 1: Languages -->
+                        <div class="project-card p-6">
+                            <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Languages</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag-primary">Python</span>
+                                <span class="tag-primary">SQL</span>
+                                <span class="tag-primary">R</span>
+                                <span class="tag-primary">JavaScript</span>
+                                <span class="tag-primary">C++</span>
                             </div>
-                            <div class="flex flex-1 flex-col justify-between p-6">
-                                <div class="flex-1">
-                                    <p class="text-xl font-semibold text-gray-900 dark:text-white">Customer Churn Prediction Model</p>
-                                    <p class="mt-3 text-base text-gray-600 dark:text-gray-400">Developed a machine learning model to predict customer churn with 95% accuracy, leveraging Python and Scikit-learn.</p>
-                                    <div class="mt-4 flex flex-wrap gap-2">
-                                        <div class="flex h-7 items-center justify-center rounded-full bg-primary/20 px-3 py-1">
-                                            <p class="text-xs font-medium text-primary">Pandas</p>
-                                        </div>
-                                    </div>
+                        </div>
+
+                        <!-- Category 2: Machine Learning & Deep Learning -->
+                        <div class="project-card p-6">
+                            <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Machine Learning &amp; Deep
+                                Learning</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag-primary">PyTorch</span>
+                                <span class="tag-primary">TensorFlow</span>
+                                <span class="tag-primary">Scikit-learn</span>
+                                <span class="tag-primary">OpenCV</span>
+                                <span class="tag-primary">Computer Vision</span>
+                                <span class="tag-primary">NLP</span>
+                                <span class="tag-primary">Transformers</span>
+                                <span class="tag-secondary">Grad-CAM (XAI)</span>
+                            </div>
+                        </div>
+
+                        <!-- Category 3: Data Analysis & Visualization -->
+                        <div class="project-card p-6">
+                            <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Data Analysis &amp; Visualization
+                            </h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag-primary">Pandas</span>
+                                <span class="tag-primary">NumPy</span>
+                                <span class="tag-primary">Tableau</span>
+                                <span class="tag-primary">Power BI</span>
+                                <span class="tag-primary">Exploratory Data Analysis (EDA)</span>
+                                <span class="tag-secondary">Statistical Modeling</span>
+                            </div>
+                        </div>
+
+                        <!-- Category 4: MLOps & Infrastructure -->
+                        <div class="project-card p-6">
+                            <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">MLOps &amp; Infrastructure</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag-primary">Docker</span>
+                                <span class="tag-primary">AWS</span>
+                                <span class="tag-primary">Git &amp; GitHub</span>
+                                <span class="tag-primary">FastAPI</span>
+                                <span class="tag-primary">Linux</span>
+                                <span class="tag-secondary">INT8 Quantization</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. FEATURED PROJECTS (Wide layout, Equal Margins) -->
+            <section id="projects" class="section-pad fade-in-section border-t border-[#E2E8F0]">
+                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left">
+                    <h2 class="section-title mb-8 flex items-center gap-3">
+                        <span class="section-marker">03.</span>
+                        Featured Projects
+                    </h2>
+
+                    <!-- Flagship Project Cards Stack -->
+                    <div class="space-y-10">
+                        <!-- Flagship 1: RetinaXAI -->
+                        <div class="project-card overflow-hidden">
+                            <!-- Visual on Top (Contained fixed aspect ratio, linking to repo) -->
+                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                class="block w-full aspect-video md:aspect-[21/9] bg-[#F1F5F9] border-b border-[#E2E8F0] relative overflow-hidden group">
+                                <svg class="w-full h-full p-6 sm:p-10 text-[#0369A1]/90 transition-transform duration-300 group-hover:scale-105"
+                                    viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Schematic Fundus / Retina Diagnostic Grid -->
+                                    <circle cx="300" cy="150" r="110" stroke="#CBD5E1" stroke-width="2" />
+                                    <circle cx="300" cy="150" r="80" stroke="#CBD5E1" stroke-width="1.5"
+                                        stroke-dasharray="4 4" />
+                                    <!-- Optical Disc & Vessels -->
+                                    <circle cx="350" cy="150" r="28" fill="#0369A1" fill-opacity="0.1" stroke="#0369A1"
+                                        stroke-width="2" />
+                                    <path d="M350 150 C320 120, 260 110, 210 130" stroke="#0369A1" stroke-width="2.5"
+                                        stroke-linecap="round" />
+                                    <path d="M350 150 C330 180, 270 200, 230 180" stroke="#0369A1" stroke-width="2"
+                                        stroke-linecap="round" />
+                                    <path d="M350 150 C380 130, 420 125, 450 140" stroke="#6366F1" stroke-width="2"
+                                        stroke-linecap="round" />
+                                    <!-- Grad-CAM Saliency Heatmap Overlay -->
+                                    <circle cx="270" cy="135" r="38" fill="#0369A1" fill-opacity="0.2"
+                                        filter="blur(10px)" />
+                                    <circle cx="280" cy="140" r="20" fill="#0369A1" fill-opacity="0.35"
+                                        filter="blur(6px)" />
+                                    <text x="30" y="45" fill="#0369A1" font-family="JetBrains Mono, monospace"
+                                        font-size="14" font-weight="600">RetinaXAI // Deep Neural Saliency Map</text>
+                                    <text x="30" y="70" fill="#475569" font-family="Inter, sans-serif"
+                                        font-size="12">ResNet-50 + Grad-CAM Heatmap Localization</text>
+                                    <text x="470" y="45" fill="#0F172A" font-family="JetBrains Mono, monospace"
+                                        font-size="14" font-weight="600">AUC: 96.4%</text>
+                                </svg>
+                                <div
+                                    class="absolute bottom-3 right-3 bg-white/95 border border-[#E2E8F0] px-3 py-1 rounded text-[12px] font-mono text-[#0369A1] font-semibold shadow-sm">
+                                    Click to view repo ↗
                                 </div>
-                                <div class="mt-6 flex items-center">
-                                    <a class="flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-background-dark shadow-sm transition hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#">
-                                        <span class="material-symbols-outlined mr-2 text-base">code</span>
-                                        View on GitHub
+                            </a>
+
+                            <!-- Card Content (Left-aligned) -->
+                            <div class="p-6 sm:p-8 text-left">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                    <h3 class="text-[22px] font-bold text-[#0F172A]">RetinaXAI: Explainable Retinal
+                                        Disease Diagnostics</h3>
+                                    <span class="tag-primary font-mono font-semibold">96.4% AUC</span>
+                                </div>
+
+                                <p class="body-text mb-5 max-w-4xl">
+                                    Deep learning clinical assistance pipeline designed to classify diabetic retinopathy
+                                    and macular pathology from retinal fundus scans. Incorporates Grad-CAM visual
+                                    heatmaps that project diagnostic saliency regions onto fundus photography for
+                                    clinical interpretability and physician validation.
+                                </p>
+
+                                <!-- Tags (Max 4-5 + '+N more' expand button) -->
+                                <div class="flex flex-wrap gap-2 items-center mb-6">
+                                    <span class="tag-primary">PyTorch</span>
+                                    <span class="tag-primary">Computer Vision</span>
+                                    <span class="tag-primary">Grad-CAM</span>
+                                    <span class="tag-primary">ResNet-50</span>
+                                    <span class="tag-secondary tag-hidden hidden">Medical Imaging</span>
+                                    <span class="tag-secondary tag-hidden hidden">FastAPI</span>
+                                    <span class="tag-secondary tag-hidden hidden">Streamlit</span>
+                                    <button
+                                        class="tag-expand-btn text-[13px] font-mono text-[#0369A1] hover:underline cursor-pointer ml-1 py-1 font-semibold"
+                                        data-expanded="false" data-label-more="+3 more">+3 more</button>
+                                </div>
+
+                                <div>
+                                    <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                        class="btn-primary inline-flex h-11 min-h-[44px] items-center px-5 gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">code</span>
+                                        <span>View on GitHub</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Project Card 2 -->
-                        <div class="project-card flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-lg backdrop-blur-sm">
-                            <div class="overflow-hidden">
-                                <div class="project-image w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgG_wxvQbcVliV9hhsAozPXDCF7e_Ie7J1cUMsgPp0-BiazwfeqUvpfmfBL2jr8tQLUCqlpY325_trZOIjH4AlhFgbHWMO2orPhrs7OB9HFslACca3IyoCz0VA4UWt7WQ-q4v28RaNBGSacoPflMZoRHCZxHkBxsN-atQFzDGXbh1fS7EOxNyP1cE9uhlrMUtOk-_34yzLva8-ypzVSMoQI4R6ulDaUrXuRiswN75OcwY6X1w8_H_DR3qp6WAE4FUvZQ8chh-dxCqy");'></div>
-                            </div>
-                            <div class="flex flex-1 flex-col justify-between p-6">
-                                <div class="flex-1">
-                                    <p class="text-xl font-semibold text-gray-900 dark:text-white">Stock Market Analysis &amp; Visualization</p>
-                                    <p class="mt-3 text-base text-gray-600 dark:text-gray-400">Built a real-time stock data analysis tool using Python, Pandas, and Tableau for interactive visualizations.</p>
-                                    <div class="mt-4 flex flex-wrap gap-2">
-                                        <div class="flex h-7 items-center justify-center rounded-full bg-primary/20 px-3 py-1">
-                                            <p class="text-xs font-medium text-primary">Python</p>
-                                        </div>
-                                        <div class="flex h-7 items-center justify-center rounded-full bg-primary/20 px-3 py-1">
-                                            <p class="text-xs font-medium text-primary">Tableau</p>
-                                        </div>
-                                        <div class="flex h-7 items-center justify-center rounded-full bg-primary/20 px-3 py-1">
-                                            <p class="text-xs font-medium text-primary">SQL</p>
-                                        </div>
-                                    </div>
+                        <!-- Flagship 2: SightLite -->
+                        <div class="project-card overflow-hidden">
+                            <!-- Visual on Top -->
+                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                class="block w-full aspect-video md:aspect-[21/9] bg-[#F1F5F9] border-b border-[#E2E8F0] relative overflow-hidden group">
+                                <svg class="w-full h-full p-6 sm:p-10 text-[#0369A1]/90 transition-transform duration-300 group-hover:scale-105"
+                                    viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Edge AI Hardware Stream Graphic -->
+                                    <rect x="50" y="70" width="160" height="160" rx="12" stroke="#CBD5E1"
+                                        stroke-width="2" />
+                                    <rect x="70" y="90" width="120" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+                                    <!-- Bounding Box & Detection Nodes -->
+                                    <rect x="90" y="110" width="50" height="60" stroke="#0369A1" stroke-width="2"
+                                        stroke-dasharray="3 3" />
+                                    <rect x="90" y="98" width="40" height="12" fill="#0369A1" />
+                                    <text x="93" y="107" fill="#FFFFFF" font-family="JetBrains Mono, monospace"
+                                        font-size="8" font-weight="700">OBJ 98%</text>
+                                    <!-- Edge Neural Stream Arrow -->
+                                    <path d="M230 150 L340 150" stroke="#0369A1" stroke-width="2"
+                                        stroke-dasharray="4 4" />
+                                    <polygon points="345,150 335,145 335,155" fill="#0369A1" />
+                                    <!-- Quantized Engine Box -->
+                                    <rect x="360" y="70" width="190" height="160" rx="12" stroke="#CBD5E1"
+                                        stroke-width="2" fill="#FFFFFF" />
+                                    <text x="380" y="115" fill="#0F172A" font-family="JetBrains Mono, monospace"
+                                        font-size="16" font-weight="700">TFLite INT8</text>
+                                    <text x="380" y="140" fill="#0369A1" font-family="JetBrains Mono, monospace"
+                                        font-size="14" font-weight="600">38 FPS @ Edge</text>
+                                    <text x="380" y="165" fill="#475569" font-family="Inter, sans-serif"
+                                        font-size="12">Latency: &lt; 15ms</text>
+                                    <text x="380" y="185" fill="#475569" font-family="Inter, sans-serif"
+                                        font-size="12">Footprint: 12MB</text>
+                                    <text x="30" y="45" fill="#0369A1" font-family="JetBrains Mono, monospace"
+                                        font-size="14" font-weight="600">SightLite // On-Device Visual Assistance</text>
+                                </svg>
+                                <div
+                                    class="absolute bottom-3 right-3 bg-white/95 border border-[#E2E8F0] px-3 py-1 rounded text-[12px] font-mono text-[#0369A1] font-semibold shadow-sm">
+                                    Click to view repo ↗
                                 </div>
-                                <div class="mt-6 flex items-center">
-                                    <a class="flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-background-dark shadow-sm transition hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#">
-                                        <span class="material-symbols-outlined mr-2 text-base">code</span>
-                                        View on GitHub
+                            </a>
+
+                            <!-- Card Content -->
+                            <div class="p-6 sm:p-8 text-left">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                    <h3 class="text-[22px] font-bold text-[#0F172A]">SightLite: Real-Time Edge Visual
+                                        Assistant</h3>
+                                    <span class="tag-primary font-mono font-semibold">38 FPS Edge</span>
+                                </div>
+
+                                <p class="body-text mb-5 max-w-4xl">
+                                    High-efficiency, on-device computer vision assistant engineered for real-time
+                                    spatial navigation in resource-constrained edge environments. Leverages 8-bit
+                                    post-training quantization and MobileNetV3 backbones to achieve sub-15ms inference
+                                    latencies on embedded devices.
+                                </p>
+
+                                <!-- Tags (Max 4-5 + '+N more' expand button) -->
+                                <div class="flex flex-wrap gap-2 items-center mb-6">
+                                    <span class="tag-primary">TensorFlow Lite</span>
+                                    <span class="tag-primary">MobileNetV3</span>
+                                    <span class="tag-primary">OpenCV</span>
+                                    <span class="tag-primary">Edge AI</span>
+                                    <span class="tag-secondary tag-hidden hidden">INT8 Quantization</span>
+                                    <span class="tag-secondary tag-hidden hidden">Python</span>
+                                    <span class="tag-secondary tag-hidden hidden">ONNX Runtime</span>
+                                    <button
+                                        class="tag-expand-btn text-[13px] font-mono text-[#0369A1] hover:underline cursor-pointer ml-1 py-1 font-semibold"
+                                        data-expanded="false" data-label-more="+3 more">+3 more</button>
+                                </div>
+
+                                <div>
+                                    <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                        class="btn-primary inline-flex h-11 min-h-[44px] items-center px-5 gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">code</span>
+                                        <span>View on GitHub</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Project Card 3 -->
-                        <div class="project-card flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-lg backdrop-blur-sm">
-                            <div class="overflow-hidden">
-                                <div class="project-image w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCd6_9Gyj3C-I4VoymvyrVgykJiVBQoarE_sTK0-jpNemmXn_xOhmfmt9dHbkEGc_cwzP31D5N4R5i1US7yOteyAtkVJKfOqct3OdsezHVtzpuJVYHwdktHk-8mnOSDWd-jLjGwcXajdFz2ySAl2kFs3LZ6T77d4gn1_PlvVSrlK9XnU-Tc_KmLAUjdfiXUPhAPas4ZHaTOj4GA1hpGjA323x502yWxWW1kjCWI0Hx56TwjCKrnvQ8BWR_39UoxUCVVeYv7r0UA4Nxa");'></div>
-                            </div>
-                            <div class="flex flex-1 flex-col justify-between p-6">
-                                <div class="flex-1">
-                                    <p class="text-xl font-semibold text-gray-900 dark:text-white">Sentiment Analysis of User Reviews</p>
-                                    <p class="mt-3 text-base text-gray-600 dark:text-gray-400">A deep learning model using TensorFlow to classify user reviews, achieving high accuracy on a large dataset.</p>
-                                    <div class="mt-4 flex flex-wrap gap-2">
-                                        <div class="flex h-7 items-center justify-center rounded-full bg-primary/20 px-3 py-1">
-                                            <p class="text-xs font-medium text-primary">TensorFlow</p>
-                                        </div>
-                                        <div class="flex h-7 items-center justify-center rounded-full bg-primary/20 px-3 py-1">
-                                            <p class="text-xs font-medium text-primary">Keras</p>
-                                        </div>
-                                        <div class="flex h-7 items-center justify-center rounded-full bg-primary/20 px-3 py-1">
-                                            <p class="text-xs font-medium text-primary">NLP</p>
-                                        </div>
-                                    </div>
+                    <!-- Compact List: Other Projects -->
+                    <div class="mt-14 text-left">
+                        <h3 class="text-[22px] font-bold text-[#0F172A] mb-5">Other Projects</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <!-- Other Project 1 -->
+                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                class="project-card p-6 block group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4
+                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
+                                        Customer Churn Prediction Model</h4>
+                                    <span
+                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
                                 </div>
-                                <div class="mt-6 flex items-center">
-                                    <a class="flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-background-dark shadow-sm transition hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#">
-                                        <span class="material-symbols-outlined mr-2 text-base">code</span>
-                                        View on GitHub
-                                    </a>
+                                <p class="meta-text text-[#475569] mb-4">ML model predicting enterprise customer
+                                    attrition with 95% test accuracy using Python &amp; Scikit-learn.</p>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="tag-primary text-[12px]">Scikit-learn</span>
+                                    <span class="tag-primary text-[12px]">Pandas</span>
+                                    <span class="tag-secondary text-[12px]">Classification</span>
+                                </div>
+                            </a>
+
+                            <!-- Other Project 2 -->
+                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                class="project-card p-6 block group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4
+                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
+                                        Stock Market Analysis &amp; Visualization</h4>
+                                    <span
+                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
+                                </div>
+                                <p class="meta-text text-[#475569] mb-4">Time-series financial analytics pipeline
+                                    connecting real-time market data to interactive dashboards.</p>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="tag-primary text-[12px]">Python</span>
+                                    <span class="tag-primary text-[12px]">Tableau</span>
+                                    <span class="tag-secondary text-[12px]">SQL</span>
+                                </div>
+                            </a>
+
+                            <!-- Other Project 3 -->
+                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                class="project-card p-6 block group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4
+                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
+                                        Sentiment Analysis of User Reviews</h4>
+                                    <span
+                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
+                                </div>
+                                <p class="meta-text text-[#475569] mb-4">Deep learning NLP pipeline classifying
+                                    multi-category sentiment from unstructured customer feedback.</p>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="tag-primary text-[12px]">TensorFlow</span>
+                                    <span class="tag-primary text-[12px]">NLP</span>
+                                    <span class="tag-secondary text-[12px]">Keras</span>
+                                </div>
+                            </a>
+
+                            <!-- Other Project 4 -->
+                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                                class="project-card p-6 block group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4
+                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
+                                        Movie Recommendation Engine</h4>
+                                    <span
+                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
+                                </div>
+                                <p class="meta-text text-[#475569] mb-4">Collaborative filtering model with matrix
+                                    factorization predicting personalized user recommendations.</p>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="tag-primary text-[12px]">Python</span>
+                                    <span class="tag-primary text-[12px]">Surprise</span>
+                                    <span class="tag-secondary text-[12px]">RecSys</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. EXPERIENCE & EDUCATION TIMELINE (Wide layout, Equal Margins) -->
+            <section id="experience" class="section-pad fade-in-section border-t border-[#E2E8F0]">
+                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left">
+                    <h2 class="section-title mb-8 flex items-center gap-3">
+                        <span class="section-marker">04.</span>
+                        Experience &amp; Education
+                    </h2>
+
+                    <!-- Vertical Timeline Container -->
+                    <div class="relative border-l-2 border-[#CBD5E1] ml-3 sm:ml-4 pl-6 sm:pl-10 space-y-10">
+                        <!-- Entry 1 -->
+                        <div class="relative">
+                            <!-- Timeline Dot on Left Line -->
+                            <div
+                                class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
+                            </div>
+
+                            <!-- Date Left-Aligned Above Entry -->
+                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2021 — Present</p>
+
+                            <div class="timeline-card p-6">
+                                <h3 class="text-[18px] font-bold text-[#0F172A]">Senior Data Scientist</h3>
+                                <p class="meta-text text-[#475569] mb-3">Innovate Corp</p>
+                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
+                                    <li>Led development of predictive models, improving forecast accuracy by 25%.</li>
+                                    <li>Mentored junior data scientists and established team best practices for
+                                        analysis.</li>
+                                    <li>Deployed scalable ML pipelines on AWS for real-time analytics.</li>
+                                </ul>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-primary text-[12px]">Python</span>
+                                    <span class="tag-primary text-[12px]">TensorFlow</span>
+                                    <span class="tag-primary text-[12px]">AWS</span>
+                                    <span class="tag-secondary text-[12px]">SQL</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Project Card 4 -->
-                        <div class="project-card flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-lg backdrop-blur-sm">
-                            <div class="overflow-hidden">
-                                <div class="project-image w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDqZl5T2mZ0GO9FSJ3sO_TyI0X0pWvpimSOKZ3miZ5mTjwiHGYzZgPKIbPnS_JES7pp1wu9HZdKFL80SbQCl4OrzhZ5ZVQcMPm-XSJBK34E_yI5AUyb6OSSvi0oj0RLAo7YgBrkFL9rNosIfa4VJ8qKIqYZnqHYWpbAP3b7Jp1JxlGNrkyJtbX3tJcWw4HkCmu3FGVN2hrEFW_4fFF1Cc011R1Wbhj7ZqQtdtvnLEao_jKvPi8CJcIiZM26F_gI0MYPy8b-jPK_bMx0");'></div>
+                        <!-- Entry 2 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
                             </div>
-                            <div class="flex flex-1 flex-col justify-between p-6">
-                                <div class="flex-1">
-                                    <p class="text-xl font-semibold text-gray-900 dark:text-white">Movie Recommendation Engine</p>
-                                    <p class="mt-3 text-base text-gray-600 dark:text-gray-400">Collaborative filtering-based recommendation system built with Python to suggest movies to users based on their viewing history.</p>
-                                    <div class="mt-4 flex flex-wrap gap-2">
-                                        <div class="flex h-7 items-center justify-center rounded-full bg-primary/20 px-3 py-1">
-                                            <p class="text-xs font-medium text-primary">Python</p>
-                                        </div>
-                                        <div class="flex h-7 items-center justify-center rounded-full bg-primary/20 px-3 py-1">
-                                            <p class="text-xs font-medium text-primary">Surprise</p>
-                                        </div>
-                                        <div class="flex h-7 items-center justify-center rounded-full bg-primary/20 px-3 py-1">
-                                            <p class="text-xs font-medium text-primary">Machine Learning</p>
-                                        </div>
-                                    </div>
+                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2019 — 2021</p>
+
+                            <div class="timeline-card p-6">
+                                <h3 class="text-[18px] font-bold text-[#0F172A]">Data Scientist</h3>
+                                <p class="meta-text text-[#475569] mb-3">Data Solutions Inc.</p>
+                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
+                                    <li>Developed NLP models for sentiment analysis on customer feedback datasets.</li>
+                                    <li>Created automated Tableau dashboards for executive KPI tracking.</li>
+                                    <li>Reduced client churn by 15% through data-driven targeting insights.</li>
+                                </ul>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-primary text-[12px]">R</span>
+                                    <span class="tag-primary text-[12px]">Scikit-learn</span>
+                                    <span class="tag-secondary text-[12px]">Tableau</span>
                                 </div>
-                                <div class="mt-6 flex items-center">
-                                    <a class="flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-background-dark shadow-sm transition hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#">
-                                        <span class="material-symbols-outlined mr-2 text-base">code</span>
-                                        View on GitHub
-                                    </a>
+                            </div>
+                        </div>
+
+                        <!-- Entry 3 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
+                            </div>
+                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">Summer 2018</p>
+
+                            <div class="timeline-card p-6">
+                                <h3 class="text-[18px] font-bold text-[#0F172A]">Data Science Intern</h3>
+                                <p class="meta-text text-[#475569] mb-3">Tech Forward LLC</p>
+                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
+                                    <li>Assisted with data cleaning and feature engineering pipelines for large
+                                        datasets.</li>
+                                    <li>Performed exploratory data analysis to identify user behavior trends.</li>
+                                    <li>Built a recommendation engine prototype using collaborative filtering
+                                        algorithms.</li>
+                                </ul>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-primary text-[12px]">Python</span>
+                                    <span class="tag-primary text-[12px]">Pandas</span>
+                                    <span class="tag-secondary text-[12px]">Jupyter</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Entry 4 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
+                            </div>
+                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2017 — 2019</p>
+
+                            <div class="timeline-card p-6">
+                                <h3 class="text-[18px] font-bold text-[#0F172A]">M.S. in Data Science</h3>
+                                <p class="meta-text text-[#475569] mb-3">Metropolis University</p>
+                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
+                                    <li>Specialized in Machine Learning and Big Data Architectures.</li>
+                                    <li>Thesis: “Real-time Anomaly Detection in IoT Sensor Streams”.</li>
+                                    <li>Relevant coursework: Neural Networks, Statistical Inference, Distributed
+                                        Systems.</li>
+                                </ul>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-primary text-[12px]">Machine Learning</span>
+                                    <span class="tag-primary text-[12px]">Big Data</span>
+                                    <span class="tag-secondary text-[12px]">Statistics</span>
                                 </div>
                             </div>
                         </div>
@@ -409,56 +933,109 @@
                 </div>
             </section>
 
-            <!-- CONTACT SECTION -->
-            <section id="contact" class="py-16 sm:py-24">
-                <div class="container mx-auto max-w-2xl px-4 sm:px-6 md:px-8">
-                    <div class="mb-8 text-center">
-                        <h1 class="text-4xl font-black leading-tight tracking-tight text-gray-900 dark:text-white sm:text-5xl">Get In Touch</h1>
-                        <p class="mt-3 text-base font-normal leading-normal text-gray-600 dark:text-[#9db2b9]">Feel free to reach out for collaborations or just to say hello.</p>
-                    </div>
-                    
-                    <div class="mb-10 flex justify-center">
-                        <div class="flex items-center gap-4 rounded-full bg-white/5 p-2 backdrop-blur-sm">
-                            <a class="group flex h-12 w-12 items-center justify-center rounded-full bg-white/5 transition-all duration-300 hover:bg-primary/20" href="#">
-                                <svg aria-hidden="true" class="h-6 w-6 text-[#9db2b9] transition-colors duration-300 group-hover:text-primary" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12.013c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.218.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.82c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .267.18.577.688.48C19.135 20.175 22 16.43 22 12.013 22 6.477 17.523 2 12 2z" fill-rule="evenodd"></path></svg>
-                            </a>
-                            <a class="group flex h-12 w-12 items-center justify-center rounded-full bg-white/5 transition-all duration-300 hover:bg-primary/20" href="#">
-                                <svg aria-hidden="true" class="h-6 w-6 text-[#9db2b9] transition-colors duration-300 group-hover:text-primary" fill="currentColor" viewbox="0 0 24 24"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path></svg>
-                            </a>
-                            <a class="group flex h-12 w-12 items-center justify-center rounded-full bg-white/5 transition-all duration-300 hover:bg-primary/20" href="#">
-                                <svg class="h-6 w-6 text-[#9db2b9] transition-colors duration-300 group-hover:text-primary" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10,10-4.486,10-10S17.514,2,12,2Zm3.483,16.516L12,15.033,8.517,18.516,9.58,14.61,6.347,11.73l4.03-.35L12,7.633l1.623,3.747,4.03.35-3.233,2.88L15.483,18.516Z"></path></svg>
-                            </a>
-                            <a class="group flex h-12 w-12 items-center justify-center rounded-full bg-white/5 transition-all duration-300 hover:bg-primary/20" href="mailto:email@example.com">
-                                <span class="material-symbols-outlined text-[#9db2b9] transition-colors duration-300 group-hover:text-primary">mail</span>
-                            </a>
-                        </div>
+            <!-- 6. CONTACT SECTION (Wide layout, Equal Margins) -->
+            <section id="contact" class="section-pad fade-in-section border-t border-[#E2E8F0]">
+                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left">
+                    <!-- Left-Aligned Heading -->
+                    <div class="text-left mb-6">
+                        <h2 class="section-title mb-2 flex items-center gap-3">
+                            <span class="section-marker">05.</span>
+                            Get In Touch
+                        </h2>
+                        <p class="body-text max-w-2xl text-left">
+                            Whether you have an inquiry about a machine learning project, research collaboration, or
+                            just want to connect, my inbox is always open.
+                        </p>
                     </div>
 
-                    
+                    <!-- Left-Aligned Stacked Form Fields -->
+                    <form class="text-left space-y-4 max-w-2xl"
+                        onsubmit="event.preventDefault(); alert('Thank you! Message submitted.');">
+                        <div>
+                            <label for="form-name" class="block meta-text font-semibold text-[#0F172A] mb-1">Your
+                                Name</label>
+                            <input id="form-name" type="text" required placeholder="Jane Doe"
+                                class="w-full h-11 min-h-[44px] bg-white border border-[#CBD5E1] rounded-lg px-4 text-[16px] text-[#0F172A] focus:border-[#0369A1] focus:outline-none transition-colors placeholder:text-[#94A3B8]" />
+                        </div>
+
+                        <div>
+                            <label for="form-email" class="block meta-text font-semibold text-[#0F172A] mb-1">Email
+                                Address</label>
+                            <input id="form-email" type="email" required placeholder="jane@example.com"
+                                class="w-full h-11 min-h-[44px] bg-white border border-[#CBD5E1] rounded-lg px-4 text-[16px] text-[#0F172A] focus:border-[#0369A1] focus:outline-none transition-colors placeholder:text-[#94A3B8]" />
+                        </div>
+
+                        <div>
+                            <label for="form-message"
+                                class="block meta-text font-semibold text-[#0F172A] mb-1">Message</label>
+                            <textarea id="form-message" rows="4" required
+                                placeholder="Tell me about your project or question..."
+                                class="w-full bg-white border border-[#CBD5E1] rounded-lg p-3 text-[16px] text-[#0F172A] focus:border-[#0369A1] focus:outline-none transition-colors placeholder:text-[#94A3B8] resize-y"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="btn-primary flex h-12 w-full min-h-[44px] items-center justify-center font-semibold">
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+
+                    <!-- Left-Aligned Row of Social Icons at Bottom -->
+                    <div class="mt-8 flex items-center gap-4 text-left">
+                        <!-- GitHub -->
+                        <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
+                            aria-label="Mohammed Shahzan on GitHub"
+                            class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
+                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12 2C6.477 2 2 6.477 2 12.013c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.218.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.82c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .267.18.577.688.48C19.135 20.175 22 16.43 22 12.013 22 6.477 17.523 2 12 2z">
+                                </path>
+                            </svg>
+                        </a>
+
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/mohammed-shahzan-2ab1a82a4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            target="_blank" rel="noopener noreferrer" aria-label="Mohammed Shahzan on LinkedIn"
+                            class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
+                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z">
+                                </path>
+                            </svg>
+                        </a>
+
+                        <!-- Email -->
+                        <a href="mailto:shahzanarmar01@gmail.com" target="_blank" rel="noopener noreferrer"
+                            aria-label="Send email to Mohammed Shahzan"
+                            class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
+                            <span class="material-symbols-outlined text-[20px]">mail</span>
+                        </a>
+                    </div>
                 </div>
             </section>
         </main>
 
-        <!-- Footer -->
-        <footer class="w-full border-t border-gray-200/10 bg-background-light dark:bg-background-dark py-8 px-4">
-            <div class="container mx-auto max-w-7xl">
-                <div class="flex flex-col items-center justify-center gap-6 text-center">
-                    <div class="flex flex-wrap justify-center gap-6">
-                        <a aria-label="LinkedIn Profile" class="text-gray-500 transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary" href="#">
-                            <span class="material-symbols-outlined !text-2xl">group</span>
-                        </a>
-                        <a aria-label="GitHub Profile" class="text-gray-500 transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary" href="#">
-                            <span class="material-symbols-outlined !text-2xl">code</span>
-                        </a>
-                        <a aria-label="Twitter Profile" class="text-gray-500 transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary" href="#">
-                            <span class="material-symbols-outlined !text-2xl">trending_up</span>
-                        </a>
-                    </div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">© 2024 Mohammed Shahzan. All rights reserved.</p>
+        <!-- Footer (Wide layout, Equal Margins) -->
+        <footer class="w-full border-t border-[#E2E8F0] bg-white py-8">
+            <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <p class="meta-text font-medium text-[#0F172A]">
+                        Mohammed Shahzan Armar · Data Science student — ML Engineer
+                    </p>
+                    <p class="meta-text text-[#64748B] mt-1">
+                        Built with HTML, Vanilla CSS &amp; JS. Clean light theme design.
+                    </p>
+                </div>
+                <div class="mt-4 sm:mt-0">
+                    <p class="meta-text text-[#64748B]">
+                        © 2024 Mohammed Shahzan Armar. All rights reserved.
+                    </p>
                 </div>
             </div>
         </footer>
     </div>
 
+    <!-- Main Logic Script -->
     <script src="main.js"></script>
 </body>
+
+</html>
