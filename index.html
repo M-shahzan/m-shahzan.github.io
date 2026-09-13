@@ -106,10 +106,28 @@
             padding-bottom: 64px;
         }
 
-        /* Animations (200–400ms, ease-out) */
+        /* Reading Progress Bar */
+        .scroll-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 2.5px;
+            width: 100%;
+            background: linear-gradient(90deg, #0369A1 0%, #38BDF8 60%, #6366F1 100%);
+            transform-origin: 0% 50%;
+            transform: scaleX(0);
+            transition: transform 60ms linear;
+            z-index: 60;
+        }
+
+        header.header-scrolled {
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07) !important;
+        }
+
+        /* Section Fade In */
         .fade-in-section {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(18px);
             transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
@@ -119,21 +137,185 @@
             transform: translateY(0) !important;
         }
 
-        /* Hero Tagline One-Time Entrance */
-        @keyframes taglineFadeIn {
+        /* Snappy, Instant Scroll Reveals (Zero Lag) */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1), transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-item.is-revealed {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Hero Entrance Keyframes & Sequence */
+        @keyframes heroFadeUp {
             0% {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(12px);
             }
-
             100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
+        @keyframes heroMaskSlideUp {
+            0% {
+                transform: translateY(102%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Terminal Caret & Spark Micro-Interactions */
+        @keyframes caretBlink {
+            0%, 49% {
+                opacity: 1;
+            }
+            50%, 100% {
+                opacity: 0;
+            }
+        }
+
+        .terminal-caret {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #0369A1;
+            animation: caretBlink 1.1s infinite;
+        }
+
+        @keyframes sparkGlint {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.85;
+            }
+            50% {
+                transform: scale(1.25) rotate(90deg);
+                opacity: 1;
+            }
+        }
+
+        .pulse-spark {
+            display: inline-block;
+            color: #0369A1;
+            font-size: 11px;
+            animation: sparkGlint 3s ease-in-out infinite;
+        }
+
+        @keyframes subtleBadgePulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(3, 105, 161, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 0 4px rgba(3, 105, 161, 0.08);
+            }
+        }
+
+        @keyframes pingSlow {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+            70%, 100% {
+                transform: scale(2.4);
+                opacity: 0;
+            }
+        }
+
+        .hero-badge-container {
+            animation: heroFadeUp 420ms cubic-bezier(0.16, 1, 0.3, 1) 40ms both;
+        }
+
+        .tag-primary-hero {
+            box-shadow: 0 1px 3px rgba(3, 105, 161, 0.1);
+            animation: subtleBadgePulse 3.5s ease-in-out 1s infinite;
+        }
+
+        .hero-name-mask {
+            overflow: hidden;
+            display: block;
+            padding-bottom: 4px;
+            margin-bottom: 2px;
+        }
+
+        @keyframes nameShine {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero-name {
+            display: inline-block;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #0369A1 75%, #4338CA 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: heroFadeUp 520ms cubic-bezier(0.16, 1, 0.3, 1) 480ms both, nameShine 7s ease infinite alternate;
+            transition: filter 250ms ease;
+            min-height: 1.15em;
+        }
+
+        .hero-name:hover {
+            filter: drop-shadow(0 2px 10px rgba(3, 105, 161, 0.22));
+        }
+
+        .hero-role {
+            animation: heroFadeUp 480ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both;
+        }
+
         .hero-tagline {
-            animation: taglineFadeIn 400ms ease-out 200ms both;
+            animation: heroFadeUp 480ms cubic-bezier(0.16, 1, 0.3, 1) 300ms both;
+        }
+
+        /* Hero CTA Buttons: static and immediately available, zero bottom-to-up translation */
+        .hero-cta {
+            opacity: 1;
+            transform: none;
+        }
+
+        .hero-metric-card {
+            animation: heroFadeUp 550ms cubic-bezier(0.16, 1, 0.3, 1) 240ms both;
+        }
+
+        /* Hero Dot Matrix Background */
+        .hero-grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 50%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 50%, transparent 100%);
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Status Beacon */
+        .status-beacon {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status-beacon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 9999px;
+            background-color: #0369A1;
+            animation: pingSlow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
 
         /* Nav Links & Underline */
@@ -180,18 +362,37 @@
             font-weight: 600;
             font-size: 15px;
             border-radius: 8px;
-            transition: transform 200ms ease-out, box-shadow 200ms ease-out, background-color 200ms ease-out;
+            position: relative;
+            overflow: hidden;
+            transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1), background-color 200ms ease-out;
             box-shadow: 0 2px 6px rgba(3, 105, 161, 0.25);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -130%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transform: skewX(-20deg);
+            pointer-events: none;
+        }
+
+        .btn-primary:hover::after {
+            left: 160%;
+            transition: left 650ms ease-in-out;
         }
 
         .btn-primary:hover {
             background-color: var(--accent-primary-hover) !important;
             transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(3, 105, 161, 0.35);
+            box-shadow: 0 6px 16px rgba(3, 105, 161, 0.35);
         }
 
         .btn-primary:active {
-            transform: translateY(0);
+            transform: translateY(0) scale(0.98);
         }
 
         .btn-outline {
@@ -202,33 +403,109 @@
             font-size: 15px;
             border-radius: 8px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-            transition: transform 200ms ease-out, border-color 200ms ease-out, color 200ms ease-out, box-shadow 200ms ease-out;
+            transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease-out, color 200ms ease-out, box-shadow 200ms ease-out;
         }
 
         .btn-outline:hover {
             border-color: var(--accent-primary) !important;
             color: var(--accent-primary) !important;
-            box-shadow: 0 4px 12px rgba(3, 105, 161, 0.12);
+            box-shadow: 0 4px 14px rgba(3, 105, 161, 0.12);
             transform: translateY(-2px);
         }
 
         .btn-outline:active {
-            transform: translateY(0);
+            transform: translateY(0) scale(0.98);
         }
 
-        /* Card Hover Lift */
+        /* Card Hover Lift & Spotlight Glow */
         .project-card {
             background-color: var(--card-color) !important;
             border: 1px solid var(--border-color) !important;
             border-radius: 12px;
+            position: relative;
+            overflow: hidden;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-            transition: transform 250ms ease-out, box-shadow 250ms ease-out, border-color 250ms ease-out;
+            transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 250ms cubic-bezier(0.16, 1, 0.3, 1), border-color 250ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card-spotlight {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 250ms ease;
+            background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(3, 105, 161, 0.08), transparent 70%);
+            z-index: 1;
+        }
+
+        .project-card:hover .card-spotlight {
+            opacity: 1;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 18%;
+            right: 18%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(3, 105, 161, 0.7), transparent);
+            opacity: 0;
+            border-radius: 2px;
+            transition: opacity 300ms ease, left 300ms ease, right 300ms ease;
+            pointer-events: none;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+            left: 8%;
+            right: 8%;
         }
 
         .project-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 24px -4px rgba(3, 105, 161, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.04) !important;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px -4px rgba(3, 105, 161, 0.12), 0 6px 12px -2px rgba(0, 0, 0, 0.04) !important;
             border-color: #BAE6FD !important;
+        }
+
+        /* Directional Arrow Shift */
+        .arrow-shift {
+            display: inline-block;
+            transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .group:hover .arrow-shift,
+        .project-card:hover .arrow-shift {
+            transform: translate(3px, -3px);
+        }
+
+        /* Timeline Entry & Responsive Node */
+        .timeline-entry {
+            position: relative;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -31px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 9999px;
+            background-color: #0369A1;
+            box-shadow: 0 0 0 4px #F8FAFC;
+            transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 250ms ease;
+        }
+
+        @media (min-width: 640px) {
+            .timeline-dot {
+                left: -47px;
+            }
+        }
+
+        .timeline-entry:hover .timeline-dot {
+            transform: scale(1.25);
+            box-shadow: 0 0 0 5px #E0F2FE, 0 0 10px rgba(3, 105, 161, 0.3);
         }
 
         .timeline-card {
@@ -236,12 +513,12 @@
             border: 1px solid var(--border-color) !important;
             border-radius: 12px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-            transition: transform 250ms ease-out, box-shadow 250ms ease-out, border-color 250ms ease-out;
+            transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 250ms cubic-bezier(0.16, 1, 0.3, 1), border-color 250ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .timeline-card:hover {
-            transform: translateX(3px);
-            box-shadow: 0 8px 20px -4px rgba(3, 105, 161, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+            transform: translateX(4px);
+            box-shadow: 0 8px 22px -4px rgba(3, 105, 161, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
             border-color: #BAE6FD !important;
         }
 
@@ -256,6 +533,11 @@
             padding: 3px 10px;
             display: inline-flex;
             align-items: center;
+            transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms ease, border-color 180ms ease;
+        }
+
+        .tag-primary:hover {
+            transform: translateY(-1.5px);
         }
 
         .tag-secondary {
@@ -268,6 +550,106 @@
             padding: 3px 10px;
             display: inline-flex;
             align-items: center;
+            transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms ease, border-color 180ms ease;
+        }
+
+        .tag-secondary:hover {
+            transform: translateY(-1.5px);
+        }
+
+        /* Social Icons & Contact Section Pop-In Stagger */
+        .social-btn {
+            transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.06) !important;
+            box-shadow: 0 6px 16px rgba(3, 105, 161, 0.18) !important;
+        }
+
+        .contact-social-btn {
+            opacity: 0;
+            transform: scale(0.65) translateY(12px);
+            transition: opacity 320ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        transform 350ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        color 200ms ease,
+                        border-color 200ms ease,
+                        box-shadow 200ms ease;
+            will-change: opacity, transform;
+        }
+
+        .fade-in-section.is-visible .contact-social-btn:nth-child(1) {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            transition-delay: 60ms;
+        }
+
+        .fade-in-section.is-visible .contact-social-btn:nth-child(2) {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            transition-delay: 135ms;
+        }
+
+        .fade-in-section.is-visible .contact-social-btn:nth-child(3) {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            transition-delay: 210ms;
+        }
+
+        /* Flagship Project Schematic Wipe Reveal (Left to Right) */
+        .flagship-visual-wipe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 700ms cubic-bezier(0.16, 1, 0.3, 1) 120ms;
+            will-change: clip-path;
+        }
+
+        .project-card.is-revealed .flagship-visual-wipe {
+            clip-path: inset(0 0% 0 0);
+        }
+
+        /* SVG Schematic Micro-Animations */
+        @keyframes heatmapBreathe {
+            0%, 100% {
+                opacity: 0.22;
+                transform: scale(0.97);
+            }
+            50% {
+                opacity: 0.45;
+                transform: scale(1.03);
+            }
+        }
+
+        @keyframes scanRingRotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .svg-heatmap-glow {
+            animation: heatmapBreathe 3.8s ease-in-out infinite alternate;
+            transform-origin: 275px 138px;
+        }
+
+        .svg-grid-ring {
+            transform-origin: 300px 150px;
+            animation: scanRingRotate 50s linear infinite;
+        }
+
+        @keyframes streamDashFlow {
+            to {
+                stroke-dashoffset: -20;
+            }
+        }
+
+        .svg-stream-flow {
+            stroke-dasharray: 6 4;
+            animation: streamDashFlow 1.4s linear infinite;
         }
 
         /* Mobile Drawer */
@@ -299,15 +681,43 @@
         /* Accessibility: Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
             .fade-in-section,
-            .project-card,
-            .timeline-card,
+            .reveal-item,
+            .hero-badge-container,
+            .terminal-caret,
+            .pulse-spark,
+            .hero-name,
+            .hero-role,
             .hero-tagline,
+            .hero-cta,
+            .hero-metric-card,
+            .hero-grid-pattern,
+            .project-card,
+            .project-card::before,
+            .card-spotlight,
+            .timeline-card,
+            .timeline-dot,
+            .timeline-entry:hover .timeline-dot,
+            .btn-primary,
+            .btn-primary::after,
+            .btn-outline,
+            .tag-primary,
+            .tag-secondary,
+            .tag-primary-hero,
+            .social-btn,
+            .contact-social-btn,
+            .flagship-visual-wipe,
+            .svg-heatmap-glow,
+            .svg-grid-ring,
+            .svg-stream-flow,
+            .status-beacon::before,
+            .scroll-progress-bar,
             .nav-link,
             .nav-link::after {
                 animation: none !important;
                 transition: none !important;
                 transform: none !important;
                 opacity: 1 !important;
+                clip-path: none !important;
             }
         }
     </style>
@@ -316,7 +726,8 @@
 <body class="bg-[#F8FAFC]">
     <div class="relative flex min-h-screen w-full flex-col">
         <!-- TopNavBar (Wide max-w-6xl with equal side padding px-6 sm:px-10 lg:px-16) -->
-        <header class="sticky top-0 z-50 w-full border-b border-[#E2E8F0] bg-white/95 backdrop-blur-md">
+        <header id="site-header" class="sticky top-0 z-50 w-full border-b border-[#E2E8F0] bg-white/95 backdrop-blur-md transition-shadow duration-300">
+            <div id="scroll-progress" class="scroll-progress-bar" aria-hidden="true"></div>
             <div class="w-full max-w-6xl mx-auto flex h-16 items-center justify-between px-6 sm:px-10 lg:px-16">
                 <a href="#home"
                     class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1] rounded-lg p-1">
@@ -385,23 +796,28 @@
         <!-- Main Content -->
         <main class="flex-grow">
             <!-- 1. HERO SECTION (Wide layout, Equal Margins, Left-Aligned) -->
-            <section id="home" class="section-pad relative flex items-center">
-                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
+            <section id="home" class="section-pad relative flex items-center overflow-hidden">
+                <div class="hero-grid-pattern" aria-hidden="true"></div>
+                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
                     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 text-left">
                         <!-- Hero Text Block -->
                         <div class="w-full lg:w-7/12 flex flex-col items-start text-left">
-                            <div class="mb-4">
-                                <span class="tag-primary">
-                                    Hi, my name is
+                            <div class="mb-4 hero-badge-container">
+                                <span class="tag-primary tag-primary-hero">
+                                    <span class="pulse-spark mr-1.5" aria-hidden="true">✦</span>
+                                    <span id="hero-greeting-text">Hi, my name is</span>
+                                    <span id="hero-greeting-caret" class="terminal-caret ml-1" aria-hidden="true">_</span>
                                 </span>
                             </div>
 
-                            <h1
-                                class="text-[36px] sm:text-[46px] lg:text-[54px] font-extrabold text-[#0F172A] leading-[1.12] mb-3 break-words text-left">
-                                Mohammed Shahzan Armar
-                            </h1>
+                            <div class="hero-name-mask">
+                                <h1
+                                    class="hero-name text-[36px] sm:text-[46px] lg:text-[54px] font-extrabold text-[#0F172A] leading-[1.12] mb-3 break-words text-left">
+                                    Mohammed Shahzan Armar
+                                </h1>
+                            </div>
 
-                            <h2 class="text-[20px] sm:text-[24px] font-bold text-[#0369A1] mb-4 text-left">
+                            <h2 class="hero-role text-[20px] sm:text-[24px] font-bold text-[#0369A1] mb-4 text-left">
                                 Final-Year Data Science Student | ML Engineer
                             </h2>
 
@@ -410,7 +826,7 @@
                             </p>
 
                             <!-- Hero CTA Buttons -->
-                            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                            <div class="hero-cta flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                                 <a href="#projects"
                                     class="btn-primary flex h-12 min-h-[44px] w-full sm:w-auto items-center justify-center px-6">
                                     <span>View Featured Projects</span>
@@ -425,10 +841,10 @@
                         <!-- Right Visual Block on Desktop (Scannable ML Metric Card) -->
                         <div class="w-full lg:w-5/12 flex justify-start lg:justify-end">
                             <div
-                                class="w-full max-w-md rounded-xl border border-[#E2E8F0] bg-white p-6 sm:p-7 shadow-sm text-left">
+                                class="hero-metric-card w-full max-w-md rounded-xl border border-[#E2E8F0] bg-white p-6 sm:p-7 shadow-sm text-left">
                                 <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-4 mb-5">
                                     <div class="flex items-center gap-2">
-                                        <span class="size-2.5 rounded-full bg-[#0369A1] animate-pulse"></span>
+                                        <span class="status-beacon size-2.5 rounded-full bg-[#0369A1] inline-block" aria-hidden="true"></span>
                                         <span class="meta-text font-mono text-[#0F172A] font-semibold">Flagship ML Projects</span>
                                     </div>
                                     <span class="meta-text font-mono text-[#0369A1] font-semibold">Active</span>
@@ -438,7 +854,7 @@
                                     <div class="rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] p-4">
                                         <div class="flex justify-between items-center mb-1">
                                             <span class="meta-text text-[#0F172A] font-semibold">RetinaXAI (Medical CV)</span>
-                                            <span class="meta-text font-mono text-[#0369A1] font-bold">0.92 ROC-AUC (DME)</span>
+                                            <span class="meta-text font-mono text-[#0369A1] font-bold stat-counter" data-target="0.92" data-decimals="2" data-suffix=" ROC-AUC (DME)">0.92 ROC-AUC (DME)</span>
                                         </div>
                                         <p class="meta-text text-[#475569]">Multi-task EfficientNet-B3 + Grad-CAM, trained on IDRiD</p>
                                     </div>
@@ -446,7 +862,7 @@
                                     <div class="rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] p-4">
                                         <div class="flex justify-between items-center mb-1">
                                             <span class="meta-text text-[#0F172A] font-semibold">SightLite (SIH 2026)</span>
-                                            <span class="meta-text font-mono text-[#0369A1] font-bold">SIH26171</span>
+                                            <span class="meta-text font-mono text-[#0369A1] font-bold stat-counter" data-target="SIH26171">SIH26171</span>
                                         </div>
                                         <p class="meta-text text-[#475569]">Hybrid on-device + server visual perception, backed by ISRO</p>
                                     </div>
@@ -497,7 +913,8 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                         <!-- Category 1: Languages -->
-                        <div class="project-card p-6">
+                        <div class="project-card reveal-item p-6" data-delay="0">
+                            <div class="card-spotlight" aria-hidden="true"></div>
                             <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Languages</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="tag-primary">Python</span>
@@ -506,7 +923,8 @@
                         </div>
 
                         <!-- Category 2: Machine Learning & Deep Learning -->
-                        <div class="project-card p-6">
+                        <div class="project-card reveal-item p-6" data-delay="40">
+                            <div class="card-spotlight" aria-hidden="true"></div>
                             <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Machine Learning &amp; Deep Learning</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="tag-primary">PyTorch</span>
@@ -520,7 +938,8 @@
                         </div>
 
                         <!-- Category 3: Data Analysis & Visualization -->
-                        <div class="project-card p-6">
+                        <div class="project-card reveal-item p-6" data-delay="80">
+                            <div class="card-spotlight" aria-hidden="true"></div>
                             <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Data Analysis &amp; Visualization</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="tag-primary">Pandas</span>
@@ -533,7 +952,8 @@
                         </div>
 
                         <!-- Category 4: Tools & Deployment -->
-                        <div class="project-card p-6">
+                        <div class="project-card reveal-item p-6" data-delay="120">
+                            <div class="card-spotlight" aria-hidden="true"></div>
                             <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Tools &amp; Deployment</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="tag-primary">Git &amp; GitHub</span>
@@ -560,37 +980,40 @@
                     <!-- Flagship Project Cards Stack -->
                     <div class="space-y-10">
                         <!-- Flagship 1: RetinaXAI -->
-                        <div class="project-card overflow-hidden">
+                        <div class="project-card reveal-item overflow-hidden">
+                            <div class="card-spotlight" aria-hidden="true"></div>
                             <!-- Visual on Top (Contained fixed aspect ratio, linking to repo) -->
                             <a href="https://github.com/M-shahzan/Retinaxai" target="_blank" rel="noopener noreferrer"
                                 class="block w-full aspect-video md:aspect-[21/9] bg-[#F1F5F9] border-b border-[#E2E8F0] relative overflow-hidden group">
-                                <svg class="w-full h-full p-6 sm:p-10 text-[#0369A1]/90 transition-transform duration-300 group-hover:scale-105"
-                                    viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- Schematic Fundus / Retina Diagnostic Grid -->
-                                    <circle cx="300" cy="150" r="110" stroke="#CBD5E1" stroke-width="2" />
-                                    <circle cx="300" cy="150" r="80" stroke="#CBD5E1" stroke-width="1.5"
-                                        stroke-dasharray="4 4" />
-                                    <!-- Optical Disc & Vessels -->
-                                    <circle cx="350" cy="150" r="28" fill="#0369A1" fill-opacity="0.1" stroke="#0369A1"
-                                        stroke-width="2" />
-                                    <path d="M350 150 C320 120, 260 110, 210 130" stroke="#0369A1" stroke-width="2.5"
-                                        stroke-linecap="round" />
-                                    <path d="M350 150 C330 180, 270 200, 230 180" stroke="#0369A1" stroke-width="2"
-                                        stroke-linecap="round" />
-                                    <path d="M350 150 C380 130, 420 125, 450 140" stroke="#6366F1" stroke-width="2"
-                                        stroke-linecap="round" />
-                                    <!-- Grad-CAM Saliency Heatmap Overlay -->
-                                    <circle cx="270" cy="135" r="38" fill="#0369A1" fill-opacity="0.2"
-                                        filter="blur(10px)" />
-                                    <circle cx="280" cy="140" r="20" fill="#0369A1" fill-opacity="0.35"
-                                        filter="blur(6px)" />
-                                    <text x="30" y="45" fill="#0369A1" font-family="JetBrains Mono, monospace"
-                                        font-size="14" font-weight="600">RetinaXAI // Multi-Task Deep Learning Pipeline</text>
-                                    <text x="30" y="70" fill="#475569" font-family="Inter, sans-serif"
-                                        font-size="12">EfficientNet-B3 + Grad-CAM Heatmaps (IDRiD Dataset)</text>
-                                    <text x="440" y="45" fill="#0F172A" font-family="JetBrains Mono, monospace"
-                                        font-size="14" font-weight="600">0.92 ROC-AUC</text>
-                                </svg>
+                                <div class="flagship-visual-wipe w-full h-full">
+                                    <svg class="w-full h-full p-6 sm:p-10 text-[#0369A1]/90 transition-transform duration-300 group-hover:scale-105"
+                                        viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Schematic Fundus / Retina Diagnostic Grid -->
+                                        <circle cx="300" cy="150" r="110" stroke="#CBD5E1" stroke-width="2" />
+                                        <circle cx="300" cy="150" r="80" class="svg-grid-ring" stroke="#CBD5E1" stroke-width="1.5"
+                                            stroke-dasharray="4 4" />
+                                        <!-- Optical Disc & Vessels -->
+                                        <circle cx="350" cy="150" r="28" fill="#0369A1" fill-opacity="0.1" stroke="#0369A1"
+                                            stroke-width="2" />
+                                        <path d="M350 150 C320 120, 260 110, 210 130" stroke="#0369A1" stroke-width="2.5"
+                                            stroke-linecap="round" />
+                                        <path d="M350 150 C330 180, 270 200, 230 180" stroke="#0369A1" stroke-width="2"
+                                            stroke-linecap="round" />
+                                        <path d="M350 150 C380 130, 420 125, 450 140" stroke="#6366F1" stroke-width="2"
+                                            stroke-linecap="round" />
+                                        <!-- Grad-CAM Saliency Heatmap Overlay -->
+                                        <circle cx="270" cy="135" r="38" class="svg-heatmap-glow" fill="#0369A1" fill-opacity="0.2"
+                                            filter="blur(10px)" />
+                                        <circle cx="280" cy="140" r="20" class="svg-heatmap-glow" fill="#0369A1" fill-opacity="0.35"
+                                            filter="blur(6px)" />
+                                        <text x="30" y="45" fill="#0369A1" font-family="JetBrains Mono, monospace"
+                                            font-size="14" font-weight="600">RetinaXAI // Multi-Task Deep Learning Pipeline</text>
+                                        <text x="30" y="70" fill="#475569" font-family="Inter, sans-serif"
+                                            font-size="12">EfficientNet-B3 + Grad-CAM Heatmaps (IDRiD Dataset)</text>
+                                        <text x="440" y="45" fill="#0F172A" font-family="JetBrains Mono, monospace"
+                                            font-size="14" font-weight="600">0.92 ROC-AUC</text>
+                                    </svg>
+                                </div>
                                 <div
                                     class="absolute bottom-3 right-3 bg-white/95 border border-[#E2E8F0] px-3 py-1 rounded text-[12px] font-mono text-[#0369A1] font-semibold shadow-sm">
                                     Click to view repo ↗
@@ -598,11 +1021,11 @@
                             </a>
 
                             <!-- Card Content (Left-aligned) -->
-                            <div class="p-6 sm:p-8 text-left">
+                            <div class="p-6 sm:p-8 text-left relative z-10">
                                 <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                                     <h3 class="text-[22px] font-bold text-[#0F172A]">RetinaXAI: Explainable Retinal
                                         Disease Diagnostics</h3>
-                                    <span class="tag-primary font-mono font-semibold">0.92 ROC-AUC (DME)</span>
+                                    <span class="tag-primary font-mono font-semibold stat-counter" data-target="0.92" data-decimals="2" data-suffix=" ROC-AUC (DME)">0.92 ROC-AUC (DME)</span>
                                 </div>
 
                                 <p class="body-text mb-5 max-w-4xl">
@@ -633,40 +1056,42 @@
                         </div>
 
                         <!-- Flagship 2: SightLite -->
-                        <div class="project-card overflow-hidden">
+                        <div class="project-card reveal-item overflow-hidden">
+                            <div class="card-spotlight" aria-hidden="true"></div>
                             <!-- Visual on Top -->
                             <a href="https://github.com/M-shahzan/SightLite" target="_blank" rel="noopener noreferrer"
                                 class="block w-full aspect-video md:aspect-[21/9] bg-[#F1F5F9] border-b border-[#E2E8F0] relative overflow-hidden group">
-                                <svg class="w-full h-full p-6 sm:p-10 text-[#0369A1]/90 transition-transform duration-300 group-hover:scale-105"
-                                    viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- Edge AI Hardware Stream Graphic -->
-                                    <rect x="50" y="70" width="160" height="160" rx="12" stroke="#CBD5E1"
-                                        stroke-width="2" />
-                                    <rect x="70" y="90" width="120" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
-                                    <!-- Bounding Box & Detection Nodes -->
-                                    <rect x="90" y="110" width="50" height="60" stroke="#0369A1" stroke-width="2"
-                                        stroke-dasharray="3 3" />
-                                    <rect x="90" y="98" width="40" height="12" fill="#0369A1" />
-                                    <text x="93" y="107" fill="#FFFFFF" font-family="JetBrains Mono, monospace"
-                                        font-size="8" font-weight="700">UI / PII</text>
-                                    <!-- Edge Neural Stream Arrow -->
-                                    <path d="M230 150 L340 150" stroke="#0369A1" stroke-width="2"
-                                        stroke-dasharray="4 4" />
-                                    <polygon points="345,150 335,145 335,155" fill="#0369A1" />
-                                    <!-- Quantized Engine Box -->
-                                    <rect x="360" y="70" width="190" height="160" rx="12" stroke="#CBD5E1"
-                                        stroke-width="2" fill="#FFFFFF" />
-                                    <text x="380" y="115" fill="#0F172A" font-family="JetBrains Mono, monospace"
-                                        font-size="16" font-weight="700">Vision Transformer</text>
-                                    <text x="380" y="140" fill="#0369A1" font-family="JetBrains Mono, monospace"
-                                        font-size="14" font-weight="600">SIH26171</text>
-                                    <text x="380" y="165" fill="#475569" font-family="Inter, sans-serif"
-                                        font-size="12">Local ViT + Server LLM</text>
-                                    <text x="380" y="185" fill="#475569" font-family="Inter, sans-serif"
-                                        font-size="12">Backed by ISRO</text>
-                                    <text x="30" y="45" fill="#0369A1" font-family="JetBrains Mono, monospace"
-                                        font-size="14" font-weight="600">SightLite // On-Device Visual Perception System</text>
-                                </svg>
+                                <div class="flagship-visual-wipe w-full h-full">
+                                    <svg class="w-full h-full p-6 sm:p-10 text-[#0369A1]/90 transition-transform duration-300 group-hover:scale-105"
+                                        viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Edge AI Hardware Stream Graphic -->
+                                        <rect x="50" y="70" width="160" height="160" rx="12" stroke="#CBD5E1"
+                                            stroke-width="2" />
+                                        <rect x="70" y="90" width="120" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+                                        <!-- Bounding Box & Detection Nodes -->
+                                        <rect x="90" y="110" width="50" height="60" stroke="#0369A1" stroke-width="2"
+                                            stroke-dasharray="3 3" />
+                                        <rect x="90" y="98" width="40" height="12" fill="#0369A1" />
+                                        <text x="93" y="107" fill="#FFFFFF" font-family="JetBrains Mono, monospace"
+                                            font-size="8" font-weight="700">UI / PII</text>
+                                        <!-- Edge Neural Stream Arrow -->
+                                        <path d="M230 150 L340 150" class="svg-stream-flow" stroke="#0369A1" stroke-width="2" />
+                                        <polygon points="345,150 335,145 335,155" fill="#0369A1" />
+                                        <!-- Quantized Engine Box -->
+                                        <rect x="360" y="70" width="190" height="160" rx="12" stroke="#CBD5E1"
+                                            stroke-width="2" fill="#FFFFFF" />
+                                        <text x="380" y="115" fill="#0F172A" font-family="JetBrains Mono, monospace"
+                                            font-size="16" font-weight="700">Vision Transformer</text>
+                                        <text x="380" y="140" fill="#0369A1" font-family="JetBrains Mono, monospace"
+                                            font-size="14" font-weight="600">SIH26171</text>
+                                        <text x="380" y="165" fill="#475569" font-family="Inter, sans-serif"
+                                            font-size="12">Local ViT + Server LLM</text>
+                                        <text x="380" y="185" fill="#475569" font-family="Inter, sans-serif"
+                                            font-size="12">Backed by ISRO</text>
+                                        <text x="30" y="45" fill="#0369A1" font-family="JetBrains Mono, monospace"
+                                            font-size="14" font-weight="600">SightLite // On-Device Visual Perception System</text>
+                                    </svg>
+                                </div>
                                 <div
                                     class="absolute bottom-3 right-3 bg-white/95 border border-[#E2E8F0] px-3 py-1 rounded text-[12px] font-mono text-[#0369A1] font-semibold shadow-sm">
                                     Click to view repo ↗
@@ -674,11 +1099,11 @@
                             </a>
 
                             <!-- Card Content -->
-                            <div class="p-6 sm:p-8 text-left">
+                            <div class="p-6 sm:p-8 text-left relative z-10">
                                 <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                                     <h3 class="text-[22px] font-bold text-[#0F172A]">SightLite: Real-Time Edge Visual
                                         Assistant</h3>
-                                    <span class="tag-primary font-mono font-semibold">SIH26171</span>
+                                    <span class="tag-primary font-mono font-semibold stat-counter" data-target="SIH26171">SIH26171</span>
                                 </div>
 
                                 <p class="body-text mb-5 max-w-4xl">
@@ -714,16 +1139,17 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <!-- Other Project 1: Titanic Survival Prediction -->
                             <a href="https://github.com/M-shahzan/titanic-survival-ml" target="_blank" rel="noopener noreferrer"
-                                class="project-card p-6 block group">
-                                <div class="flex justify-between items-start mb-2">
+                                class="project-card reveal-item p-6 block group relative overflow-hidden" data-delay="0">
+                                <div class="card-spotlight" aria-hidden="true"></div>
+                                <div class="flex justify-between items-start mb-2 relative z-10">
                                     <h4
                                         class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
                                         Titanic Survival Prediction</h4>
                                     <span
-                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
+                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1] arrow-shift">arrow_outward</span>
                                 </div>
-                                <p class="meta-text text-[#475569] mb-4">End-to-end Kaggle ML pipeline (EDA, feature engineering, model comparison). Best CV F1: 77.6% (Random Forest); Kaggle score 0.77751 (top ~23%).</p>
-                                <div class="flex flex-wrap gap-1.5">
+                                <p class="meta-text text-[#475569] mb-4 relative z-10">End-to-end Kaggle ML pipeline (EDA, feature engineering, model comparison). Best CV F1: <span class="font-mono font-bold text-[#0369A1] stat-counter" data-target="77.6" data-decimals="1" data-suffix="%">77.6%</span> (Random Forest); Kaggle score 0.77751 (top ~23%).</p>
+                                <div class="flex flex-wrap gap-1.5 relative z-10">
                                     <span class="tag-primary text-[12px]">Scikit-learn</span>
                                     <span class="tag-primary text-[12px]">Random Forest</span>
                                 </div>
@@ -731,16 +1157,17 @@
 
                             <!-- Other Project 2: Smart Procurement Hub -->
                             <a href="https://github.com/M-shahzan/supplier-recommendation" target="_blank" rel="noopener noreferrer"
-                                class="project-card p-6 block group">
-                                <div class="flex justify-between items-start mb-2">
+                                class="project-card reveal-item p-6 block group relative overflow-hidden" data-delay="35">
+                                <div class="card-spotlight" aria-hidden="true"></div>
+                                <div class="flex justify-between items-start mb-2 relative z-10">
                                     <h4
                                         class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
                                         Smart Procurement Hub</h4>
                                     <span
-                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
+                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1] arrow-shift">arrow_outward</span>
                                 </div>
-                                <p class="meta-text text-[#475569] mb-4">AI-assisted supplier recommendation and PO automation platform for businesses. Combines Random Forest and KNN models with multi-factor weighted scoring across risk, financial health, and performance metrics, with supplier ratings and risk profiling.</p>
-                                <div class="flex flex-wrap gap-1.5">
+                                <p class="meta-text text-[#475569] mb-4 relative z-10">AI-assisted supplier recommendation and PO automation platform for businesses. Combines Random Forest and KNN models with multi-factor weighted scoring across risk, financial health, and performance metrics, with supplier ratings and risk profiling.</p>
+                                <div class="flex flex-wrap gap-1.5 relative z-10">
                                     <span class="tag-primary text-[12px]">Flask</span>
                                     <span class="tag-primary text-[12px]">Random Forest</span>
                                     <span class="tag-primary text-[12px]">KNN</span>
@@ -750,16 +1177,17 @@
 
                             <!-- Other Project 3: Restaurant Management System -->
                             <a href="https://github.com/M-shahzan/Restraunt-management-system" target="_blank" rel="noopener noreferrer"
-                                class="project-card p-6 block group">
-                                <div class="flex justify-between items-start mb-2">
+                                class="project-card reveal-item p-6 block group relative overflow-hidden" data-delay="70">
+                                <div class="card-spotlight" aria-hidden="true"></div>
+                                <div class="flex justify-between items-start mb-2 relative z-10">
                                     <h4
                                         class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
                                         Restaurant Management System</h4>
                                     <span
-                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
+                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1] arrow-shift">arrow_outward</span>
                                 </div>
-                                <p class="meta-text text-[#475569] mb-4">Full-stack restaurant web app for browsing menus, booking tables, and placing orders.</p>
-                                <div class="flex flex-wrap gap-1.5">
+                                <p class="meta-text text-[#475569] mb-4 relative z-10">Full-stack restaurant web app for browsing menus, booking tables, and placing orders.</p>
+                                <div class="flex flex-wrap gap-1.5 relative z-10">
                                     <span class="tag-primary text-[12px]">Django</span>
                                     <span class="tag-primary text-[12px]">SQL</span>
                                     <span class="tag-primary text-[12px]">Tailwind CSS</span>
@@ -768,16 +1196,17 @@
 
                             <!-- Other Project 4: Job Opportunity Notifier -->
                             <a href="https://github.com/M-shahzan/Job-opportunity" target="_blank" rel="noopener noreferrer"
-                                class="project-card p-6 block group">
-                                <div class="flex justify-between items-start mb-2">
+                                class="project-card reveal-item p-6 block group relative overflow-hidden" data-delay="105">
+                                <div class="card-spotlight" aria-hidden="true"></div>
+                                <div class="flex justify-between items-start mb-2 relative z-10">
                                     <h4
                                         class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
                                         Job Opportunity Notifier</h4>
                                     <span
-                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1]">arrow_outward</span>
+                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1] arrow-shift">arrow_outward</span>
                                 </div>
-                                <p class="meta-text text-[#475569] mb-4">Local job-matching platform connecting job seekers with nearby opportunities via automated job data ingestion, keyword/criteria-based matching, and email/SMS/push notification alerts.</p>
-                                <div class="flex flex-wrap gap-1.5">
+                                <p class="meta-text text-[#475569] mb-4 relative z-10">Local job-matching platform connecting job seekers with nearby opportunities via automated job data ingestion, keyword/criteria-based matching, and email/SMS/push notification alerts.</p>
+                                <div class="flex flex-wrap gap-1.5 relative z-10">
                                     <span class="tag-primary text-[12px]">Python</span>
                                     <span class="tag-primary text-[12px]">Flask</span>
                                     <span class="tag-primary text-[12px]">Automation</span>
@@ -799,23 +1228,22 @@
                     <!-- Vertical Timeline Container -->
                     <div class="relative border-l-2 border-[#CBD5E1] ml-3 sm:ml-4 pl-6 sm:pl-10 space-y-10">
                         <!-- Entry 1: SIH 2026 — SightLite -->
-                        <div class="relative">
+                        <div class="timeline-entry reveal-item" data-delay="0">
                             <!-- Timeline Dot on Left Line -->
-                            <div
-                                class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
-                            </div>
+                            <div class="timeline-dot" aria-hidden="true"></div>
 
                             <!-- Date Left-Aligned Above Entry -->
                             <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2026 — Present</p>
 
-                            <div class="timeline-card p-6">
-                                <h3 class="text-[18px] font-bold text-[#0F172A]">SIH 2026 — SightLite (Selected, Internal Round)</h3>
-                                <p class="meta-text text-[#475569] mb-3">Team Dcoders</p>
-                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
+                            <div class="timeline-card p-6 relative overflow-hidden">
+                                <div class="card-spotlight" aria-hidden="true"></div>
+                                <h3 class="text-[18px] font-bold text-[#0F172A] relative z-10">SIH 2026 — SightLite (Selected, Internal Round)</h3>
+                                <p class="meta-text text-[#475569] mb-3 relative z-10">Team Dcoders</p>
+                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4 relative z-10">
                                     <li>Selected for Smart India Hackathon 2026, Problem Statement SIH26171 (on-device visual perception for browser agents, backed by ISRO)</li>
                                     <li>Leading a 6-member team through architecture design, correcting an initial fully-offline assumption to a hybrid client-server model</li>
                                 </ul>
-                                <div class="flex flex-wrap gap-2">
+                                <div class="flex flex-wrap gap-2 relative z-10">
                                     <span class="tag-primary text-[12px]">SIH 2026</span>
                                     <span class="tag-primary text-[12px]">Team Leadership</span>
                                     <span class="tag-primary text-[12px]">ISRO</span>
@@ -824,20 +1252,19 @@
                         </div>
 
                         <!-- Entry 2: RetinaXAI — Major Project -->
-                        <div class="relative">
-                            <div
-                                class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
-                            </div>
+                        <div class="timeline-entry reveal-item" data-delay="35">
+                            <div class="timeline-dot" aria-hidden="true"></div>
                             <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2026 — Present</p>
 
-                            <div class="timeline-card p-6">
-                                <h3 class="text-[18px] font-bold text-[#0F172A]">RetinaXAI — Major Project (In Progress)</h3>
-                                <p class="meta-text text-[#475569] mb-3">Team: Shahzan, Shuraiq, Rayan, Raqi · Guide: Mr. Affan</p>
-                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
+                            <div class="timeline-card p-6 relative overflow-hidden">
+                                <div class="card-spotlight" aria-hidden="true"></div>
+                                <h3 class="text-[18px] font-bold text-[#0F172A] relative z-10">RetinaXAI — Major Project (In Progress)</h3>
+                                <p class="meta-text text-[#475569] mb-3 relative z-10">Team: Shahzan, Shuraiq, Rayan, Raqi · Guide: Mr. Affan</p>
+                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4 relative z-10">
                                     <li>Building a multi-task EfficientNet-B3 model for diabetic retinopathy and DME detection with Grad-CAM explainability</li>
                                     <li>Completed Review 1; currently in a structured 9-session implementation deep-dive targeting 60% codebase understanding before Review 2</li>
                                 </ul>
-                                <div class="flex flex-wrap gap-2">
+                                <div class="flex flex-wrap gap-2 relative z-10">
                                     <span class="tag-primary text-[12px]">PyTorch</span>
                                     <span class="tag-primary text-[12px]">EfficientNet-B3</span>
                                     <span class="tag-primary text-[12px]">Grad-CAM</span>
@@ -846,19 +1273,18 @@
                         </div>
 
                         <!-- Entry 3: Applied Machine Learning -->
-                        <div class="relative">
-                            <div
-                                class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
-                            </div>
+                        <div class="timeline-entry reveal-item" data-delay="70">
+                            <div class="timeline-dot" aria-hidden="true"></div>
                             <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2026 — Present</p>
 
-                            <div class="timeline-card p-6">
-                                <h3 class="text-[18px] font-bold text-[#0F172A] mb-3">Applied Machine Learning — Self-Directed Program</h3>
-                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
+                            <div class="timeline-card p-6 relative overflow-hidden">
+                                <div class="card-spotlight" aria-hidden="true"></div>
+                                <h3 class="text-[18px] font-bold text-[#0F172A] relative z-10">Applied Machine Learning — Self-Directed Program</h3>
+                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4 relative z-10">
                                     <li>Working through a structured, project-based ML curriculum: covered EDA, Logistic Regression, Decision Trees, Random Forests, cross-validation, and sklearn pipelines via an end-to-end Kaggle project (Titanic — 77.6% CV F1, top ~23% leaderboard)</li>
                                     <li>Currently applying gradient boosting (XGBoost) to a Kaggle regression project (House Price Prediction)</li>
                                 </ul>
-                                <div class="flex flex-wrap gap-2">
+                                <div class="flex flex-wrap gap-2 relative z-10">
                                     <span class="tag-primary text-[12px]">Scikit-learn</span>
                                     <span class="tag-primary text-[12px]">XGBoost</span>
                                     <span class="tag-primary text-[12px]">Kaggle</span>
@@ -867,14 +1293,13 @@
                         </div>
 
                         <!-- Entry 4: B.E. in Computer Science and Engineering (Data Science) -->
-                        <div class="relative">
-                            <div
-                                class="absolute -left-[31px] sm:-left-[47px] top-1 size-3.5 rounded-full bg-[#0369A1] ring-4 ring-[#F8FAFC]">
-                            </div>
+                        <div class="timeline-entry reveal-item" data-delay="105">
+                            <div class="timeline-dot" aria-hidden="true"></div>
                             <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2023 — Present</p>
 
-                            <div class="timeline-card p-6">
-                                <h3 class="text-[18px] font-bold text-[#0F172A]">B.E. in Computer Science and Engineering (Data Science)</h3>
+                            <div class="timeline-card p-6 relative overflow-hidden">
+                                <div class="card-spotlight" aria-hidden="true"></div>
+                                <h3 class="text-[18px] font-bold text-[#0F172A] relative z-10">B.E. in Computer Science and Engineering (Data Science)</h3>
                                 <p class="meta-text text-[#475569] mb-3">Anjuman Institute of Technology and Management (VTU)</p>
                                 <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
                                     <li>Final-year student, expected graduation in 2027</li>
@@ -901,12 +1326,12 @@
                             Open to internships, collaborations, or just a conversation about machine learning and AI. Feel free to reach out.
                         </p>
 
-                        <!-- Centered Row of Social Icons -->
+                        <!-- Centered Row of Social Icons with Pop-In Stagger -->
                         <div class="flex items-center justify-center gap-4">
                             <!-- GitHub -->
                             <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
                                 aria-label="Mohammed Shahzan on GitHub"
-                                class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
+                                class="social-btn contact-social-btn flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
                                 <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M12 2C6.477 2 2 6.477 2 12.013c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.218.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.82c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .267.18.577.688.48C19.135 20.175 22 16.43 22 12.013 22 6.477 17.523 2 12 2z">
@@ -917,7 +1342,7 @@
                             <!-- LinkedIn -->
                             <a href="https://www.linkedin.com/in/mohammed-shahzan-armar-2ab1a82a4?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                                 target="_blank" rel="noopener noreferrer" aria-label="Mohammed Shahzan on LinkedIn"
-                                class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
+                                class="social-btn contact-social-btn flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
                                 <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                                     <path
                                         d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z">
@@ -928,7 +1353,7 @@
                             <!-- Email -->
                             <a href="mailto:shahzanarmar01@gmail.com" target="_blank" rel="noopener noreferrer"
                                 aria-label="Send email to Mohammed Shahzan"
-                                class="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
+                                class="social-btn contact-social-btn flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
                                 <span class="material-symbols-outlined text-[20px]">mail</span>
                             </a>
                         </div>
