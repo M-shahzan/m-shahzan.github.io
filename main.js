@@ -26,13 +26,13 @@
   var sightStage = 1;  // 1 to 4
 
   var sceneThemes = [
-    { bg: '#07070a', light: 'radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(56, 189, 248, 0.03) 45%, transparent 70%)' },
-    { bg: '#08080c', light: 'radial-gradient(circle, rgba(148, 163, 184, 0.08) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 70%)' },
-    { bg: '#0c0814', light: 'radial-gradient(circle, rgba(244, 63, 94, 0.11) 0%, rgba(139, 92, 246, 0.08) 45%, transparent 70%)' },
-    { bg: '#070b14', light: 'radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(16, 185, 129, 0.05) 45%, transparent 70%)' },
-    { bg: '#07070a', light: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 60%)' },
-    { bg: '#08070e', light: 'radial-gradient(circle, rgba(168, 85, 247, 0.10) 0%, transparent 65%)' },
-    { bg: '#060608', light: 'radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, transparent 75%)' }
+    { bg: '#10131A', light: 'radial-gradient(circle at 35% 25%, rgba(139, 92, 246, 0.08) 0%, rgba(79, 124, 255, 0.04) 45%, transparent 70%)' },
+    { bg: '#151923', light: 'radial-gradient(circle at 65% 40%, rgba(79, 124, 255, 0.07) 0%, rgba(139, 92, 246, 0.03) 45%, transparent 70%)' },
+    { bg: '#10131A', light: 'radial-gradient(circle at 40% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 65%)' },
+    { bg: '#151923', light: 'radial-gradient(circle at 60% 40%, rgba(79, 124, 255, 0.07) 0%, transparent 65%)' },
+    { bg: '#10131A', light: 'radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 60%)' },
+    { bg: '#151923', light: 'radial-gradient(circle at 55% 45%, rgba(79, 124, 255, 0.07) 0%, transparent 65%)' },
+    { bg: '#10131A', light: 'radial-gradient(circle at 50% 100%, rgba(139, 92, 246, 0.08) 0%, transparent 70%)' }
   ];
 
   /* ==========================================================================
@@ -148,10 +148,10 @@
 
       // Continuous glass styling materialization (no abrupt visual snap)
       var glassFactor = Math.min(1, rawMorph * 2.2);
-      pillContainer.style.borderColor = 'rgba(255, 255, 255, ' + (0.16 * glassFactor).toFixed(3) + ')';
-      pillContainer.style.background = 'rgba(14, 14, 20, ' + (0.75 * glassFactor).toFixed(3) + ')';
-      pillContainer.style.boxShadow = '0 8px 28px rgba(0, 0, 0, ' + (0.55 * glassFactor).toFixed(3) + '), inset 0 1px 0 rgba(255, 255, 255, ' + (0.12 * glassFactor).toFixed(3) + ')';
-      var blurVal = (16 * glassFactor).toFixed(1);
+      pillContainer.style.borderColor = 'rgba(44, 52, 69, ' + (1.0 * glassFactor).toFixed(3) + ')';
+      pillContainer.style.background = 'rgba(16, 19, 26, ' + (0.82 * glassFactor).toFixed(3) + ')';
+      pillContainer.style.boxShadow = '0 8px 28px rgba(0, 0, 0, ' + (0.45 * glassFactor).toFixed(3) + '), inset 0 1px 0 rgba(255, 255, 255, ' + (0.08 * glassFactor).toFixed(3) + ')';
+      var blurVal = (18 * glassFactor).toFixed(1);
       pillContainer.style.backdropFilter = 'blur(' + blurVal + 'px)';
       pillContainer.style.webkitBackdropFilter = 'blur(' + blurVal + 'px)';
 
@@ -1267,7 +1267,7 @@
     retinaCtx.save();
     retinaCtx.beginPath();
     retinaCtx.arc(cx, cy, radius, 0, Math.PI * 2);
-    retinaCtx.fillStyle = '#0b0912';
+    retinaCtx.fillStyle = '#151923';
     retinaCtx.fill();
     retinaCtx.strokeStyle = retinaStage >= 2 ? 'rgba(139, 92, 246, 0.45)' : 'rgba(255, 255, 255, 0.12)';
     retinaCtx.lineWidth = 1.5;
@@ -1364,21 +1364,21 @@
 
     sightCtx.clearRect(0, 0, w, h);
 
-    sightCtx.fillStyle = '#080a12';
+    sightCtx.fillStyle = '#10131A';
     sightCtx.fillRect(0, 0, w, h);
 
-    sightCtx.fillStyle = '#121624';
+    sightCtx.fillStyle = '#1B202C';
     sightCtx.fillRect(28, 22, w - 56, 38);
 
-    sightCtx.fillStyle = '#151c2d';
+    sightCtx.fillStyle = '#252B3A';
     sightCtx.fillRect(28, 76, w - 56, 84);
 
     var cardW = (w - 80) / 2;
-    sightCtx.fillStyle = '#121624';
+    sightCtx.fillStyle = '#1B202C';
     sightCtx.fillRect(28, 178, cardW, 100);
     sightCtx.fillRect(40 + cardW, 178, cardW, 100);
 
-    sightCtx.fillStyle = '#0f131f';
+    sightCtx.fillStyle = '#222838';
     sightCtx.fillRect(28, 298, w - 56, 44);
 
     if (sightStage >= 2) {
