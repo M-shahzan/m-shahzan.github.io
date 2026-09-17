@@ -1,0 +1,1759 @@
+/* ==========================================================================
+   MOHAMMED SHAHZAN ARMAR — CINEMATIC SCENE PORTFOLIO
+   Clean Scene-Driven Machine Learning & Systems Experience
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens & Computational Palette
+   -------------------------------------------------------------------------- */
+:root {
+  --bg-current: #07070a;
+  --bg-surface: #0e0e14;
+  --bg-pill: rgba(14, 14, 20, 0.92);
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-pill: rgba(255, 255, 255, 0.16);
+  --border-focus: rgba(139, 92, 246, 0.5);
+
+  /* Functional Signal Accents */
+  --signal-violet: #8b5cf6;
+  --signal-violet-bright: #a855f7;
+  --signal-cyan: #38bdf8;
+  --signal-emerald: #10b981;
+  --signal-red: #f43f5e;
+
+  /* Typography Colors */
+  --text-pure: #ffffff;
+  --text-body: #cbd5e1;
+  --text-muted: #64748b;
+  --text-dim: #334155;
+
+  /* Fonts */
+  --font-script: 'Alex Brush', 'Allura', cursive, Georgia, serif;
+  --font-serif-italic: 'Playfair Display', Georgia, serif;
+  --font-hero: 'Syne', 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Space Grotesk', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+
+  /* Easing */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Base Setup
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #07070a;
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--bg-current);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: clip;
+  transition: background-color 0.8s ease;
+}
+
+::selection {
+  background: var(--signal-violet);
+  color: #000;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   3. Layered Living Background System
+   -------------------------------------------------------------------------- */
+.bg-layer-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.bg-layer-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 45%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 45%, transparent 95%);
+}
+
+.bg-layer-light {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 950px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(56, 189, 248, 0.03) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(60px);
+  transition: background 0.8s ease, transform 0.8s ease;
+  will-change: transform, background;
+}
+
+
+/* --------------------------------------------------------------------------
+   4. Custom Cursor (Desktop Only)
+   -------------------------------------------------------------------------- */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.25s var(--ease-expo), height 0.25s var(--ease-expo), background-color 0.2s ease;
+}
+
+.cursor-text {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  color: #fff;
+  opacity: 0;
+  letter-spacing: 0.1em;
+}
+
+.cursor-follower.is-hovering {
+  width: 68px;
+  height: 68px;
+  background-color: rgba(139, 92, 246, 0.18);
+  border-color: var(--signal-violet);
+  backdrop-filter: blur(4px);
+}
+
+.cursor-follower.is-hovering .cursor-text {
+  opacity: 1;
+}
+
+@media (pointer: coarse) {
+
+  .cursor-dot,
+  .cursor-follower {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. SINGLE CONTAINER: ARROW -> PILL HEADER MORPH
+   Initial: Fixed near bottom-center, 48px circle [ ↓ SCROLL ]
+   Transformed: Fixed near top-center, floating pill header
+   -------------------------------------------------------------------------- */
+.scroll-pill-container {
+  position: fixed;
+  top: calc(100svh - 78px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid transparent;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  will-change: top, width, height, transform, border-radius, background, box-shadow;
+  cursor: pointer;
+}
+
+/* State A: Bottom Scroll Indicator Mode (↓) */
+.pill-arrow-mode {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--signal-violet-bright);
+  pointer-events: none;
+  white-space: nowrap;
+  will-change: opacity, transform;
+}
+
+.pill-arrow-svg {
+  animation: scrollArrowFloat 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollArrowFloat {
+
+  0%,
+  100% {
+    transform: translateY(-2px);
+  }
+
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+/* Dynamic SVG Circle Tracing around Arrow */
+.pill-circle-svg {
+  position: absolute;
+  inset: 0;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.pill-circle-arc {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 1px;
+  stroke-linecap: round;
+  stroke-dasharray: 69.12;
+  stroke-dashoffset: 69.12;
+  will-change: stroke-dashoffset;
+}
+
+.pill-circle-dot {
+  display: none !important;
+}
+
+/* State B: Transformed Floating Pill Header Mode */
+.pill-header-mode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 20px;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  will-change: opacity, transform;
+}
+
+.pill-logo {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill-logo::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--signal-violet);
+  box-shadow: 0 0 8px var(--signal-violet);
+}
+
+.pill-links-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pill-nav-item {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+  padding: 4px 0;
+}
+
+.pill-nav-item:hover,
+.pill-nav-item.active {
+  color: #ffffff;
+}
+
+.pill-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(139, 92, 246, 0.22);
+  border: 1px solid rgba(139, 92, 246, 0.45);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.pill-nav-cta:hover {
+  background: var(--signal-violet);
+  border-color: var(--signal-violet);
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   6. SCENE SYSTEM (One Viewport Per Scene, No Dead Space)
+   -------------------------------------------------------------------------- */
+#scenes-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6vw;
+  z-index: 10;
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
+}
+
+/* --------------------------------------------------------------------------
+   7. SCENE 01: HOMEPAGE (Editorial Two-Line Identity + Typographic Coordinates)
+   -------------------------------------------------------------------------- */
+.scene-home {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 8vw 0 clamp(10vw, 13vw, 16vw);
+  overflow: hidden;
+}
+
+.home-ambient-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.7;
+  will-change: opacity;
+}
+
+.hero-spatial-canvas {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: clamp(780px, 76vw, 1200px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: -3vh;
+  will-change: transform, opacity;
+}
+
+/* Option A: Architectural Typographic Coordinate System (Top-Left Anchor) */
+.hero-coord-anchor {
+  position: absolute;
+  top: clamp(28px, 4.5vh, 48px);
+  left: clamp(28px, 4.5vw, 64px);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 32px);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin: 0;
+  will-change: transform, opacity;
+}
+
+.coord-item {
+  display: flex;
+  align-items: center;
+}
+
+.coord-dim {
+  color: var(--signal-violet-bright);
+  margin-right: 5px;
+  opacity: 0.85;
+}
+
+/* Redesigned Two-Line Editorial Name Composition (Alex Brush Cursive Display) */
+.hero-name-composition {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.4vh, 20px);
+  cursor: default;
+  will-change: transform, opacity;
+}
+
+.hero-name-row {
+  overflow: visible;
+  display: flex;
+  align-items: baseline;
+}
+
+.hero-name-row.line-top {
+  margin-left: 0;
+}
+
+.hero-name-row.line-bottom {
+  margin-left: clamp(24px, 4vw, 68px);
+}
+
+.hero-display-word {
+  font-family: var(--font-script);
+  font-style: normal;
+  font-weight: 400;
+  text-transform: none;
+  color: #ffffff;
+  font-size: clamp(46px, 8vw, 118px);
+  line-height: 1.14;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  letter-spacing: 0;
+  font-kerning: normal;
+  font-variant-ligatures: contextual common-ligatures;
+  font-feature-settings: "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  transition: opacity 0.35s ease;
+  will-change: transform, opacity;
+}
+
+.word-mohammed {
+  color: #ffffff;
+}
+
+.word-shahzan-armar {
+  display: flex;
+  gap: clamp(16px, 2.4vw, 36px);
+  color: #ffffff;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.part-shahzan {
+  color: #ffffff;
+}
+
+.part-armar {
+  color: #ffffff;
+  opacity: 0.94;
+}
+
+/* Subtle Interactive Hover (Editorial & Refined) */
+.hero-name-composition:hover .word-mohammed {
+  opacity: 0.92;
+}
+
+.hero-name-composition:hover .word-shahzan-armar {
+  opacity: 0.92;
+}
+
+/* Minimal Editorial Descriptor Strip with Dash Separator */
+.hero-descriptor-strip {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 1.8vw, 24px);
+  margin-top: clamp(24px, 3.6vh, 42px);
+  margin-left: clamp(2px, 0.4vw, 8px);
+  will-change: transform, opacity;
+}
+
+.hero-dash-rule {
+  display: inline-block;
+  width: clamp(34px, 4.2vw, 60px);
+  height: 1.5px;
+  background: var(--signal-violet-bright);
+  opacity: 0.85;
+}
+
+.hero-descriptor-text {
+  font-family: var(--font-mono);
+  font-size: clamp(10.5px, 1.05vw, 12.5px);
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Responsive Composition */
+@media (max-width: 768px) {
+  .scene-home {
+    padding: 0 7vw;
+    align-items: center;
+  }
+
+  .hero-spatial-canvas {
+    gap: 0;
+    max-width: 100%;
+    margin-top: 0;
+  }
+
+  .hero-coord-anchor {
+    top: 20px;
+    left: 20px;
+    gap: 10px 16px;
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    flex-wrap: wrap;
+  }
+
+  .hero-name-composition {
+    gap: 4px;
+  }
+
+  .hero-name-row.line-top {
+    margin-left: 0;
+  }
+
+  .hero-name-row.line-bottom {
+    margin-left: 14px;
+  }
+
+  .word-shahzan-armar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    white-space: normal;
+  }
+
+  .hero-display-word {
+    font-size: clamp(38px, 11vw, 62px);
+    line-height: 1.15;
+  }
+
+  .hero-descriptor-strip {
+    gap: 12px;
+    margin-top: 18px;
+    margin-left: 0;
+  }
+
+  .hero-dash-rule {
+    width: 24px;
+  }
+
+  .hero-descriptor-text {
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. SCENE 02: ABOUT (Concise Editorial + Orbital Geometry)
+   -------------------------------------------------------------------------- */
+.scene-sticky-stage {
+  min-height: 220vh;
+  height: 220vh;
+  position: relative;
+  overflow: visible !important;
+  display: block !important;
+  padding: 0 !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+.scene-about {
+  position: relative;
+}
+
+.scene-about.scene-sticky-stage {
+  min-height: 190vh;
+  height: 190vh;
+}
+
+.about-pin-wrap {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6vw;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.about-content-container {
+  max-width: 1200px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 860px) {
+  .about-layout-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 68px;
+  }
+}
+
+.about-tag-marker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: var(--signal-violet);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: inline-block;
+}
+
+.about-progressive-headline {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 6.5vw, 90px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.about-word-first {
+  color: #ffffff;
+  display: inline-block;
+  transform-origin: left bottom;
+  will-change: transform, opacity;
+}
+
+.about-word-second {
+  color: var(--signal-violet-bright);
+  display: inline-block;
+  transform-origin: left bottom;
+  will-change: transform, opacity;
+}
+
+.about-orbital-visual {
+  width: 160px;
+  height: 160px;
+  margin-top: 14px;
+  animation: orbitalSlowRotate 40s linear infinite;
+  opacity: 0.88;
+}
+
+@keyframes orbitalSlowRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.about-orbital-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.about-narrative-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-lead-para {
+  font-size: clamp(16.5px, 1.75vw, 21px);
+  line-height: 1.65;
+  color: var(--text-pure);
+  font-weight: 500;
+}
+
+.about-sub-para {
+  font-size: clamp(14px, 1.25vw, 16px);
+  line-height: 1.75;
+  color: var(--text-body);
+}
+
+/* --------------------------------------------------------------------------
+   02. CORE COMPETENCIES (Full-Viewport Typographic Field)
+   -------------------------------------------------------------------------- */
+.about-competencies-block {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 4;
+  will-change: transform, opacity;
+  padding: clamp(86px, 11.5vh, 108px) clamp(24px, 4vw, 56px) clamp(24px, 3.5vh, 40px);
+  box-sizing: border-box;
+}
+
+.comp-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding-bottom: 0;
+  border-bottom: none;
+  will-change: transform, opacity;
+}
+
+.comp-tag-marker {
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 1.1vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  color: var(--signal-violet-bright);
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+/* Full-Viewport Spatial Poster Grid */
+.comp-poster-canvas {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 1.2fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(20px, 3vh, 44px) clamp(32px, 5vw, 76px);
+  align-items: center;
+  padding: clamp(14px, 2vh, 28px) 0 clamp(8px, 1.2vh, 18px);
+}
+
+.comp-cluster {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.4vh, 14px);
+  position: relative;
+}
+
+.comp-cluster-languages {
+  align-self: center;
+}
+
+.comp-cluster-ml {
+  align-self: center;
+}
+
+.comp-cluster-data {
+  align-self: center;
+}
+
+.comp-cluster-tools {
+  align-self: center;
+}
+
+.comp-cluster-label {
+  font-family: var(--font-mono);
+  font-size: clamp(9.5px, 0.95vw, 11px);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  will-change: transform, opacity;
+}
+
+.comp-cluster-idx {
+  color: var(--signal-violet-bright);
+  margin-right: 4px;
+}
+
+.comp-cluster-content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.4vh, 14px);
+}
+
+.comp-subrow-primary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: clamp(10px, 1.6vw, 22px);
+  line-height: 1.04;
+}
+
+.comp-subrow-supporting {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  line-height: 1.4;
+}
+
+/* Individual Technology Elements */
+.comp-item {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, 24px, 0) scale(0.95);
+  will-change: transform, opacity;
+  pointer-events: auto;
+  cursor: default;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+/* Primary Highlighted Technologies */
+.comp-item.comp-primary {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4.2vw, 64px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: #ffffff;
+  text-shadow: 0 0 45px rgba(255, 255, 255, 0.15);
+}
+
+.comp-item.comp-primary.lang-python {
+  font-size: clamp(44px, 5.8vw, 84px);
+}
+
+.comp-item.comp-primary:hover {
+  color: #ffffff;
+  text-shadow: 0 0 60px rgba(255, 255, 255, 0.35);
+}
+
+/* Supporting Technologies */
+.comp-item.comp-supporting {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 1.45vw, 18.5px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text-body);
+}
+
+.comp-item.comp-supporting.lang-sql {
+  font-size: clamp(19px, 2.1vw, 26px);
+  font-weight: 600;
+  color: var(--text-pure);
+}
+
+.comp-item.comp-supporting:hover {
+  color: #ffffff;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
+}
+
+.comp-dot {
+  color: rgba(139, 92, 246, 0.45);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  align-self: center;
+  user-select: none;
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* Responsive Rules for Mobile / Tablet */
+@media (max-width: 860px) {
+  .about-competencies-block {
+    padding: 84px 16px 24px 16px;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+
+  .comp-poster-canvas {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 24px;
+    padding: 16px 0;
+  }
+
+  .comp-header {
+    margin-bottom: 8px;
+  }
+
+  .comp-item.comp-primary {
+    font-size: clamp(24px, 6.5vw, 36px);
+  }
+
+  .comp-item.comp-primary.lang-python {
+    font-size: clamp(32px, 8.5vw, 46px);
+  }
+
+  .comp-item.comp-supporting {
+    font-size: clamp(12.5px, 3.4vw, 15px);
+  }
+
+  .comp-item.comp-supporting.lang-sql {
+    font-size: clamp(15px, 4.2vw, 20px);
+  }
+
+  .comp-subrow-supporting {
+    gap: 4px 10px;
+  }
+
+  .comp-cluster-label {
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. SCENE 03 & 04: RetinaXAI & SightLite (Continuous Case Studies 200vh)
+   -------------------------------------------------------------------------- */
+.scene-casestudy {
+  min-height: 220vh;
+  height: 220vh;
+  position: relative;
+  overflow: visible !important;
+  display: block !important;
+  padding: 0 !important;
+  transform: none !important;
+  will-change: auto !important;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.scene-casestudy .retinaxai-pin-wrap,
+.scene-casestudy .sightlite-pin-wrap {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 1200px;
+  height: 100svh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  padding: 0 6vw;
+  overflow: hidden;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+
+  .scene-casestudy .retinaxai-pin-wrap,
+  .scene-casestudy .sightlite-pin-wrap {
+    grid-template-columns: 46% 54%;
+    gap: 5vw;
+  }
+}
+
+.study-narrative-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 10;
+}
+
+.study-tag-header {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--signal-violet-bright);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.study-headline {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 68px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+
+.study-stages-box {
+  min-height: 170px;
+  position: relative;
+}
+
+.study-stage-step {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s var(--ease-expo);
+}
+
+.study-stage-step.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.study-step-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--signal-cyan);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.study-step-title {
+  font-family: var(--font-display);
+  font-size: clamp(19px, 2vw, 25px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.study-step-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+.study-bottom-row {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.stage-stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.step-dot.is-active {
+  width: 24px;
+  border-radius: 9999px;
+  background: var(--signal-violet);
+}
+
+.study-repo-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #000;
+  background-color: #fff;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.study-repo-btn:hover {
+  background-color: var(--signal-violet-bright);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Retinal Canvas Viewport */
+.study-canvas-viewport {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 60vh, 520px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: radial-gradient(circle at 50% 50%, #110d1c 0%, #060609 85%);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+#retinaxai-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.study-canvas-badge {
+  position: absolute;
+  bottom: 16px;
+  right: 18px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--signal-violet-bright);
+  background: rgba(10, 10, 16, 0.85);
+  border: 1px solid var(--border-subtle);
+  padding: 6px 14px;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+}
+
+/* --------------------------------------------------------------------------
+   10. SCENE 04: SightLite (Pinned Browser Frame 4-Stage Experience)
+   -------------------------------------------------------------------------- */
+.scene-sightlite {
+  border-top: 1px solid var(--border-subtle);
+}
+
+#sl-stepper .step-dot.is-active {
+  background: var(--signal-cyan);
+}
+
+.browser-canvas-stage {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 60vh, 520px);
+  background: #090c14;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+}
+
+.browser-top-header {
+  height: 36px;
+  background: #0d121c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 14px;
+}
+
+.browser-lights-row {
+  display: flex;
+  gap: 6px;
+}
+
+.b-light {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.browser-url-bar {
+  flex-grow: 1;
+  max-width: 360px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+#sightlite-canvas {
+  width: 100%;
+  height: calc(100% - 36px);
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   11. SCENE 05: PROJECT ARCHIVE (Large Typographic Rows)
+   -------------------------------------------------------------------------- */
+.scene-archive {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-current);
+}
+
+.archive-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.archive-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 14px;
+}
+
+.archive-main-heading {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 50px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.archive-tagline {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.archive-rows-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.archive-single-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: padding 0.25s var(--ease-expo), border-color 0.25s ease;
+}
+
+.archive-single-row:hover {
+  padding-left: 18px;
+  padding-right: 18px;
+  border-bottom-color: var(--signal-violet);
+}
+
+.archive-row-identity {
+  display: flex;
+  align-items: baseline;
+  gap: 2.5vw;
+}
+
+.archive-row-num {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.archive-row-name {
+  font-family: var(--font-display);
+  font-size: clamp(19px, 2.8vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #fff;
+  transition: color 0.2s ease;
+}
+
+.archive-single-row:hover .archive-row-name {
+  color: var(--signal-violet-bright);
+}
+
+.archive-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.archive-tech-label {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .archive-tech-label {
+    display: inline-block;
+  }
+}
+
+.archive-arrow-svg {
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  transition: transform 0.25s var(--ease-expo), color 0.2s ease;
+}
+
+.archive-single-row:hover .archive-arrow-svg {
+  transform: translate(3px, -3px);
+  color: #fff;
+}
+
+/* Ghost Preview for Archive Rows */
+.ghost-cursor-preview {
+  position: fixed;
+  width: 260px;
+  height: 140px;
+  background: #111118;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 998;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.85);
+  transition: opacity 0.2s ease, transform 0.2s var(--ease-expo);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px;
+}
+
+.ghost-cursor-preview.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.ghost-preview-title {
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ghost-preview-metric {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--signal-cyan);
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   12. SCENE 06: RESEARCH WALL & EXPERIMENTS NOTEBOOK
+   -------------------------------------------------------------------------- */
+.scene-experiments {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-current);
+}
+
+.exp-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.exp-section-header {
+  margin-bottom: 28px;
+}
+
+.exp-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 50px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.exp-sub-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.experiments-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 860px) {
+  .experiments-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.exp-log-card {
+  background: #0d0d14;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 18px 20px;
+  transition: border-color 0.2s ease, transform 0.2s var(--ease-expo);
+}
+
+.exp-log-card:hover {
+  border-color: var(--signal-violet);
+  transform: translateY(-2px);
+}
+
+.exp-log-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--signal-violet);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.exp-log-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.exp-log-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.exp-telemetry-strip {
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--signal-cyan);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   13. SCENE 07: THE EXIT (Contact)
+   -------------------------------------------------------------------------- */
+.scene-exit {
+  border-top: 1px solid var(--border-subtle);
+  background: radial-gradient(circle at 50% 100%, rgba(139, 92, 246, 0.1) 0%, #060608 75%);
+}
+
+.exit-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10vh 0 32px;
+}
+
+.exit-giant-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 9vw, 130px);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+  color: #ffffff;
+  margin-bottom: 32px;
+}
+
+.exit-links-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+}
+
+.exit-single-link {
+  font-family: var(--font-mono);
+  font-size: clamp(12.5px, 1.5vw, 18px);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--signal-violet);
+  transition: transform 0.2s var(--ease-expo), color 0.2s ease;
+}
+
+.exit-single-link:hover {
+  color: var(--signal-violet-bright);
+  transform: translateY(-2px);
+}
+
+.exit-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   14. Responsive Rules
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .scene {
+    padding: 0 5vw;
+  }
+
+  /* Mobile Header Navigation: preserve all links, compact & scroll-safe */
+  .pill-header-mode {
+    padding: 0 10px;
+    gap: 6px;
+  }
+
+  .pill-links-group {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1.8vw, 10px);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .pill-links-group::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pill-nav-item {
+    font-size: clamp(8.5px, 2.1vw, 10px);
+    letter-spacing: 0.05em;
+    padding: 2px 1px;
+    flex-shrink: 0;
+  }
+
+  .pill-logo {
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .pill-nav-cta {
+    font-size: 9px;
+    padding: 4px 8px;
+    gap: 3px;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+  }
+
+  .home-name-part.accent-shift {
+    padding-left: 20px;
+  }
+
+  .home-name-part.offset-right {
+    padding-left: 40px;
+  }
+
+  /* Work Scenes (RetinaXAI & SightLite): clear header & fit viewport */
+  .scene-casestudy .retinaxai-pin-wrap,
+  .scene-casestudy .sightlite-pin-wrap {
+    padding-top: clamp(68px, 9.5vh, 82px);
+    padding-bottom: clamp(14px, 2.5vh, 22px);
+    padding-left: 5vw;
+    padding-right: 5vw;
+    gap: clamp(10px, 2vh, 18px);
+    align-content: center;
+    justify-items: center;
+  }
+
+  .study-tag-header {
+    margin-bottom: 4px;
+    font-size: 10px;
+  }
+
+  .study-headline {
+    font-size: clamp(24px, 6vw, 32px);
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .study-step-eyebrow {
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+
+  .study-step-title {
+    font-size: clamp(14.5px, 3.8vw, 17px);
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+
+  .study-step-desc {
+    font-size: clamp(11.5px, 3vw, 13px);
+    line-height: 1.5;
+  }
+
+  .study-stages-box {
+    min-height: 125px;
+  }
+
+  .study-bottom-row {
+    margin-top: 10px;
+    gap: 12px;
+  }
+
+  .study-repo-btn {
+    font-size: 10px;
+    padding: 6px 14px;
+  }
+
+  .study-canvas-viewport,
+  .browser-canvas-stage {
+    height: clamp(140px, 24vh, 200px);
+  }
+
+  .browser-top-header {
+    height: 28px;
+    padding: 0 10px;
+  }
+
+  #sightlite-canvas {
+    height: calc(100% - 28px);
+  }
+
+  /* Experiments Scene: clear header, prevent clipping, keep all 4 cards readable */
+  .scene-experiments {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: clamp(80px, 12vh, 96px);
+    padding-bottom: clamp(40px, 6vh, 60px);
+  }
+
+  .exp-section-header {
+    margin-bottom: 16px;
+  }
+
+  .exp-main-title {
+    font-size: clamp(22px, 5.5vw, 30px);
+    margin-bottom: 4px;
+  }
+
+  .exp-sub-label {
+    font-size: 9.5px;
+  }
+
+  .experiments-cards-grid {
+    gap: 12px;
+  }
+
+  .exp-log-card {
+    padding: 14px 16px;
+  }
+
+  .exp-log-header {
+    font-size: 9px;
+    margin-bottom: 6px;
+  }
+
+  .exp-log-title {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .exp-log-desc {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .exp-telemetry-strip {
+    margin-top: 8px;
+    font-size: 9.5px;
+  }
+
+  .exit-inner {
+    padding: 8vh 0 24px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   15. Accessibility: Prefers Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .cursor-dot,
+  .cursor-follower {
+    display: none !important;
+  }
+
+  .scroll-pill-container {
+    top: 20px !important;
+    width: auto !important;
+  }
+
+  .pill-arrow-mode {
+    display: none !important;
+  }
+
+  .pill-header-mode {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}

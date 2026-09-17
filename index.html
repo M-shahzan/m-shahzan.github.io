@@ -1,1389 +1,650 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="en">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Mohammed Shahzan Armar — Final-Year Data Science Student | ML Engineer</title>
-
-    <!-- Google Fonts & Material Symbols -->
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        bgLight: '#F8FAFC',
-                        cardLight: '#FFFFFF',
-                        accentPrimary: '#0369A1',
-                        accentSecondary: '#6366F1',
-                        textPrimary: '#0F172A',
-                        textMuted: '#475569',
-                        borderBase: '#E2E8F0'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Premium Light Theme & Wide Responsive Layout with Equal Side Margins -->
-    <style>
-        :root {
-            --bg-color: #F8FAFC;
-            --card-color: #FFFFFF;
-            --accent-primary: #0369A1;
-            --accent-primary-hover: #075985;
-            --accent-secondary: #6366F1;
-            --text-primary: #0F172A;
-            --text-muted: #475569;
-            --border-color: #E2E8F0;
-        }
-
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg-color) !important;
-            color: var(--text-muted);
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            line-height: 1.65;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-        }
-
-        /* Typography Hierarchy */
-        .section-title {
-            font-size: 30px;
-            line-height: 1.25;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-
-        .section-marker {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--accent-primary);
-        }
-
-        .body-text {
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--text-muted);
-        }
-
-        .meta-text {
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
-        /* Spacing System (8 / 16 / 24 / 32 / 48 / 64px) */
-        .section-pad {
-            padding-top: 64px;
-            padding-bottom: 64px;
-        }
-
-        /* Reading Progress Bar */
-        .scroll-progress-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 2.5px;
-            width: 100%;
-            background: linear-gradient(90deg, #0369A1 0%, #38BDF8 60%, #6366F1 100%);
-            transform-origin: 0% 50%;
-            transform: scaleX(0);
-            transition: transform 60ms linear;
-            z-index: 60;
-        }
-
-        header.header-scrolled {
-            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07) !important;
-        }
-
-        /* Section Fade In */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-
-        .fade-in-section.is-visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        /* Snappy, Instant Scroll Reveals (Zero Lag) */
-        .reveal-item {
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1), transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-
-        .reveal-item.is-revealed {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        /* Hero Entrance Keyframes & Sequence */
-        @keyframes heroFadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes heroMaskSlideUp {
-            0% {
-                transform: translateY(102%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Terminal Caret & Spark Micro-Interactions */
-        @keyframes caretBlink {
-            0%, 49% {
-                opacity: 1;
-            }
-            50%, 100% {
-                opacity: 0;
-            }
-        }
-
-        .terminal-caret {
-            display: inline-block;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            color: #0369A1;
-            animation: caretBlink 1.1s infinite;
-        }
-
-        @keyframes sparkGlint {
-            0%, 100% {
-                transform: scale(1) rotate(0deg);
-                opacity: 0.85;
-            }
-            50% {
-                transform: scale(1.25) rotate(90deg);
-                opacity: 1;
-            }
-        }
-
-        .pulse-spark {
-            display: inline-block;
-            color: #0369A1;
-            font-size: 11px;
-            animation: sparkGlint 3s ease-in-out infinite;
-        }
-
-        @keyframes subtleBadgePulse {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(3, 105, 161, 0.2);
-            }
-            50% {
-                box-shadow: 0 0 0 4px rgba(3, 105, 161, 0.08);
-            }
-        }
-
-        @keyframes pingSlow {
-            0% {
-                transform: scale(0.95);
-                opacity: 0.8;
-            }
-            70%, 100% {
-                transform: scale(2.4);
-                opacity: 0;
-            }
-        }
-
-        .hero-badge-container {
-            animation: heroFadeUp 420ms cubic-bezier(0.16, 1, 0.3, 1) 40ms both;
-        }
-
-        .tag-primary-hero {
-            box-shadow: 0 1px 3px rgba(3, 105, 161, 0.1);
-            animation: subtleBadgePulse 3.5s ease-in-out 1s infinite;
-        }
-
-        .hero-name-mask {
-            overflow: hidden;
-            display: block;
-            padding-bottom: 4px;
-            margin-bottom: 2px;
-        }
-
-        @keyframes nameShine {
-            0% {
-                background-position: 0% 50%;
-            }
-            100% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .hero-name {
-            display: inline-block;
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #0369A1 75%, #4338CA 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: heroFadeUp 520ms cubic-bezier(0.16, 1, 0.3, 1) 480ms both, nameShine 7s ease infinite alternate;
-            transition: filter 250ms ease;
-            min-height: 1.15em;
-        }
-
-        .hero-name:hover {
-            filter: drop-shadow(0 2px 10px rgba(3, 105, 161, 0.22));
-        }
-
-        .hero-role {
-            animation: heroFadeUp 480ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both;
-        }
-
-        .hero-tagline {
-            animation: heroFadeUp 480ms cubic-bezier(0.16, 1, 0.3, 1) 300ms both;
-        }
-
-        /* Hero CTA Buttons: static and immediately available, zero bottom-to-up translation */
-        .hero-cta {
-            opacity: 1;
-            transform: none;
-        }
-
-        .hero-metric-card {
-            animation: heroFadeUp 550ms cubic-bezier(0.16, 1, 0.3, 1) 240ms both;
-        }
-
-        /* Hero Dot Matrix Background */
-        .hero-grid-pattern {
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px);
-            background-size: 26px 26px;
-            mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 50%, transparent 100%);
-            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 50%, transparent 100%);
-            opacity: 0.6;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Status Beacon */
-        .status-beacon {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .status-beacon::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 9999px;
-            background-color: #0369A1;
-            animation: pingSlow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-        }
-
-        /* Nav Links & Underline */
-        .nav-link {
-            position: relative;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-muted);
-            transition: color 200ms ease-out;
-            text-decoration: none;
-            padding-top: 4px;
-            padding-bottom: 4px;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--accent-primary);
-            border-radius: 2px;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 200ms ease-out;
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--accent-primary) !important;
-        }
-
-        /* Interactive Buttons */
-        .btn-primary {
-            background-color: var(--accent-primary) !important;
-            color: #FFFFFF !important;
-            font-weight: 600;
-            font-size: 15px;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1), background-color 200ms ease-out;
-            box-shadow: 0 2px 6px rgba(3, 105, 161, 0.25);
-        }
-
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -130%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-            transform: skewX(-20deg);
-            pointer-events: none;
-        }
-
-        .btn-primary:hover::after {
-            left: 160%;
-            transition: left 650ms ease-in-out;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-primary-hover) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(3, 105, 161, 0.35);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0) scale(0.98);
-        }
-
-        .btn-outline {
-            background-color: #FFFFFF !important;
-            border: 1px solid var(--border-color) !important;
-            color: var(--text-primary) !important;
-            font-weight: 600;
-            font-size: 15px;
-            border-radius: 8px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-            transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease-out, color 200ms ease-out, box-shadow 200ms ease-out;
-        }
-
-        .btn-outline:hover {
-            border-color: var(--accent-primary) !important;
-            color: var(--accent-primary) !important;
-            box-shadow: 0 4px 14px rgba(3, 105, 161, 0.12);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline:active {
-            transform: translateY(0) scale(0.98);
-        }
-
-        /* Card Hover Lift & Spotlight Glow */
-        .project-card {
-            background-color: var(--card-color) !important;
-            border: 1px solid var(--border-color) !important;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-            transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 250ms cubic-bezier(0.16, 1, 0.3, 1), border-color 250ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .card-spotlight {
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 250ms ease;
-            background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(3, 105, 161, 0.08), transparent 70%);
-            z-index: 1;
-        }
-
-        .project-card:hover .card-spotlight {
-            opacity: 1;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 18%;
-            right: 18%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(3, 105, 161, 0.7), transparent);
-            opacity: 0;
-            border-radius: 2px;
-            transition: opacity 300ms ease, left 300ms ease, right 300ms ease;
-            pointer-events: none;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-            left: 8%;
-            right: 8%;
-        }
-
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px -4px rgba(3, 105, 161, 0.12), 0 6px 12px -2px rgba(0, 0, 0, 0.04) !important;
-            border-color: #BAE6FD !important;
-        }
-
-        /* Directional Arrow Shift */
-        .arrow-shift {
-            display: inline-block;
-            transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .group:hover .arrow-shift,
-        .project-card:hover .arrow-shift {
-            transform: translate(3px, -3px);
-        }
-
-        /* Timeline Entry & Responsive Node */
-        .timeline-entry {
-            position: relative;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: -31px;
-            top: 4px;
-            width: 14px;
-            height: 14px;
-            border-radius: 9999px;
-            background-color: #0369A1;
-            box-shadow: 0 0 0 4px #F8FAFC;
-            transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 250ms ease;
-        }
-
-        @media (min-width: 640px) {
-            .timeline-dot {
-                left: -47px;
-            }
-        }
-
-        .timeline-entry:hover .timeline-dot {
-            transform: scale(1.25);
-            box-shadow: 0 0 0 5px #E0F2FE, 0 0 10px rgba(3, 105, 161, 0.3);
-        }
-
-        .timeline-card {
-            background-color: var(--card-color) !important;
-            border: 1px solid var(--border-color) !important;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-            transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 250ms cubic-bezier(0.16, 1, 0.3, 1), border-color 250ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .timeline-card:hover {
-            transform: translateX(4px);
-            box-shadow: 0 8px 22px -4px rgba(3, 105, 161, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
-            border-color: #BAE6FD !important;
-        }
-
-        /* Tech Tag Badges */
-        .tag-primary {
-            background-color: #F0F9FF !important;
-            color: #0369A1 !important;
-            border: 1px solid #BAE6FD !important;
-            border-radius: 9999px;
-            font-size: 13px;
-            font-weight: 500;
-            padding: 3px 10px;
-            display: inline-flex;
-            align-items: center;
-            transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms ease, border-color 180ms ease;
-        }
-
-        .tag-primary:hover {
-            transform: translateY(-1.5px);
-        }
-
-        .tag-secondary {
-            background-color: #EEF2FF !important;
-            color: #4338CA !important;
-            border: 1px solid #C7D2FE !important;
-            border-radius: 9999px;
-            font-size: 13px;
-            font-weight: 500;
-            padding: 3px 10px;
-            display: inline-flex;
-            align-items: center;
-            transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms ease, border-color 180ms ease;
-        }
-
-        .tag-secondary:hover {
-            transform: translateY(-1.5px);
-        }
-
-        /* Social Icons & Contact Section Pop-In Stagger */
-        .social-btn {
-            transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
-        }
-
-        .social-btn:hover {
-            transform: translateY(-3px) scale(1.06) !important;
-            box-shadow: 0 6px 16px rgba(3, 105, 161, 0.18) !important;
-        }
-
-        .contact-social-btn {
-            opacity: 0;
-            transform: scale(0.65) translateY(12px);
-            transition: opacity 320ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                        transform 350ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                        color 200ms ease,
-                        border-color 200ms ease,
-                        box-shadow 200ms ease;
-            will-change: opacity, transform;
-        }
-
-        .fade-in-section.is-visible .contact-social-btn:nth-child(1) {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            transition-delay: 60ms;
-        }
-
-        .fade-in-section.is-visible .contact-social-btn:nth-child(2) {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            transition-delay: 135ms;
-        }
-
-        .fade-in-section.is-visible .contact-social-btn:nth-child(3) {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            transition-delay: 210ms;
-        }
-
-        /* Flagship Project Schematic Wipe Reveal (Left to Right) */
-        .flagship-visual-wipe {
-            display: block;
-            width: 100%;
-            height: 100%;
-            clip-path: inset(0 100% 0 0);
-            transition: clip-path 700ms cubic-bezier(0.16, 1, 0.3, 1) 120ms;
-            will-change: clip-path;
-        }
-
-        .project-card.is-revealed .flagship-visual-wipe {
-            clip-path: inset(0 0% 0 0);
-        }
-
-        /* SVG Schematic Micro-Animations */
-        @keyframes heatmapBreathe {
-            0%, 100% {
-                opacity: 0.22;
-                transform: scale(0.97);
-            }
-            50% {
-                opacity: 0.45;
-                transform: scale(1.03);
-            }
-        }
-
-        @keyframes scanRingRotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .svg-heatmap-glow {
-            animation: heatmapBreathe 3.8s ease-in-out infinite alternate;
-            transform-origin: 275px 138px;
-        }
-
-        .svg-grid-ring {
-            transform-origin: 300px 150px;
-            animation: scanRingRotate 50s linear infinite;
-        }
-
-        @keyframes streamDashFlow {
-            to {
-                stroke-dashoffset: -20;
-            }
-        }
-
-        .svg-stream-flow {
-            stroke-dasharray: 6 4;
-            animation: streamDashFlow 1.4s linear infinite;
-        }
-
-        /* Mobile Drawer */
-        #mobile-menu {
-            transition: max-height 300ms ease-out, opacity 250ms ease-out;
-        }
-
-        #mobile-menu.hidden-menu {
-            max-height: 0;
-            opacity: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        #mobile-menu.open-menu {
-            max-height: 440px;
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Input elements focus */
-        input:focus,
-        textarea:focus {
-            border-color: var(--accent-primary) !important;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.15) !important;
-        }
-
-        /* Accessibility: Reduced Motion */
-        @media (prefers-reduced-motion: reduce) {
-            .fade-in-section,
-            .reveal-item,
-            .hero-badge-container,
-            .terminal-caret,
-            .pulse-spark,
-            .hero-name,
-            .hero-role,
-            .hero-tagline,
-            .hero-cta,
-            .hero-metric-card,
-            .hero-grid-pattern,
-            .project-card,
-            .project-card::before,
-            .card-spotlight,
-            .timeline-card,
-            .timeline-dot,
-            .timeline-entry:hover .timeline-dot,
-            .btn-primary,
-            .btn-primary::after,
-            .btn-outline,
-            .tag-primary,
-            .tag-secondary,
-            .tag-primary-hero,
-            .social-btn,
-            .contact-social-btn,
-            .flagship-visual-wipe,
-            .svg-heatmap-glow,
-            .svg-grid-ring,
-            .svg-stream-flow,
-            .status-beacon::before,
-            .scroll-progress-bar,
-            .nav-link,
-            .nav-link::after {
-                animation: none !important;
-                transition: none !important;
-                transform: none !important;
-                opacity: 1 !important;
-                clip-path: none !important;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohammed Shahzan Armar — Machine Learning &amp; Systems</title>
+
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description"
+    content="Portfolio of Mohammed Shahzan Armar — Final-Year Data Science Student &amp; ML Engineer specializing in Explainable AI (XAI), Computer Vision, and Edge Deployment." />
+  <meta name="keywords"
+    content="Mohammed Shahzan Armar, Machine Learning Engineer, Computer Vision, Explainable AI, Edge AI, RetinaXAI, SightLite, PyTorch" />
+  <meta name="author" content="Mohammed Shahzan Armar" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mohammed Shahzan Armar — Machine Learning &amp; Systems" />
+  <meta property="og:description"
+    content="Building intelligent systems that actually work in the real world — Explainable AI, Computer Vision, and Edge Deployment." />
+  <meta property="og:url" content="https://m-shahzan.github.io" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2307070a'/><circle cx='16' cy='16' r='5' fill='%238b5cf6'/></svg>" />
+
+  <!-- Google Fonts: Alex Brush, Allura, Playfair Display, Syne, Plus Jakarta Sans, Inter, JetBrains Mono, IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@700;800&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Custom Design System -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 
-<body class="bg-[#F8FAFC]">
-    <div class="relative flex min-h-screen w-full flex-col">
-        <!-- TopNavBar (Wide max-w-6xl with equal side padding px-6 sm:px-10 lg:px-16) -->
-        <header id="site-header" class="sticky top-0 z-50 w-full border-b border-[#E2E8F0] bg-white/95 backdrop-blur-md transition-shadow duration-300">
-            <div id="scroll-progress" class="scroll-progress-bar" aria-hidden="true"></div>
-            <div class="w-full max-w-6xl mx-auto flex h-16 items-center justify-between px-6 sm:px-10 lg:px-16">
-                <a href="#home"
-                    class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1] rounded-lg p-1">
-                    <div
-                        class="size-7 text-[#0369A1] transition-transform duration-200 group-hover:scale-110 flex items-center justify-center">
-                        <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
-                            <path clip-rule="evenodd"
-                                d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z"
-                                fill-rule="evenodd"></path>
-                            <path clip-rule="evenodd"
-                                d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z"
-                                fill-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <span class="text-[16px] font-bold text-[#0F172A] tracking-tight">Mohammed Shahzan Armar</span>
-                </a>
+<body>
+  <!-- Layered Living Background System -->
+  <div class="bg-layer-noise" aria-hidden="true"></div>
+  <div class="bg-layer-grid" aria-hidden="true"></div>
+  <div id="ambient-light" class="bg-layer-light" aria-hidden="true"></div>
 
-                <!-- Desktop Nav -->
-                <nav class="hidden items-center gap-7 md:flex">
-                    <a class="nav-link" href="#home">Home</a>
-                    <a class="nav-link" href="#about">About</a>
-                    <a class="nav-link" href="#skills">Skills</a>
-                    <a class="nav-link" href="#projects">Projects</a>
-                    <a class="nav-link" href="#experience">Experience</a>
-                    <a class="nav-link" href="#contact">Contact</a>
-                    <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
-                        class="btn-primary flex h-10 min-h-[44px] items-center justify-center px-5">
-                        <span class="text-[14px]">GitHub</span>
-                    </a>
-                </nav>
+  <!-- Custom Magnetic Cursor (Desktop Only) -->
+  <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-follower" class="cursor-follower" aria-hidden="true">
+    <span class="cursor-text">VIEW</span>
+  </div>
 
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false"
-                    aria-controls="mobile-menu"
-                    class="md:hidden flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-[#0F172A] hover:bg-[#F1F5F9] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
-                    <span id="mobile-menu-icon" class="material-symbols-outlined text-2xl">menu</span>
-                </button>
-            </div>
+  <!-- Ghost Preview Container for Archive Rows -->
+  <div id="archive-ghost-preview" class="ghost-cursor-preview" aria-hidden="true">
+    <div class="ghost-preview-title" id="ghost-title">Project Name</div>
+    <div class="ghost-preview-metric" id="ghost-metric">Metric Details</div>
+  </div>
 
-            <!-- Mobile Dropdown Menu -->
-            <div id="mobile-menu"
-                class="hidden-menu md:hidden border-t border-[#E2E8F0] bg-white px-6 py-3 shadow-md">
-                <nav class="flex flex-col space-y-1">
-                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
-                        href="#home">Home</a>
-                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
-                        href="#about">About</a>
-                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
-                        href="#skills">Skills</a>
-                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
-                        href="#projects">Projects</a>
-                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
-                        href="#experience">Experience</a>
-                    <a class="mobile-nav-link flex h-11 min-h-[44px] items-center px-3 rounded-lg text-[16px] font-medium text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0369A1] transition-colors"
-                        href="#contact">Contact</a>
-                    <div class="pt-2">
-                        <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
-                            class="btn-primary flex h-11 w-full min-h-[44px] items-center justify-center rounded-lg px-4 text-[16px]">
-                            <span>View GitHub Profile</span>
-                        </a>
-                    </div>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="flex-grow">
-            <!-- 1. HERO SECTION (Wide layout, Equal Margins, Left-Aligned) -->
-            <section id="home" class="section-pad relative flex items-center overflow-hidden">
-                <div class="hero-grid-pattern" aria-hidden="true"></div>
-                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
-                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 text-left">
-                        <!-- Hero Text Block -->
-                        <div class="w-full lg:w-7/12 flex flex-col items-start text-left">
-                            <div class="mb-4 hero-badge-container">
-                                <span class="tag-primary tag-primary-hero">
-                                    <span class="pulse-spark mr-1.5" aria-hidden="true">✦</span>
-                                    <span id="hero-greeting-text">Hi, my name is</span>
-                                    <span id="hero-greeting-caret" class="terminal-caret ml-1" aria-hidden="true">_</span>
-                                </span>
-                            </div>
-
-                            <div class="hero-name-mask">
-                                <h1
-                                    class="hero-name text-[36px] sm:text-[46px] lg:text-[54px] font-extrabold text-[#0F172A] leading-[1.12] mb-3 break-words text-left">
-                                    Mohammed Shahzan Armar
-                                </h1>
-                            </div>
-
-                            <h2 class="hero-role text-[20px] sm:text-[24px] font-bold text-[#0369A1] mb-4 text-left">
-                                Final-Year Data Science Student | ML Engineer
-                            </h2>
-
-                            <p class="hero-tagline body-text mb-8 max-w-2xl text-left">
-                                Aspiring Data Scientist and ML Engineer passionate about building explainable, real-world AI systems — from healthcare diagnostics to on-device computer vision.
-                            </p>
-
-                            <!-- Hero CTA Buttons -->
-                            <div class="hero-cta flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                                <a href="#projects"
-                                    class="btn-primary flex h-12 min-h-[44px] w-full sm:w-auto items-center justify-center px-6">
-                                    <span>View Featured Projects</span>
-                                </a>
-                                <a href="#contact"
-                                    class="btn-outline flex h-12 min-h-[44px] w-full sm:w-auto items-center justify-center px-6">
-                                    <span>Get In Touch</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Right Visual Block on Desktop (Scannable ML Metric Card) -->
-                        <div class="w-full lg:w-5/12 flex justify-start lg:justify-end">
-                            <div
-                                class="hero-metric-card w-full max-w-md rounded-xl border border-[#E2E8F0] bg-white p-6 sm:p-7 shadow-sm text-left">
-                                <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-4 mb-5">
-                                    <div class="flex items-center gap-2">
-                                        <span class="status-beacon size-2.5 rounded-full bg-[#0369A1] inline-block" aria-hidden="true"></span>
-                                        <span class="meta-text font-mono text-[#0F172A] font-semibold">Flagship ML Projects</span>
-                                    </div>
-                                    <span class="meta-text font-mono text-[#0369A1] font-semibold">Active</span>
-                                </div>
-
-                                <div class="space-y-4">
-                                    <div class="rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] p-4">
-                                        <div class="flex justify-between items-center mb-1">
-                                            <span class="meta-text text-[#0F172A] font-semibold">RetinaXAI (Medical CV)</span>
-                                            <span class="meta-text font-mono text-[#0369A1] font-bold stat-counter" data-target="0.92" data-decimals="2" data-suffix=" ROC-AUC (DME)">0.92 ROC-AUC (DME)</span>
-                                        </div>
-                                        <p class="meta-text text-[#475569]">Multi-task EfficientNet-B3 + Grad-CAM, trained on IDRiD</p>
-                                    </div>
-
-                                    <div class="rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] p-4">
-                                        <div class="flex justify-between items-center mb-1">
-                                            <span class="meta-text text-[#0F172A] font-semibold">SightLite (SIH 2026)</span>
-                                            <span class="meta-text font-mono text-[#0369A1] font-bold stat-counter" data-target="SIH26171">SIH26171</span>
-                                        </div>
-                                        <p class="meta-text text-[#475569]">Hybrid on-device + server visual perception, backed by ISRO</p>
-                                    </div>
-
-                                    <div class="pt-3 flex items-center justify-between meta-text border-t border-[#E2E8F0]">
-                                        <span class="text-[#475569]">GitHub Repositories:</span>
-                                        <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
-                                            class="text-[#0369A1] font-semibold hover:underline font-mono">
-                                            github.com/M-shahzan ↗
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 2. ABOUT SECTION (Wide layout, Equal Margins) -->
-            <section id="about" class="section-pad fade-in-section border-t border-[#E2E8F0]">
-                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left">
-                    <h2 class="section-title mb-6 flex items-center gap-3">
-                        <span class="section-marker">01.</span>
-                        About Me
-                    </h2>
-
-                    <div class="space-y-4 body-text max-w-4xl text-left">
-                        <p>
-                            I'm a final-year B.E. in Computer Science and Engineering (Data Science) student at Anjuman Institute of Technology and Management (VTU), focused on building explainable and deployable machine learning systems.
-                        </p>
-                        <p>
-                            My major project, RetinaXAI, is a multi-task deep learning pipeline for diabetic retinopathy and DME detection, using Grad-CAM for clinical explainability and deployed via Streamlit. I'm also leading Team Dcoders for SIH 2026 on SightLite, an on-device visual perception system for browser agents, backed by ISRO.
-                        </p>
-                        <p>
-                            Alongside my major projects, I'm working through a structured machine learning program — covering everything from classical models to gradient boosting and applied deployment.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 3. CORE COMPETENCIES / SKILLS (Wide 2x2 Grid, Equal Margins) -->
-            <section id="skills" class="section-pad fade-in-section border-t border-[#E2E8F0]">
-                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left">
-                    <h2 class="section-title mb-8 flex items-center gap-3">
-                        <span class="section-marker">02.</span>
-                        Core Competencies
-                    </h2>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                        <!-- Category 1: Languages -->
-                        <div class="project-card reveal-item p-6" data-delay="0">
-                            <div class="card-spotlight" aria-hidden="true"></div>
-                            <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Languages</h3>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tag-primary">Python</span>
-                                <span class="tag-primary">SQL</span>
-                            </div>
-                        </div>
-
-                        <!-- Category 2: Machine Learning & Deep Learning -->
-                        <div class="project-card reveal-item p-6" data-delay="40">
-                            <div class="card-spotlight" aria-hidden="true"></div>
-                            <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Machine Learning &amp; Deep Learning</h3>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tag-primary">PyTorch</span>
-                                <span class="tag-primary">TensorFlow</span>
-                                <span class="tag-primary">Scikit-learn</span>
-                                <span class="tag-primary">EfficientNet</span>
-                                <span class="tag-primary">Grad-CAM</span>
-                                <span class="tag-primary">XGBoost</span>
-                                <span class="tag-primary">OpenCV</span>
-                            </div>
-                        </div>
-
-                        <!-- Category 3: Data Analysis & Visualization -->
-                        <div class="project-card reveal-item p-6" data-delay="80">
-                            <div class="card-spotlight" aria-hidden="true"></div>
-                            <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Data Analysis &amp; Visualization</h3>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tag-primary">Pandas</span>
-                                <span class="tag-primary">NumPy</span>
-                                <span class="tag-primary">Matplotlib</span>
-                                <span class="tag-primary">Seaborn</span>
-                                <span class="tag-primary">Tableau</span>
-                                <span class="tag-primary">Power BI</span>
-                            </div>
-                        </div>
-
-                        <!-- Category 4: Tools & Deployment -->
-                        <div class="project-card reveal-item p-6" data-delay="120">
-                            <div class="card-spotlight" aria-hidden="true"></div>
-                            <h3 class="text-[17px] font-bold text-[#0F172A] mb-3">Tools &amp; Deployment</h3>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tag-primary">Git &amp; GitHub</span>
-                                <span class="tag-primary">VS Code</span>
-                                <span class="tag-primary">Flask</span>
-                                <span class="tag-primary">Streamlit</span>
-                                <span class="tag-primary">Jupyter Notebook</span>
-                                <span class="tag-primary">Linux</span>
-                                <span class="tag-primary">Kaggle</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 4. FEATURED PROJECTS (Wide layout, Equal Margins) -->
-            <section id="projects" class="section-pad fade-in-section border-t border-[#E2E8F0]">
-                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left">
-                    <h2 class="section-title mb-8 flex items-center gap-3">
-                        <span class="section-marker">03.</span>
-                        Featured Projects
-                    </h2>
-
-                    <!-- Flagship Project Cards Stack -->
-                    <div class="space-y-10">
-                        <!-- Flagship 1: RetinaXAI -->
-                        <div class="project-card reveal-item overflow-hidden">
-                            <div class="card-spotlight" aria-hidden="true"></div>
-                            <!-- Visual on Top (Contained fixed aspect ratio, linking to repo) -->
-                            <a href="https://github.com/M-shahzan/Retinaxai" target="_blank" rel="noopener noreferrer"
-                                class="block w-full aspect-video md:aspect-[21/9] bg-[#F1F5F9] border-b border-[#E2E8F0] relative overflow-hidden group">
-                                <div class="flagship-visual-wipe w-full h-full">
-                                    <svg class="w-full h-full p-6 sm:p-10 text-[#0369A1]/90 transition-transform duration-300 group-hover:scale-105"
-                                        viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <!-- Schematic Fundus / Retina Diagnostic Grid -->
-                                        <circle cx="300" cy="150" r="110" stroke="#CBD5E1" stroke-width="2" />
-                                        <circle cx="300" cy="150" r="80" class="svg-grid-ring" stroke="#CBD5E1" stroke-width="1.5"
-                                            stroke-dasharray="4 4" />
-                                        <!-- Optical Disc & Vessels -->
-                                        <circle cx="350" cy="150" r="28" fill="#0369A1" fill-opacity="0.1" stroke="#0369A1"
-                                            stroke-width="2" />
-                                        <path d="M350 150 C320 120, 260 110, 210 130" stroke="#0369A1" stroke-width="2.5"
-                                            stroke-linecap="round" />
-                                        <path d="M350 150 C330 180, 270 200, 230 180" stroke="#0369A1" stroke-width="2"
-                                            stroke-linecap="round" />
-                                        <path d="M350 150 C380 130, 420 125, 450 140" stroke="#6366F1" stroke-width="2"
-                                            stroke-linecap="round" />
-                                        <!-- Grad-CAM Saliency Heatmap Overlay -->
-                                        <circle cx="270" cy="135" r="38" class="svg-heatmap-glow" fill="#0369A1" fill-opacity="0.2"
-                                            filter="blur(10px)" />
-                                        <circle cx="280" cy="140" r="20" class="svg-heatmap-glow" fill="#0369A1" fill-opacity="0.35"
-                                            filter="blur(6px)" />
-                                        <text x="30" y="45" fill="#0369A1" font-family="JetBrains Mono, monospace"
-                                            font-size="14" font-weight="600">RetinaXAI // Multi-Task Deep Learning Pipeline</text>
-                                        <text x="30" y="70" fill="#475569" font-family="Inter, sans-serif"
-                                            font-size="12">EfficientNet-B3 + Grad-CAM Heatmaps (IDRiD Dataset)</text>
-                                        <text x="440" y="45" fill="#0F172A" font-family="JetBrains Mono, monospace"
-                                            font-size="14" font-weight="600">0.92 ROC-AUC</text>
-                                    </svg>
-                                </div>
-                                <div
-                                    class="absolute bottom-3 right-3 bg-white/95 border border-[#E2E8F0] px-3 py-1 rounded text-[12px] font-mono text-[#0369A1] font-semibold shadow-sm">
-                                    Click to view repo ↗
-                                </div>
-                            </a>
-
-                            <!-- Card Content (Left-aligned) -->
-                            <div class="p-6 sm:p-8 text-left relative z-10">
-                                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                                    <h3 class="text-[22px] font-bold text-[#0F172A]">RetinaXAI: Explainable Retinal
-                                        Disease Diagnostics</h3>
-                                    <span class="tag-primary font-mono font-semibold stat-counter" data-target="0.92" data-decimals="2" data-suffix=" ROC-AUC (DME)">0.92 ROC-AUC (DME)</span>
-                                </div>
-
-                                <p class="body-text mb-5 max-w-4xl">
-                                    Multi-task deep learning pipeline for diabetic retinopathy (5-class severity) and DME (binary) detection, built on EfficientNet-B3 with dual classification heads. Uses Grad-CAM to generate visual saliency heatmaps for clinical interpretability, with a risk-triage output layer and Streamlit deployment. Trained and validated on the real-world IDRiD dataset.
-                                </p>
-
-                                <!-- Tags (Max 4-5 + '+N more' expand button) -->
-                                <div class="flex flex-wrap gap-2 items-center mb-6">
-                                    <span class="tag-primary">PyTorch</span>
-                                    <span class="tag-primary">EfficientNet-B3</span>
-                                    <span class="tag-primary">Grad-CAM</span>
-                                    <span class="tag-primary">Streamlit</span>
-                                    <span class="tag-secondary tag-hidden hidden">Medical Imaging</span>
-                                    <span class="tag-secondary tag-hidden hidden">IDRiD Dataset</span>
-                                    <button
-                                        class="tag-expand-btn text-[13px] font-mono text-[#0369A1] hover:underline cursor-pointer ml-1 py-1 font-semibold"
-                                        data-expanded="false" data-label-more="+2 more">+2 more</button>
-                                </div>
-
-                                <div>
-                                    <a href="https://github.com/M-shahzan/Retinaxai" target="_blank" rel="noopener noreferrer"
-                                        class="btn-primary inline-flex h-11 min-h-[44px] items-center px-5 gap-2">
-                                        <span class="material-symbols-outlined text-[18px]">code</span>
-                                        <span>View on GitHub</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Flagship 2: SightLite -->
-                        <div class="project-card reveal-item overflow-hidden">
-                            <div class="card-spotlight" aria-hidden="true"></div>
-                            <!-- Visual on Top -->
-                            <a href="https://github.com/M-shahzan/SightLite" target="_blank" rel="noopener noreferrer"
-                                class="block w-full aspect-video md:aspect-[21/9] bg-[#F1F5F9] border-b border-[#E2E8F0] relative overflow-hidden group">
-                                <div class="flagship-visual-wipe w-full h-full">
-                                    <svg class="w-full h-full p-6 sm:p-10 text-[#0369A1]/90 transition-transform duration-300 group-hover:scale-105"
-                                        viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <!-- Edge AI Hardware Stream Graphic -->
-                                        <rect x="50" y="70" width="160" height="160" rx="12" stroke="#CBD5E1"
-                                            stroke-width="2" />
-                                        <rect x="70" y="90" width="120" height="120" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
-                                        <!-- Bounding Box & Detection Nodes -->
-                                        <rect x="90" y="110" width="50" height="60" stroke="#0369A1" stroke-width="2"
-                                            stroke-dasharray="3 3" />
-                                        <rect x="90" y="98" width="40" height="12" fill="#0369A1" />
-                                        <text x="93" y="107" fill="#FFFFFF" font-family="JetBrains Mono, monospace"
-                                            font-size="8" font-weight="700">UI / PII</text>
-                                        <!-- Edge Neural Stream Arrow -->
-                                        <path d="M230 150 L340 150" class="svg-stream-flow" stroke="#0369A1" stroke-width="2" />
-                                        <polygon points="345,150 335,145 335,155" fill="#0369A1" />
-                                        <!-- Quantized Engine Box -->
-                                        <rect x="360" y="70" width="190" height="160" rx="12" stroke="#CBD5E1"
-                                            stroke-width="2" fill="#FFFFFF" />
-                                        <text x="380" y="115" fill="#0F172A" font-family="JetBrains Mono, monospace"
-                                            font-size="16" font-weight="700">Vision Transformer</text>
-                                        <text x="380" y="140" fill="#0369A1" font-family="JetBrains Mono, monospace"
-                                            font-size="14" font-weight="600">SIH26171</text>
-                                        <text x="380" y="165" fill="#475569" font-family="Inter, sans-serif"
-                                            font-size="12">Local ViT + Server LLM</text>
-                                        <text x="380" y="185" fill="#475569" font-family="Inter, sans-serif"
-                                            font-size="12">Backed by ISRO</text>
-                                        <text x="30" y="45" fill="#0369A1" font-family="JetBrains Mono, monospace"
-                                            font-size="14" font-weight="600">SightLite // On-Device Visual Perception System</text>
-                                    </svg>
-                                </div>
-                                <div
-                                    class="absolute bottom-3 right-3 bg-white/95 border border-[#E2E8F0] px-3 py-1 rounded text-[12px] font-mono text-[#0369A1] font-semibold shadow-sm">
-                                    Click to view repo ↗
-                                </div>
-                            </a>
-
-                            <!-- Card Content -->
-                            <div class="p-6 sm:p-8 text-left relative z-10">
-                                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                                    <h3 class="text-[22px] font-bold text-[#0F172A]">SightLite: Real-Time Edge Visual
-                                        Assistant</h3>
-                                    <span class="tag-primary font-mono font-semibold stat-counter" data-target="SIH26171">SIH26171</span>
-                                </div>
-
-                                <p class="body-text mb-5 max-w-4xl">
-                                    On-device visual perception system for lightweight browser agents, developed for Smart India Hackathon 2026 (Problem Statement SIH26171, backed by ISRO). Uses a hybrid client-server architecture — a local Vision Transformer for UI element detection and PII redaction, paired with a server-side LLM for action-command generation.
-                                </p>
-
-                                <!-- Tags (Max 4-5 + '+N more' expand button) -->
-                                <div class="flex flex-wrap gap-2 items-center mb-6">
-                                    <span class="tag-primary">ViT</span>
-                                    <span class="tag-primary">Edge AI</span>
-                                    <span class="tag-primary">Hybrid Architecture</span>
-                                    <span class="tag-primary">SIH 2026</span>
-                                    <span class="tag-secondary tag-hidden hidden">ISRO</span>
-                                    <button
-                                        class="tag-expand-btn text-[13px] font-mono text-[#0369A1] hover:underline cursor-pointer ml-1 py-1 font-semibold"
-                                        data-expanded="false" data-label-more="+1 more">+1 more</button>
-                                </div>
-
-                                <div>
-                                    <a href="https://github.com/M-shahzan/SightLite" target="_blank" rel="noopener noreferrer"
-                                        class="btn-primary inline-flex h-11 min-h-[44px] items-center px-5 gap-2">
-                                        <span class="material-symbols-outlined text-[18px]">code</span>
-                                        <span>View on GitHub</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Compact List: Other Projects -->
-                    <div class="mt-14 text-left">
-                        <h3 class="text-[22px] font-bold text-[#0F172A] mb-5">Other Projects</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <!-- Other Project 1: Titanic Survival Prediction -->
-                            <a href="https://github.com/M-shahzan/titanic-survival-ml" target="_blank" rel="noopener noreferrer"
-                                class="project-card reveal-item p-6 block group relative overflow-hidden" data-delay="0">
-                                <div class="card-spotlight" aria-hidden="true"></div>
-                                <div class="flex justify-between items-start mb-2 relative z-10">
-                                    <h4
-                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
-                                        Titanic Survival Prediction</h4>
-                                    <span
-                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1] arrow-shift">arrow_outward</span>
-                                </div>
-                                <p class="meta-text text-[#475569] mb-4 relative z-10">End-to-end Kaggle ML pipeline (EDA, feature engineering, model comparison). Best CV F1: <span class="font-mono font-bold text-[#0369A1] stat-counter" data-target="77.6" data-decimals="1" data-suffix="%">77.6%</span> (Random Forest); Kaggle score 0.77751 (top ~23%).</p>
-                                <div class="flex flex-wrap gap-1.5 relative z-10">
-                                    <span class="tag-primary text-[12px]">Scikit-learn</span>
-                                    <span class="tag-primary text-[12px]">Random Forest</span>
-                                </div>
-                            </a>
-
-                            <!-- Other Project 2: Smart Procurement Hub -->
-                            <a href="https://github.com/M-shahzan/supplier-recommendation" target="_blank" rel="noopener noreferrer"
-                                class="project-card reveal-item p-6 block group relative overflow-hidden" data-delay="35">
-                                <div class="card-spotlight" aria-hidden="true"></div>
-                                <div class="flex justify-between items-start mb-2 relative z-10">
-                                    <h4
-                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
-                                        Smart Procurement Hub</h4>
-                                    <span
-                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1] arrow-shift">arrow_outward</span>
-                                </div>
-                                <p class="meta-text text-[#475569] mb-4 relative z-10">AI-assisted supplier recommendation and PO automation platform for businesses. Combines Random Forest and KNN models with multi-factor weighted scoring across risk, financial health, and performance metrics, with supplier ratings and risk profiling.</p>
-                                <div class="flex flex-wrap gap-1.5 relative z-10">
-                                    <span class="tag-primary text-[12px]">Flask</span>
-                                    <span class="tag-primary text-[12px]">Random Forest</span>
-                                    <span class="tag-primary text-[12px]">KNN</span>
-                                    <span class="tag-primary text-[12px]">Pandas</span>
-                                </div>
-                            </a>
-
-                            <!-- Other Project 3: Restaurant Management System -->
-                            <a href="https://github.com/M-shahzan/Restraunt-management-system" target="_blank" rel="noopener noreferrer"
-                                class="project-card reveal-item p-6 block group relative overflow-hidden" data-delay="70">
-                                <div class="card-spotlight" aria-hidden="true"></div>
-                                <div class="flex justify-between items-start mb-2 relative z-10">
-                                    <h4
-                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
-                                        Restaurant Management System</h4>
-                                    <span
-                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1] arrow-shift">arrow_outward</span>
-                                </div>
-                                <p class="meta-text text-[#475569] mb-4 relative z-10">Full-stack restaurant web app for browsing menus, booking tables, and placing orders.</p>
-                                <div class="flex flex-wrap gap-1.5 relative z-10">
-                                    <span class="tag-primary text-[12px]">Django</span>
-                                    <span class="tag-primary text-[12px]">SQL</span>
-                                    <span class="tag-primary text-[12px]">Tailwind CSS</span>
-                                </div>
-                            </a>
-
-                            <!-- Other Project 4: Job Opportunity Notifier -->
-                            <a href="https://github.com/M-shahzan/Job-opportunity" target="_blank" rel="noopener noreferrer"
-                                class="project-card reveal-item p-6 block group relative overflow-hidden" data-delay="105">
-                                <div class="card-spotlight" aria-hidden="true"></div>
-                                <div class="flex justify-between items-start mb-2 relative z-10">
-                                    <h4
-                                        class="text-[17px] font-bold text-[#0F172A] group-hover:text-[#0369A1] transition-colors">
-                                        Job Opportunity Notifier</h4>
-                                    <span
-                                        class="material-symbols-outlined text-[18px] text-[#64748B] group-hover:text-[#0369A1] arrow-shift">arrow_outward</span>
-                                </div>
-                                <p class="meta-text text-[#475569] mb-4 relative z-10">Local job-matching platform connecting job seekers with nearby opportunities via automated job data ingestion, keyword/criteria-based matching, and email/SMS/push notification alerts.</p>
-                                <div class="flex flex-wrap gap-1.5 relative z-10">
-                                    <span class="tag-primary text-[12px]">Python</span>
-                                    <span class="tag-primary text-[12px]">Flask</span>
-                                    <span class="tag-primary text-[12px]">Automation</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 5. EXPERIENCE & EDUCATION TIMELINE (Wide layout, Equal Margins) -->
-            <section id="experience" class="section-pad fade-in-section border-t border-[#E2E8F0]">
-                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left">
-                    <h2 class="section-title mb-8 flex items-center gap-3">
-                        <span class="section-marker">04.</span>
-                        Experience &amp; Education
-                    </h2>
-
-                    <!-- Vertical Timeline Container -->
-                    <div class="relative border-l-2 border-[#CBD5E1] ml-3 sm:ml-4 pl-6 sm:pl-10 space-y-10">
-                        <!-- Entry 1: SIH 2026 — SightLite -->
-                        <div class="timeline-entry reveal-item" data-delay="0">
-                            <!-- Timeline Dot on Left Line -->
-                            <div class="timeline-dot" aria-hidden="true"></div>
-
-                            <!-- Date Left-Aligned Above Entry -->
-                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2026 — Present</p>
-
-                            <div class="timeline-card p-6 relative overflow-hidden">
-                                <div class="card-spotlight" aria-hidden="true"></div>
-                                <h3 class="text-[18px] font-bold text-[#0F172A] relative z-10">SIH 2026 — SightLite (Selected, Internal Round)</h3>
-                                <p class="meta-text text-[#475569] mb-3 relative z-10">Team Dcoders</p>
-                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4 relative z-10">
-                                    <li>Selected for Smart India Hackathon 2026, Problem Statement SIH26171 (on-device visual perception for browser agents, backed by ISRO)</li>
-                                    <li>Leading a 6-member team through architecture design, correcting an initial fully-offline assumption to a hybrid client-server model</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2 relative z-10">
-                                    <span class="tag-primary text-[12px]">SIH 2026</span>
-                                    <span class="tag-primary text-[12px]">Team Leadership</span>
-                                    <span class="tag-primary text-[12px]">ISRO</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Entry 2: RetinaXAI — Major Project -->
-                        <div class="timeline-entry reveal-item" data-delay="35">
-                            <div class="timeline-dot" aria-hidden="true"></div>
-                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2026 — Present</p>
-
-                            <div class="timeline-card p-6 relative overflow-hidden">
-                                <div class="card-spotlight" aria-hidden="true"></div>
-                                <h3 class="text-[18px] font-bold text-[#0F172A] relative z-10">RetinaXAI — Major Project (In Progress)</h3>
-                                <p class="meta-text text-[#475569] mb-3 relative z-10">Team: Shahzan, Shuraiq, Rayan, Raqi · Guide: Mr. Affan</p>
-                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4 relative z-10">
-                                    <li>Building a multi-task EfficientNet-B3 model for diabetic retinopathy and DME detection with Grad-CAM explainability</li>
-                                    <li>Completed Review 1; currently in a structured 9-session implementation deep-dive targeting 60% codebase understanding before Review 2</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2 relative z-10">
-                                    <span class="tag-primary text-[12px]">PyTorch</span>
-                                    <span class="tag-primary text-[12px]">EfficientNet-B3</span>
-                                    <span class="tag-primary text-[12px]">Grad-CAM</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Entry 3: Applied Machine Learning -->
-                        <div class="timeline-entry reveal-item" data-delay="70">
-                            <div class="timeline-dot" aria-hidden="true"></div>
-                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2026 — Present</p>
-
-                            <div class="timeline-card p-6 relative overflow-hidden">
-                                <div class="card-spotlight" aria-hidden="true"></div>
-                                <h3 class="text-[18px] font-bold text-[#0F172A] relative z-10">Applied Machine Learning — Self-Directed Program</h3>
-                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4 relative z-10">
-                                    <li>Working through a structured, project-based ML curriculum: covered EDA, Logistic Regression, Decision Trees, Random Forests, cross-validation, and sklearn pipelines via an end-to-end Kaggle project (Titanic — 77.6% CV F1, top ~23% leaderboard)</li>
-                                    <li>Currently applying gradient boosting (XGBoost) to a Kaggle regression project (House Price Prediction)</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2 relative z-10">
-                                    <span class="tag-primary text-[12px]">Scikit-learn</span>
-                                    <span class="tag-primary text-[12px]">XGBoost</span>
-                                    <span class="tag-primary text-[12px]">Kaggle</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Entry 4: B.E. in Computer Science and Engineering (Data Science) -->
-                        <div class="timeline-entry reveal-item" data-delay="105">
-                            <div class="timeline-dot" aria-hidden="true"></div>
-                            <p class="meta-text font-mono text-[#0369A1] font-semibold mb-1">2023 — Present</p>
-
-                            <div class="timeline-card p-6 relative overflow-hidden">
-                                <div class="card-spotlight" aria-hidden="true"></div>
-                                <h3 class="text-[18px] font-bold text-[#0F172A] relative z-10">B.E. in Computer Science and Engineering (Data Science)</h3>
-                                <p class="meta-text text-[#475569] mb-3">Anjuman Institute of Technology and Management (VTU)</p>
-                                <ul class="list-disc space-y-1.5 pl-5 body-text text-[15px] mb-4">
-                                    <li>Final-year student, expected graduation in 2027</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="tag-primary text-[12px]">VTU</span>
-                                    <span class="tag-primary text-[12px]">Data Science</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 6. CONTACT SECTION (Wide layout, Equal Margins) -->
-            <section id="contact" class="py-24 sm:py-32 min-h-[50vh] flex flex-col justify-center fade-in-section border-t border-[#E2E8F0]">
-                <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
-                    <div class="max-w-2xl mx-auto text-center">
-                        <h2 class="section-title mb-4 flex items-center justify-center gap-3">
-                            <span class="section-marker">05.</span>
-                            Get In Touch
-                        </h2>
-                        <p class="body-text text-[17px] leading-relaxed mb-8 text-[#475569]">
-                            Open to internships, collaborations, or just a conversation about machine learning and AI. Feel free to reach out.
-                        </p>
-
-                        <!-- Centered Row of Social Icons with Pop-In Stagger -->
-                        <div class="flex items-center justify-center gap-4">
-                            <!-- GitHub -->
-                            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer"
-                                aria-label="Mohammed Shahzan on GitHub"
-                                class="social-btn contact-social-btn flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
-                                <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M12 2C6.477 2 2 6.477 2 12.013c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.218.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.82c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .267.18.577.688.48C19.135 20.175 22 16.43 22 12.013 22 6.477 17.523 2 12 2z">
-                                    </path>
-                                </svg>
-                            </a>
-
-                            <!-- LinkedIn -->
-                            <a href="https://www.linkedin.com/in/mohammed-shahzan-armar-2ab1a82a4?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                target="_blank" rel="noopener noreferrer" aria-label="Mohammed Shahzan on LinkedIn"
-                                class="social-btn contact-social-btn flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
-                                <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z">
-                                    </path>
-                                </svg>
-                            </a>
-
-                            <!-- Email -->
-                            <a href="mailto:shahzanarmar01@gmail.com" target="_blank" rel="noopener noreferrer"
-                                aria-label="Send email to Mohammed Shahzan"
-                                class="social-btn contact-social-btn flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0369A1] hover:border-[#0369A1] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]">
-                                <span class="material-symbols-outlined text-[20px]">mail</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer (Wide layout, Equal Margins) -->
-        <footer class="w-full border-t border-[#E2E8F0] bg-white py-8">
-            <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-left sm:flex sm:items-center sm:justify-between">
-                <div>
-                    <p class="meta-text font-medium text-[#0F172A]">
-                        Mohammed Shahzan Armar · Final-Year Data Science Student | ML Engineer
-                    </p>
-                    <p class="meta-text text-[#64748B] mt-1">
-                        Built with HTML, Vanilla CSS &amp; JS.
-                    </p>
-                </div>
-                <div class="mt-4 sm:mt-0">
-                    <p class="meta-text text-[#64748B]">
-                        © 2026 Mohammed Shahzan Armar. All rights reserved.
-                    </p>
-                </div>
-            </div>
-        </footer>
+  <!-- ====================================================================
+       SINGLE DOM CONTAINER: ARROW INDICATOR -> MORPHING PILL HEADER
+       Initial: Bottom-Center [ ↓ Scroll Indicator ]
+       On Transition: Continuously transforms to Top-Center Floating Nav Pill
+       ==================================================================== -->
+  <div id="scroll-pill-morph" class="scroll-pill-container" role="region"
+    aria-label="Interactive Navigation and Scroll Indicator">
+    <!-- State A: Animated Bottom Scroll Indicator Arrow with Dynamic Origin Dot & Circle -->
+    <div class="pill-arrow-mode" id="pill-arrow-mode" aria-hidden="false">
+      <svg class="pill-circle-svg" id="pill-circle-svg" viewBox="0 0 48 48" aria-hidden="true">
+        <!-- Left arc: draws from bottom (24,46) up along left side to top (24,2) -->
+        <path id="pill-circle-arc-l" class="pill-circle-arc" d="M 24,46 A 22,22 0 0,0 24,2" />
+        <!-- Right arc: draws from bottom (24,46) up along right side to top (24,2) -->
+        <path id="pill-circle-arc-r" class="pill-circle-arc" d="M 24,46 A 22,22 0 0,1 24,2" />
+      </svg>
+      <svg id="pill-arrow-svg" class="pill-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <polyline points="19 12 12 19 5 12"></polyline>
+      </svg>
     </div>
 
-    <!-- Main Logic Script -->
-    <script src="main.js"></script>
+    <!-- State B: Transformed Floating Pill Header -->
+    <nav class="pill-header-mode" id="pill-header-mode" aria-label="Main Navigation">
+      <a href="#home" class="pill-logo" data-cursor="HOME" data-nav-target="0">MS</a>
+      <div class="pill-links-group">
+        <a href="#about" class="pill-nav-item" data-cursor="VIEW" data-nav-target="1">ABOUT</a>
+        <a href="#retinaxai" class="pill-nav-item" data-cursor="EXPLORE" data-nav-target="2" id="nav-work">WORK</a>
+        <a href="#archive" class="pill-nav-item" data-cursor="VIEW" data-nav-target="4">ARCHIVE</a>
+        <a href="#experiments" class="pill-nav-item" data-cursor="VIEW" data-nav-target="5">EXPERIMENTS</a>
+        <a href="#exit" class="pill-nav-item" data-cursor="TALK" data-nav-target="6">CONTACT</a>
+      </div>
+      <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer" class="pill-nav-cta"
+        data-cursor="OPEN">
+        <span>GITHUB</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M7 17L17 7M17 7H7M17 7V17"></path>
+        </svg>
+      </a>
+    </nav>
+  </div>
+
+  <main id="scenes-wrapper">
+    <!-- ====================================================================
+         SCENE 01: HOMEPAGE (Editorial Typographic Composition + Architectural Coordinate System)
+         ==================================================================== -->
+    <section id="home" class="scene scene-home" data-scene-index="0" aria-label="Mohammed Shahzan Armar">
+      <!-- Subtle Ambient Computational Canvas (Restrained Data Trajectory) -->
+      <canvas id="home-ambient-canvas" class="home-ambient-canvas" aria-hidden="true"></canvas>
+
+      <!-- Option A: Architectural Typographic Coordinate System (Top-Left Screen Anchor) -->
+      <div class="hero-coord-anchor" id="hero-coord-anchor" aria-hidden="true">
+        <div class="coord-item"><span class="coord-dim">REF //</span> 01 &mdash; IDENTITY</div>
+        <div class="coord-item"><span class="coord-dim">SYS //</span> 13.582&deg; N</div>
+        <div class="coord-item"><span class="coord-dim">ENG //</span> ML &bull; CV &bull; DATA</div>
+      </div>
+
+      <div class="hero-spatial-canvas">
+        <!-- Redesigned Name Composition: Two-Line Editorial Lockup -->
+        <div class="hero-name-composition" id="hero-name-container">
+          <div class="hero-name-row line-top">
+            <h1 class="hero-display-word word-mohammed" id="hero-word-1">Mohammed</h1>
+          </div>
+          <div class="hero-name-row line-bottom">
+            <h1 class="hero-display-word word-shahzan-armar" id="hero-word-2">
+              <span class="part-shahzan">Shahzan</span>
+              <span class="part-armar">Armar</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Redesigned Minimal Editorial Descriptor with Dash Separator -->
+        <div class="hero-descriptor-strip" id="hero-descriptor-wrap">
+          <span class="hero-dash-rule" aria-hidden="true"></span>
+          <p class="hero-descriptor-text">MACHINE LEARNING &nbsp;/&nbsp; COMPUTER VISION &nbsp;/&nbsp; DATA</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCENE 02: ABOUT (Concise Editorial Statement + Orbital Contour Visual)
+         ==================================================================== -->
+    <section id="about" class="scene scene-about scene-sticky-stage" data-scene-index="1" aria-label="About Mohammed Shahzan Armar">
+      <div class="about-pin-wrap" id="about-pin-wrap">
+        <div class="about-content-container">
+          <div class="about-layout-grid" id="about-intro-grid">
+            <!-- Left: Big Statement & Restrained Orbital Geometry -->
+            <div class="about-statement-col">
+              <span class="about-tag-marker">ABOUT</span>
+              <h2 class="about-progressive-headline" id="about-headline">
+                <span class="about-word-first">I BUILD</span><br />
+                <span class="about-word-second">WITH DATA.</span>
+              </h2>
+
+              <!-- Restrained Orbital Geometry Visual -->
+              <div class="about-orbital-visual" aria-hidden="true">
+                <svg class="about-orbital-svg" viewBox="0 0 220 220" fill="none">
+                  <circle cx="110" cy="110" r="95" stroke="rgba(255,255,255,0.06)" stroke-width="1"
+                    stroke-dasharray="3 5" />
+                  <circle cx="110" cy="110" r="68" stroke="rgba(139,92,246,0.35)" stroke-width="1.5" />
+                  <ellipse cx="110" cy="110" rx="84" ry="38" stroke="rgba(56,189,248,0.28)" stroke-width="1"
+                    transform="rotate(-28 110 110)" />
+                  <ellipse cx="110" cy="110" rx="52" ry="88" stroke="rgba(139,92,246,0.2)" stroke-width="1"
+                    transform="rotate(32 110 110)" />
+                  <circle cx="110" cy="110" r="4.5" fill="#8b5cf6" />
+                  <circle cx="168" cy="86" r="3" fill="#38bdf8" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Right: Short Editorial Copy -->
+            <div class="about-narrative-col" id="about-narrative">
+              <p class="about-lead-para">
+                I'm a final-year B.E. Computer Science and Engineering (Data Science) student focused on building
+                explainable, deployable machine learning systems.
+              </p>
+              <p class="about-sub-para">
+                My work spans computer vision, explainable AI, edge inference, and practical ML deployment.
+              </p>
+            </div>
+          </div>
+
+          <!-- Full-Viewport Editorial Core Competencies Typographic Field -->
+          <div class="about-competencies-block" id="about-competencies-block" aria-label="Core Competencies">
+            <div class="comp-header" id="comp-header">
+              <span class="comp-tag-marker">02. CORE COMPETENCIES</span>
+            </div>
+
+            <div class="comp-poster-canvas" id="comp-poster-canvas">
+              <!-- Zone 1: Languages (Upper-Left) -->
+              <div class="comp-cluster comp-cluster-languages" data-cluster="languages">
+                <div class="comp-cluster-label" data-comp-id="lbl-languages">
+                  <span class="comp-cluster-idx">01 //</span> LANGUAGES
+                </div>
+                <div class="comp-cluster-content">
+                  <div class="comp-subrow-primary">
+                    <span class="comp-item comp-primary lang-python" data-comp-id="python">Python</span>
+                    <span class="comp-item comp-supporting lang-sql" data-comp-id="sql">SQL</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone 2: Machine Learning & Deep Learning (Upper-Right) -->
+              <div class="comp-cluster comp-cluster-ml" data-cluster="ml-dl">
+                <div class="comp-cluster-label" data-comp-id="lbl-ml">
+                  <span class="comp-cluster-idx">02 //</span> MACHINE LEARNING &amp; DEEP LEARNING
+                </div>
+                <div class="comp-cluster-content">
+                  <div class="comp-subrow-primary">
+                    <span class="comp-item comp-primary ml-pytorch" data-comp-id="pytorch">PyTorch</span>
+                    <span class="comp-item comp-primary ml-scikit" data-comp-id="scikit">Scikit-learn</span>
+                  </div>
+                  <div class="comp-subrow-supporting">
+                    <span class="comp-item comp-supporting" data-comp-id="tensorflow">TensorFlow</span>
+                    <span class="comp-dot" data-dot-for="efficientnet">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="efficientnet">EfficientNet</span>
+                    <span class="comp-dot" data-dot-for="gradcam">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="gradcam">Grad-CAM</span>
+                    <span class="comp-dot" data-dot-for="xgboost">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="xgboost">XGBoost</span>
+                    <span class="comp-dot" data-dot-for="opencv">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="opencv">OpenCV</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone 3: Data Analysis & Visualization (Lower-Left) -->
+              <div class="comp-cluster comp-cluster-data" data-cluster="data">
+                <div class="comp-cluster-label" data-comp-id="lbl-data">
+                  <span class="comp-cluster-idx">03 //</span> DATA ANALYSIS &amp; VISUALIZATION
+                </div>
+                <div class="comp-cluster-content">
+                  <div class="comp-subrow-primary">
+                    <span class="comp-item comp-primary data-pandas" data-comp-id="pandas">Pandas</span>
+                    <span class="comp-item comp-primary data-numpy" data-comp-id="numpy">NumPy</span>
+                  </div>
+                  <div class="comp-subrow-supporting">
+                    <span class="comp-item comp-supporting" data-comp-id="matplotlib">Matplotlib</span>
+                    <span class="comp-dot" data-dot-for="seaborn">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="seaborn">Seaborn</span>
+                    <span class="comp-dot" data-dot-for="tableau">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="tableau">Tableau</span>
+                    <span class="comp-dot" data-dot-for="powerbi">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="powerbi">Power BI</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone 4: Tools & Deployment (Lower-Right) -->
+              <div class="comp-cluster comp-cluster-tools" data-cluster="tools">
+                <div class="comp-cluster-label" data-comp-id="lbl-tools">
+                  <span class="comp-cluster-idx">04 //</span> TOOLS &amp; DEPLOYMENT
+                </div>
+                <div class="comp-cluster-content">
+                  <div class="comp-subrow-primary">
+                    <span class="comp-item comp-primary tools-git" data-comp-id="git">Git &amp; GitHub</span>
+                  </div>
+                  <div class="comp-subrow-supporting">
+                    <span class="comp-item comp-supporting" data-comp-id="vscode">VS Code</span>
+                    <span class="comp-dot" data-dot-for="flask">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="flask">Flask</span>
+                    <span class="comp-dot" data-dot-for="streamlit">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="streamlit">Streamlit</span>
+                    <span class="comp-dot" data-dot-for="jupyter">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="jupyter">Jupyter Notebook</span>
+                    <span class="comp-dot" data-dot-for="linux">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="linux">Linux</span>
+                    <span class="comp-dot" data-dot-for="kaggle">&bull;</span>
+                    <span class="comp-item comp-supporting" data-comp-id="kaggle">Kaggle</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCENE 03: FEATURED CASE STUDY 01 — RetinaXAI (Pinned 4-Stage Experience)
+         ==================================================================== -->
+    <section id="retinaxai" class="scene scene-retinaxai scene-casestudy scene-sticky-stage" data-scene-index="2"
+      aria-label="Case Study RetinaXAI">
+      <div class="retinaxai-pin-wrap">
+        <!-- Left Narrative Column -->
+        <div class="study-narrative-panel">
+          <span class="study-tag-header">CASE STUDY 01 &bull; MEDICAL COMPUTER VISION</span>
+          <h2 class="study-headline">RetinaXAI</h2>
+
+          <!-- Step Narrative Container -->
+          <div class="study-stages-box">
+            <!-- Stage 1 -->
+            <div class="study-stage-step is-active" id="rx-step-1" data-step="1">
+              <span class="study-step-eyebrow">STAGE 01 // THE CLINICAL DILEMMA</span>
+              <h3 class="study-step-title">Black boxes don't get adopted in healthcare.</h3>
+              <p class="study-step-desc">
+                Diabetic Retinopathy and DME screening require high precision. But ophthalmologists cannot rely on
+                unexplained probability scores that don't verify which retinal features triggered the diagnosis.
+              </p>
+            </div>
+
+            <!-- Stage 2 -->
+            <div class="study-stage-step" id="rx-step-2" data-step="2">
+              <span class="study-step-eyebrow">STAGE 02 // MULTI-TASK ARCHITECTURE</span>
+              <h3 class="study-step-title">EfficientNet-B3 with Dual Task Heads</h3>
+              <p class="study-step-desc">
+                Trained on the clinical IDRiD benchmark, sharing an EfficientNet backbone branching into a 5-class
+                retinopathy severity classifier and a binary diabetic macular edema (DME) detector.
+              </p>
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="study-stage-step" id="rx-step-3" data-step="3">
+              <span class="study-step-eyebrow">STAGE 03 // EXPLAINABLE AI (XAI)</span>
+              <h3 class="study-step-title">Grad-CAM Convolutional Attribution</h3>
+              <p class="study-step-desc">
+                Backpropagating loss gradients into convolutional feature maps overlays spatial heatmaps highlighting
+                microaneurysms, hemorrhages, and hard exudates for doctor inspection.
+              </p>
+            </div>
+
+            <!-- Stage 4 -->
+            <div class="study-stage-step" id="rx-step-4" data-step="4">
+              <span class="study-step-eyebrow">STAGE 04 // EMPIRICAL RESULT</span>
+              <h3 class="study-step-title">0.92 ROC-AUC on DME Detection</h3>
+              <p class="study-step-desc">
+                Achieved 0.92 ROC-AUC on IDRiD DME validation and deployed via an interactive Streamlit triage dashboard
+                categorizing referral urgency.
+              </p>
+            </div>
+          </div>
+
+          <!-- Repository CTA & Step Indicators -->
+          <div class="study-bottom-row">
+            <div class="stage-stepper" id="rx-stepper">
+              <span class="step-dot is-active" data-step="1"></span>
+              <span class="step-dot" data-step="2"></span>
+              <span class="step-dot" data-step="3"></span>
+              <span class="step-dot" data-step="4"></span>
+            </div>
+            <a href="https://github.com/M-shahzan/Retinaxai" target="_blank" rel="noopener noreferrer"
+              class="study-repo-btn" data-cursor="OPEN">
+              <span>VIEW REPOSITORY</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M7 17L17 7M17 7H7M17 7V17"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Procedural Retinal Canvas -->
+        <div class="study-canvas-viewport">
+          <canvas id="retinaxai-canvas"></canvas>
+          <div class="study-canvas-badge" id="retina-telemetry">
+            STAGE 01 // RAW_IDRiD_BUFFER
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCENE 04: FEATURED CASE STUDY 02 — SightLite (Pinned 4-Stage Experience)
+         ==================================================================== -->
+    <section id="sightlite" class="scene scene-sightlite scene-casestudy scene-sticky-stage" data-scene-index="3"
+      aria-label="Case Study SightLite">
+      <div class="sightlite-pin-wrap">
+        <!-- Left Narrative Column -->
+        <div class="study-narrative-panel">
+          <span class="study-tag-header" style="color: var(--signal-cyan);">CASE STUDY 02 &bull; EDGE AI &amp;
+            AGENTS</span>
+          <h2 class="study-headline">SightLite</h2>
+
+          <!-- Step Narrative Container -->
+          <div class="study-stages-box">
+            <!-- Stage 1 -->
+            <div class="study-stage-step is-active" id="sl-step-1" data-step="1">
+              <span class="study-step-eyebrow" style="color: var(--signal-cyan);">SIH 2026 // BACKED BY ISRO</span>
+              <h3 class="study-step-title">Cloud-only browser agents leak credentials.</h3>
+              <p class="study-step-desc">
+                Transmitting continuous high-res desktop frames to remote LLMs causes severe API latency and leaks
+                passwords, credentials, and PII to third-party endpoints.
+              </p>
+            </div>
+
+            <!-- Stage 2 -->
+            <div class="study-stage-step" id="sl-step-2" data-step="2">
+              <span class="study-step-eyebrow" style="color: var(--signal-cyan);">ON-DEVICE PERCEPTION</span>
+              <h3 class="study-step-title">Local Distilled Vision Transformer (ViT)</h3>
+              <p class="study-step-desc">
+                SightLite runs a lightweight Vision Transformer on-device to extract interactive affordances (buttons,
+                inputs, links) directly from screen buffers with sub-100ms response times.
+              </p>
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="study-stage-step" id="sl-step-3" data-step="3">
+              <span class="study-step-eyebrow" style="color: var(--signal-cyan);">PRIVACY SHIELD</span>
+              <h3 class="study-step-title">Client-Side PII Masking</h3>
+              <p class="study-step-desc">
+                Sensitive form values and authentication fields are blurred locally before structured semantic intent is
+                routed to remote reasoning models.
+              </p>
+            </div>
+
+            <!-- Stage 4 -->
+            <div class="study-stage-step" id="sl-step-4" data-step="4">
+              <span class="study-step-eyebrow" style="color: var(--signal-cyan);">HYBRID EXECUTION</span>
+              <h3 class="study-step-title">Team Dcoders Lead &bull; Problem SIH26171</h3>
+              <p class="study-step-desc">
+                Selected in internal SIH 2026 evaluations; leading a 6-member team through architecture design,
+                optimizing edge inference with cloud task planning.
+              </p>
+            </div>
+          </div>
+
+          <!-- Repository CTA & Step Indicators -->
+          <div class="study-bottom-row">
+            <div class="stage-stepper" id="sl-stepper">
+              <span class="step-dot is-active" data-step="1"></span>
+              <span class="step-dot" data-step="2"></span>
+              <span class="step-dot" data-step="3"></span>
+              <span class="step-dot" data-step="4"></span>
+            </div>
+            <a href="https://github.com/M-shahzan/SightLite" target="_blank" rel="noopener noreferrer"
+              class="study-repo-btn" style="background: var(--signal-cyan); color: #000;" data-cursor="OPEN">
+              <span>VIEW REPOSITORY</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M7 17L17 7M17 7H7M17 7V17"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Simulated Browser Canvas -->
+        <div class="browser-canvas-stage">
+          <div class="browser-top-header">
+            <div class="browser-lights-row">
+              <span class="b-light"></span>
+              <span class="b-light"></span>
+              <span class="b-light"></span>
+            </div>
+            <div class="browser-url-bar">sightlite.runtime://agent/session_active</div>
+          </div>
+          <canvas id="sightlite-canvas"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCENE 05: PROJECT ARCHIVE (Large Typographic Rows, No Cards)
+         ==================================================================== -->
+    <section id="archive" class="scene scene-archive" data-scene-index="4" aria-label="Project Archive">
+      <div class="archive-container">
+        <div class="archive-top-bar">
+          <h2 class="archive-main-heading">PROJECT ARCHIVE</h2>
+          <span class="archive-tagline">SECONDARY SYSTEMS &bull; VERIFIED REPOSITORIES</span>
+        </div>
+
+        <div class="archive-rows-list">
+          <!-- Item 01: Titanic ML -->
+          <a href="https://github.com/M-shahzan/titanic-survival-ml" target="_blank" rel="noopener noreferrer"
+            class="archive-single-row" data-title="Titanic ML Pipeline"
+            data-metric="77.6% CV F1 // Top ~23% Leaderboard" data-cursor="VIEW">
+            <div class="archive-row-identity">
+              <span class="archive-row-num">01</span>
+              <span class="archive-row-name">Titanic Survival Pipeline</span>
+            </div>
+            <div class="archive-row-meta">
+              <span class="archive-tech-label">Scikit-learn &bull; Random Forest &bull; 2026</span>
+              <svg class="archive-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"></path>
+              </svg>
+            </div>
+          </a>
+
+          <!-- Item 02: Smart Procurement Hub -->
+          <a href="https://github.com/M-shahzan/supplier-recommendation" target="_blank" rel="noopener noreferrer"
+            class="archive-single-row" data-title="Smart Procurement Hub"
+            data-metric="Random Forest &amp; KNN // Risk Scoring" data-cursor="VIEW">
+            <div class="archive-row-identity">
+              <span class="archive-row-num">02</span>
+              <span class="archive-row-name">Smart Procurement Hub</span>
+            </div>
+            <div class="archive-row-meta">
+              <span class="archive-tech-label">Flask &bull; KNN &bull; Multi-Factor Scoring</span>
+              <svg class="archive-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"></path>
+              </svg>
+            </div>
+          </a>
+
+          <!-- Item 03: Restaurant Management -->
+          <a href="https://github.com/M-shahzan/Restraunt-management-system" target="_blank" rel="noopener noreferrer"
+            class="archive-single-row" data-title="Restaurant Management"
+            data-metric="Django &amp; SQL // Relational Schema" data-cursor="VIEW">
+            <div class="archive-row-identity">
+              <span class="archive-row-num">03</span>
+              <span class="archive-row-name">Restaurant Management System</span>
+            </div>
+            <div class="archive-row-meta">
+              <span class="archive-tech-label">Django &bull; SQL &bull; Relational Database</span>
+              <svg class="archive-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"></path>
+              </svg>
+            </div>
+          </a>
+
+          <!-- Item 04: Job Opportunity Notifier -->
+          <a href="https://github.com/M-shahzan/Job-opportunity" target="_blank" rel="noopener noreferrer"
+            class="archive-single-row" data-title="Job Opportunity Notifier"
+            data-metric="Python Flask // Automated Ingestion" data-cursor="VIEW">
+            <div class="archive-row-identity">
+              <span class="archive-row-num">04</span>
+              <span class="archive-row-name">Job Opportunity Notifier</span>
+            </div>
+            <div class="archive-row-meta">
+              <span class="archive-tech-label">Python &bull; Flask &bull; Automation</span>
+              <svg class="archive-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"></path>
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCENE 06: RESEARCH WALL & EXPERIMENTS NOTEBOOK
+         ==================================================================== -->
+    <section id="experiments" class="scene scene-experiments" data-scene-index="5" aria-label="Research Experiments">
+      <div class="exp-container">
+        <div class="exp-section-header">
+          <h2 class="exp-main-title">RESEARCH &amp; EXPERIMENTS</h2>
+          <span class="exp-sub-label">EMPIRICAL BENCHMARKS EXTRACTED FROM REAL CODEBASES</span>
+        </div>
+
+        <div class="experiments-cards-grid">
+          <!-- EXP 01 -->
+          <div class="exp-log-card">
+            <div class="exp-log-header">
+              <span>EXP-001 // CLASSIFICATION ABLATION</span>
+              <span>KAGGLE TITANIC</span>
+            </div>
+            <h3 class="exp-log-title">Cross-Validation Model Benchmark</h3>
+            <p class="exp-log-desc">
+              Evaluated Random Forest vs Decision Trees vs Logistic Regression on engineered social title and family
+              features under 5-fold stratified cross-validation.
+            </p>
+            <div class="exp-telemetry-strip">
+              <span>RANDOM FOREST: 77.6% CV F1</span>
+              <span style="color: var(--signal-violet-bright);">BEST MODEL</span>
+            </div>
+          </div>
+
+          <!-- EXP 02 -->
+          <div class="exp-log-card">
+            <div class="exp-log-header">
+              <span>EXP-002 // ATTRIBUTION FIDELITY</span>
+              <span>RETINAXAI (IDRiD)</span>
+            </div>
+            <h3 class="exp-log-title">Grad-CAM Convolutional Gradient Tracing</h3>
+            <p class="exp-log-desc">
+              Backpropagating target class scores through EfficientNet-B3 final convolutional layers to verify lesion
+              overlap with ophthalmologist annotations.
+            </p>
+            <div class="exp-telemetry-strip">
+              <span>DME DETECTOR: 0.92 ROC-AUC</span>
+              <span style="color: var(--signal-emerald);">VALIDATED</span>
+            </div>
+          </div>
+
+          <!-- EXP 03 -->
+          <div class="exp-log-card">
+            <div class="exp-log-header">
+              <span>EXP-003 // EDGE INFERENCE LATENCY</span>
+              <span>SIGHTLITE (SIH 2026)</span>
+            </div>
+            <h3 class="exp-log-title">Client-Side ViT vs Remote Roundtrip</h3>
+            <p class="exp-log-desc">
+              Benchmarked local quantized Vision Transformer bounding box extraction against full-frame cloud API calls,
+              eliminating credential transmission.
+            </p>
+            <div class="exp-telemetry-strip">
+              <span>PRIVACY LEAKAGE: 0%</span>
+              <span style="color: var(--signal-cyan);">ON-DEVICE SHIELD</span>
+            </div>
+          </div>
+
+          <!-- EXP 04 -->
+          <div class="exp-log-card">
+            <div class="exp-log-header">
+              <span>EXP-004 // COMPOSITE RISK SCORING</span>
+              <span>PROCUREMENT HUB</span>
+            </div>
+            <h3 class="exp-log-title">Multi-Factor Supplier Weighted Clustering</h3>
+            <p class="exp-log-desc">
+              Combined Random Forest risk classification with KNN nearest-neighbor supplier clustering for automated
+              purchase order distribution.
+            </p>
+            <div class="exp-telemetry-strip">
+              <span>DISPATCH OVERHEAD: -60%</span>
+              <span style="color: var(--text-muted);">SIMULATED POs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCENE 07: THE EXIT — Massive Typographic Contact
+         ==================================================================== -->
+    <section id="exit" class="scene scene-exit" data-scene-index="6" aria-label="Contact">
+      <div class="exit-inner">
+        <div>
+          <h2 class="exit-giant-title">
+            WHAT SHOULD<br />WE BUILD?
+          </h2>
+
+          <div class="exit-links-track">
+            <a href="mailto:shahzanarmar01@gmail.com" class="exit-single-link" data-cursor="TALK">
+              <span>EMAIL // shahzanarmar01@gmail.com</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M7 17L17 7M17 7H7M17 7V17"></path>
+              </svg>
+            </a>
+
+            <a href="https://github.com/M-shahzan" target="_blank" rel="noopener noreferrer" class="exit-single-link"
+              data-cursor="OPEN">
+              <span>GITHUB ↗</span>
+            </a>
+
+            <a href="https://www.linkedin.com/in/mohammed-shahzan-armar-2ab1a82a4?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android"
+              target="_blank" rel="noopener noreferrer" class="exit-single-link" data-cursor="OPEN">
+              <span>LINKEDIN ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="exit-footer-row">
+          <div>MOHAMMED SHAHZAN ARMAR &bull; FINAL-YEAR DATA SCIENCE (VTU)</div>
+          <div>&copy; 2026 &bull; MACHINE LEARNING &amp; SYSTEMS</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- GSAP, ScrollToPlugin, ScrollTrigger & Lenis CDN Scripts -->
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Clean Scene Navigation Engine & Motion Choreography -->
+  <script src="main.js"></script>
 </body>
 
 </html>
