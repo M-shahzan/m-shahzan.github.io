@@ -26,14 +26,99 @@
   var sightStage = 1;  // 1 to 4
 
   var sceneThemes = [
-    { bg: '#10131A', light: 'radial-gradient(circle at 35% 25%, rgba(139, 92, 246, 0.08) 0%, rgba(79, 124, 255, 0.04) 45%, transparent 70%)' },
-    { bg: '#151923', light: 'radial-gradient(circle at 65% 40%, rgba(79, 124, 255, 0.07) 0%, rgba(139, 92, 246, 0.03) 45%, transparent 70%)' },
-    { bg: '#10131A', light: 'radial-gradient(circle at 40% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 65%)' },
-    { bg: '#151923', light: 'radial-gradient(circle at 60% 40%, rgba(79, 124, 255, 0.07) 0%, transparent 65%)' },
-    { bg: '#10131A', light: 'radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 60%)' },
-    { bg: '#151923', light: 'radial-gradient(circle at 55% 45%, rgba(79, 124, 255, 0.07) 0%, transparent 65%)' },
-    { bg: '#10131A', light: 'radial-gradient(circle at 50% 100%, rgba(139, 92, 246, 0.08) 0%, transparent 70%)' }
+    { bg: '#141118', light: 'radial-gradient(circle at 35% 25%, rgba(168, 85, 247, 0.08) 0%, rgba(129, 140, 248, 0.04) 45%, transparent 70%)' },
+    { bg: '#1a1622', light: 'radial-gradient(circle at 65% 40%, rgba(129, 140, 248, 0.07) 0%, rgba(168, 85, 247, 0.03) 45%, transparent 70%)' },
+    { bg: '#141118', light: 'radial-gradient(circle at 40% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 65%)' },
+    { bg: '#1a1622', light: 'radial-gradient(circle at 60% 40%, rgba(129, 140, 248, 0.07) 0%, transparent 65%)' },
+    { bg: '#141118', light: 'radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.06) 0%, transparent 60%)' },
+    { bg: '#1a1622', light: 'radial-gradient(circle at 55% 45%, rgba(129, 140, 248, 0.07) 0%, transparent 65%)' },
+    { bg: '#141118', light: 'radial-gradient(circle at 50% 100%, rgba(168, 85, 247, 0.08) 0%, transparent 70%)' }
   ];
+
+  /* ==========================================================================
+     THEME MANAGEMENT SYSTEM (Dark Rose & Violet Night)
+     ========================================================================== */
+  function getActiveTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'light'
+      ? 'light'
+      : 'dark';
+  }
+
+  function getCanvasThemeColors() {
+    var isDark = getActiveTheme() === 'dark';
+
+    return {
+      homeNodeColor: isDark ? 'rgba(255, 255, 255, ' : 'rgba(124, 58, 237, ',
+      retinaBg: isDark ? '#1C171E' : '#F0EEF8',
+      sightBg: isDark ? '#141118' : '#F8F7FC',
+      sightHeader: isDark ? '#241C23' : '#FFFFFF',
+      sightContent: isDark ? '#352933' : '#ECE8F7',
+      sightCard: isDark ? '#241C23' : '#FFFFFF',
+      sightStrip: isDark ? '#2D222B' : '#F5F2FF'
+    };
+  }
+
+  function applyTheme(themeName) {
+    var theme = themeName === 'light' ? 'light' : 'dark';
+
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('portfolio-theme', theme);
+    } catch (e) {}
+
+    var control = document.getElementById('theme-system-control');
+
+    if (control) {
+      var isLight = theme === 'light';
+
+      control.setAttribute(
+        'aria-label',
+        isLight
+          ? 'Switch to Dark Rose theme'
+          : 'Switch to Violet Night theme'
+      );
+
+      control.dataset.theme = theme;
+
+      var hint = control.querySelector('.theme-system-hint');
+      if (hint) {
+        hint.textContent = isLight
+          ? 'THEME // DARK ROSE'
+          : 'THEME // VIOLET NIGHT';
+      }
+    }
+  }
+
+  function toggleTheme() {
+    var current = getActiveTheme();
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
+  function initThemeControl() {
+    var control = document.getElementById('theme-system-control');
+    if (control) {
+      // Sync initial accessibility attributes and hint text with current active theme
+      var isLight = getActiveTheme() === 'light';
+      control.setAttribute(
+        'aria-label',
+        isLight
+          ? 'Switch to Dark Rose theme'
+          : 'Switch to Violet Night theme'
+      );
+      control.dataset.theme = isLight ? 'light' : 'dark';
+      var hint = control.querySelector('.theme-system-hint');
+      if (hint) {
+        hint.textContent = isLight
+          ? 'THEME // DARK ROSE'
+          : 'THEME // VIOLET NIGHT';
+      }
+
+      control.addEventListener('click', function (e) {
+        e.preventDefault();
+        toggleTheme();
+      });
+    }
+  }
 
   /* ==========================================================================
      2. CONTINUOUS SCROLL-DRIVEN ARROW -> PILL HEADER MORPH
@@ -147,10 +232,21 @@
       pillContainer.style.width = currentWidth.toFixed(1) + 'px';
 
       // Continuous glass styling materialization (no abrupt visual snap)
+      var isLight = getActiveTheme() === 'light';
       var glassFactor = Math.min(1, rawMorph * 2.2);
-      pillContainer.style.borderColor = 'rgba(44, 52, 69, ' + (1.0 * glassFactor).toFixed(3) + ')';
-      pillContainer.style.background = 'rgba(16, 19, 26, ' + (0.82 * glassFactor).toFixed(3) + ')';
-      pillContainer.style.boxShadow = '0 8px 28px rgba(0, 0, 0, ' + (0.45 * glassFactor).toFixed(3) + '), inset 0 1px 0 rgba(255, 255, 255, ' + (0.08 * glassFactor).toFixed(3) + ')';
+      var borderColor = isLight
+        ? 'rgba(221, 214, 254, ' + (1.0 * glassFactor).toFixed(3) + ')'
+        : 'rgba(53, 42, 69, ' + (1.0 * glassFactor).toFixed(3) + ')';
+      var bgColor = isLight
+        ? 'rgba(255, 255, 255, ' + (0.88 * glassFactor).toFixed(3) + ')'
+        : 'rgba(20, 17, 24, ' + (0.85 * glassFactor).toFixed(3) + ')';
+      var shadowColor = isLight
+        ? 'rgba(109, 40, 217, ' + (0.12 * glassFactor).toFixed(3) + ')'
+        : 'rgba(0, 0, 0, ' + (0.45 * glassFactor).toFixed(3) + ')';
+
+      pillContainer.style.borderColor = borderColor;
+      pillContainer.style.background = bgColor;
+      pillContainer.style.boxShadow = '0 8px 28px ' + shadowColor + ', inset 0 1px 0 rgba(255, 255, 255, ' + (0.08 * glassFactor).toFixed(3) + ')';
       var blurVal = (18 * glassFactor).toFixed(1);
       pillContainer.style.backdropFilter = 'blur(' + blurVal + 'px)';
       pillContainer.style.webkitBackdropFilter = 'blur(' + blurVal + 'px)';
@@ -1173,7 +1269,7 @@
 
       homeCtx.beginPath();
       homeCtx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-      homeCtx.fillStyle = 'rgba(255, 255, 255, ' + n.alpha + ')';
+      homeCtx.fillStyle = getCanvasThemeColors().homeNodeColor + n.alpha + ')';
       homeCtx.fill();
     }
 
@@ -1267,7 +1363,7 @@
     retinaCtx.save();
     retinaCtx.beginPath();
     retinaCtx.arc(cx, cy, radius, 0, Math.PI * 2);
-    retinaCtx.fillStyle = '#151923';
+    retinaCtx.fillStyle = getCanvasThemeColors().retinaBg;
     retinaCtx.fill();
     retinaCtx.strokeStyle = retinaStage >= 2 ? 'rgba(139, 92, 246, 0.45)' : 'rgba(255, 255, 255, 0.12)';
     retinaCtx.lineWidth = 1.5;
@@ -1364,21 +1460,22 @@
 
     sightCtx.clearRect(0, 0, w, h);
 
-    sightCtx.fillStyle = '#10131A';
+    var cColors = getCanvasThemeColors();
+    sightCtx.fillStyle = cColors.sightBg;
     sightCtx.fillRect(0, 0, w, h);
 
-    sightCtx.fillStyle = '#1B202C';
+    sightCtx.fillStyle = cColors.sightHeader;
     sightCtx.fillRect(28, 22, w - 56, 38);
 
-    sightCtx.fillStyle = '#252B3A';
+    sightCtx.fillStyle = cColors.sightContent;
     sightCtx.fillRect(28, 76, w - 56, 84);
 
     var cardW = (w - 80) / 2;
-    sightCtx.fillStyle = '#1B202C';
+    sightCtx.fillStyle = cColors.sightCard;
     sightCtx.fillRect(28, 178, cardW, 100);
     sightCtx.fillRect(40 + cardW, 178, cardW, 100);
 
-    sightCtx.fillStyle = '#222838';
+    sightCtx.fillStyle = cColors.sightStrip;
     sightCtx.fillRect(28, 298, w - 56, 44);
 
     if (sightStage >= 2) {
@@ -1581,6 +1678,7 @@
   function initEngine() {
     initSmoothScroll();
     initSceneMotionDepth();
+    initThemeControl();
     updateRetinaStageVisuals();
     updateSightStageVisuals();
     startHomeAmbientLoop();
