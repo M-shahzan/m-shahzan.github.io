@@ -28,7 +28,7 @@ export function App() {
       <Navigation onNavigate={navigateToScene} />
 
       <main id="scenes-wrapper">
-        <Hero theme={theme} onToggleTheme={toggleTheme} />
+        <Hero theme={theme} onToggleTheme={toggleTheme} onNavigate={navigateToScene} />
         <About />
         <WorkSection
           retinaStage={retinaStage}

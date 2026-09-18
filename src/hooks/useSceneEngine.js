@@ -300,6 +300,7 @@ export function useSceneEngine({ onRetinaStageChange, onSightStageChange } = {})
           const p = self.progress;
           const nameEl = document.getElementById('hero-name-container');
           const descEl = document.getElementById('hero-descriptor-wrap');
+          const actionsEl = document.getElementById('hero-actions-wrap');
           const coordEl = document.getElementById('hero-coord-anchor');
           const canvasEl = document.getElementById('home-ambient-canvas');
 
@@ -318,6 +319,14 @@ export function useSceneEngine({ onRetinaStageChange, onSightStageChange } = {})
             const descAlpha = Math.max(0, 1 - exitProgress);
             descEl.style.transform = `translate3d(0, ${descY.toFixed(1)}px, 0)`;
             descEl.style.opacity = descAlpha.toFixed(2);
+          }
+
+          if (actionsEl) {
+            const actionsY = 16 * exitProgress;
+            const actionsAlpha = Math.max(0, 1 - exitProgress);
+            actionsEl.style.transform = `translate3d(0, ${actionsY.toFixed(1)}px, 0)`;
+            actionsEl.style.opacity = actionsAlpha.toFixed(2);
+            actionsEl.style.pointerEvents = exitProgress > 0.1 ? 'none' : 'auto';
           }
 
           if (coordEl) {

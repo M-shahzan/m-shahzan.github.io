@@ -1,9 +1,22 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { HomeAmbientCanvas } from './HomeAmbientCanvas';
+import { personalLinks } from '../data/links';
 
-export function Hero({ theme, onToggleTheme }) {
+export function Hero({ theme, onToggleTheme, onNavigate }) {
   const isLight = theme === 'light';
+
+  const handleWorkClick = (e) => {
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate(2);
+    } else {
+      const workEl = document.querySelector('#work');
+      if (workEl) {
+        workEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <section id="home" className="scene scene-home" data-scene-index="0" aria-label="Mohammed Shahzan Armar">
@@ -55,6 +68,31 @@ export function Hero({ theme, onToggleTheme }) {
         <div className="hero-descriptor-strip" id="hero-descriptor-wrap">
           <span className="hero-dash-rule" aria-hidden="true"></span>
           <p className="hero-descriptor-text">MACHINE LEARNING &nbsp;/&nbsp; COMPUTER VISION &nbsp;/&nbsp; DATA</p>
+        </div>
+
+        {/* Minimal Editorial CTAs */}
+        <div className="hero-actions-strip" id="hero-actions-wrap">
+          <a
+            href="#work"
+            className="hero-editorial-link"
+            data-cursor="EXPLORE"
+            onClick={handleWorkClick}
+          >
+            <span className="hero-link-text">View Work</span>
+            <span className="hero-link-underline" aria-hidden="true" />
+          </a>
+
+          <a
+            href={personalLinks.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-editorial-link"
+            data-cursor="OPEN"
+            aria-label="Open Resume in new tab"
+          >
+            <span className="hero-link-text">Resume ↗</span>
+            <span className="hero-link-underline" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>
