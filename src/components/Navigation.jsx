@@ -87,7 +87,7 @@ export function Navigation({ onNavigate }) {
             WORK
           </motion.a>
           <motion.a
-            href="#experiments"
+            href="#experience"
             className="pill-nav-item"
             data-cursor="VIEW"
             data-nav-target="3"
@@ -96,7 +96,7 @@ export function Navigation({ onNavigate }) {
             whileTap={{ scale: 0.96 }}
             transition={{ duration: 0.15 }}
           >
-            EXPERIMENTS
+            EXPERIENCE
           </motion.a>
           <motion.a
             href="#exit"

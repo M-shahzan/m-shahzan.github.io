@@ -5,7 +5,7 @@ import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Competencies } from './components/Competencies';
 import { WorkSection } from './components/Work/WorkSection';
-import { Experiments } from './components/Experiments';
+import { Experience } from './components/Experience';
 import { Contact } from './components/Contact';
 import { useTheme } from './hooks/useTheme';
 import { useSceneEngine } from './hooks/useSceneEngine';
@@ -36,7 +36,7 @@ export function App() {
           onRetinaStageChange={setRetinaStage}
           onSightStageChange={setSightStage}
         />
-        <Experiments />
+        <Experience />
         <Contact />
       </main>
     </>

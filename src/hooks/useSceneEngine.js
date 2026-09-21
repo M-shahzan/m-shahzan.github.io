@@ -10,7 +10,7 @@ const scenes = [
   '#home',
   '#about',
   '#work',
-  '#experiments',
+  '#experience',
   '#exit'
 ];
 
@@ -221,7 +221,7 @@ export function useSceneEngine({ onRetinaStageChange, onSightStageChange } = {})
       const homeEl = document.querySelector('#home');
       const aboutEl = document.querySelector('#about');
       const workTrack = document.querySelector('.stacked-work-track') || document.querySelector('#work');
-      const expEl = document.querySelector('#experiments');
+      const expEl = document.querySelector('#experience');
       const exitEl = document.querySelector('#exit');
 
       if (exitEl && viewportMid >= exitEl.getBoundingClientRect().top + scrollY) {
@@ -544,10 +544,10 @@ export function useSceneEngine({ onRetinaStageChange, onSightStageChange } = {})
       }
 
       // Scene depth transitions
-      ['#experiments', '#exit'].forEach((sel) => {
+      ['#experience', '#exit'].forEach((sel) => {
         const sceneEl = document.querySelector(sel);
         if (!sceneEl) return;
-        const content = sceneEl.querySelector('.exp-container, .exit-inner');
+        const content = sceneEl.querySelector('.experience-container, .exit-inner');
         if (!content) return;
 
         ScrollTrigger.create({

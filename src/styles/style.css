@@ -2184,104 +2184,369 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   12. SCENE 06: RESEARCH WALL & EXPERIMENTS NOTEBOOK
+   12. SCENE 06: DATA STREAM // EXPERIENCE & EDUCATION
    -------------------------------------------------------------------------- */
-.scene-experiments {
+.scene-experience {
   border-top: 1px solid var(--border-default);
   background: var(--bg-alt);
+  height: auto;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: clamp(110px, 14vh, 160px) clamp(24px, 5vw, 64px) clamp(110px, 14vh, 160px);
+  position: relative;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
-.exp-container {
-  max-width: 1200px;
+.stream-experience-container {
+  max-width: 1080px;
   width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(36px, 5vh, 56px);
 }
 
-.exp-section-header {
-  margin-bottom: 28px;
+/* Editorial Header */
+.stream-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.exp-main-title {
+.stream-header-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--text-accent);
+  text-transform: uppercase;
+}
+
+.stream-tag-icon {
+  color: var(--signal-violet-bright);
+}
+
+.stream-main-title {
   font-family: var(--font-display);
-  font-size: clamp(26px, 4vw, 50px);
+  font-size: clamp(28px, 4.2vw, 52px);
   font-weight: 800;
   letter-spacing: -0.04em;
   color: var(--text-pure);
-  margin-bottom: 6px;
+  line-height: 1.1;
+  margin: 0;
 }
 
-.exp-sub-label {
+.stream-sub-caption {
   font-family: var(--font-mono);
   font-size: 10.5px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   color: var(--text-muted);
   text-transform: uppercase;
+  margin: 0;
 }
 
-.experiments-cards-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+/* Stream Flow Wrapper */
+.stream-flow-wrapper {
+  position: relative;
+  width: 100%;
 }
 
-@media (min-width: 860px) {
-  .experiments-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
+/* SVG Overlay dynamically spanning the entire flow container */
+.stream-svg-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.stream-svg-canvas {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.stream-path-bg {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-dasharray: 4 6;
+  fill: none;
+}
+
+[data-theme="light"] .stream-path-bg {
+  stroke: rgba(139, 92, 246, 0.18);
+}
+
+.stream-path-active {
+  fill: none;
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+  transition: stroke 0.3s ease;
+}
+
+/* Travelling Pulse Particle along the stream line */
+.stream-travelling-node {
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.stream-particle-aura {
+  fill: rgba(139, 92, 246, 0.2);
+  animation: particleAuraPulse 1.8s ease-in-out infinite;
+}
+
+.stream-particle-ring {
+  fill: rgba(167, 139, 250, 0.35);
+  stroke: rgba(255, 255, 255, 0.8);
+  stroke-width: 1px;
+}
+
+.stream-particle-core {
+  fill: var(--signal-violet-bright, #a78bfa);
+  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 1));
+}
+
+@keyframes particleAuraPulse {
+  0%, 100% {
+    r: 13px;
+    opacity: 0.7;
+  }
+  50% {
+    r: 17px;
+    opacity: 0.25;
   }
 }
 
-.exp-log-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  border-radius: 10px;
-  padding: 18px 20px;
-  transition: border-color 0.25s ease, transform 0.2s var(--ease-expo), background-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.exp-log-card:hover {
-  border-color: var(--border-hover);
-  background-color: var(--bg-card-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 12px rgba(139, 92, 246, 0.08);
-}
-
-.exp-log-header {
+/* Milestones Column with Generous Vertical Breathing Room */
+.stream-milestones-column {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: clamp(52px, 8.5vh, 88px);
+  width: 100%;
+  z-index: 2;
+}
+
+/* Individual Milestone Entry */
+.stream-milestone-entry {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.8vh, 18px);
+  opacity: 0.65;
+  transition: opacity 0.4s ease, transform 0.35s var(--ease-expo);
+}
+
+.stream-milestone-entry.is-active {
+  opacity: 1;
+}
+
+.stream-milestone-entry.is-passed {
+  opacity: 0.85;
+}
+
+/* Lead Row: Unified Number (01) + Node Dot (●) + Category Rule */
+.stream-milestone-lead {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.stream-node-unit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.stream-node-num {
   font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-accent);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.exp-log-title {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text-heading-secondary);
-  margin-bottom: 6px;
-}
-
-.exp-log-desc {
   font-size: 13px;
-  line-height: 1.55;
-  color: var(--text-muted);
-  margin-bottom: 12px;
+  font-weight: 700;
+  color: var(--text-accent);
+  letter-spacing: 0.12em;
 }
 
-.exp-telemetry-strip {
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-default);
-  border-radius: 6px;
-  padding: 8px 10px;
+.stream-node-dot-wrap {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stream-node-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-hover);
+  border: 1.5px solid var(--border-default);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 3;
+}
+
+.stream-node-dot.dot-active {
+  background: var(--signal-violet-bright, #a78bfa);
+  border-color: #ffffff;
+  box-shadow: 0 0 14px rgba(139, 92, 246, 0.95), 0 0 5px #a78bfa;
+  transform: scale(1.35);
+}
+
+.stream-node-halo {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 92, 246, 0);
+  background: rgba(139, 92, 246, 0);
+  transition: all 0.45s ease;
+  z-index: 2;
+}
+
+.stream-node-halo.halo-active {
+  border-color: rgba(139, 92, 246, 0.45);
+  background: rgba(139, 92, 246, 0.12);
+  animation: nodeHaloPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes nodeHaloPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.3;
+  }
+}
+
+.stream-category-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+.stream-category-label {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--highlight-cyan);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--text-accent);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.stream-category-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border-default);
+}
+
+.stream-badge-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 3.5px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.stream-badge-pill.badge-status {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--signal-emerald, #10b981);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+}
+
+.stream-badge-pill.badge-tag {
+  background: var(--nav-active-bg, rgba(139, 92, 246, 0.14));
+  color: var(--signal-violet-bright, #a78bfa);
+  border: 1px solid var(--border-hover);
+}
+
+/* Body Content Structure (Controlled Max-Width & Generous Breathing Room) */
+.stream-entry-body {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 56px;
+  max-width: 680px;
+}
+
+.stream-entry-title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--text-pure);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.stream-meta-strip {
+  display: flex;
   align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.stream-meta-org {
+  color: var(--text-heading-secondary);
+  font-weight: 600;
+}
+
+.stream-meta-sep {
+  color: var(--border-hover);
+}
+
+.stream-meta-period {
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.stream-entry-desc {
+  font-family: var(--font-body);
+  font-size: clamp(13.5px, 1.2vw, 14.5px);
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 2px 0 0;
+}
+
+.stream-skills-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  padding-top: 4px;
+}
+
+.stream-skill-token {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-heading-secondary);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  padding: 3px 9px;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.stream-skill-token:hover {
+  border-color: var(--border-hover);
+  color: var(--text-pure);
 }
 
 /* --------------------------------------------------------------------------
@@ -2776,57 +3041,108 @@ button {
     padding: 2px 0;
   }
 
-  /* Experiments Scene: clear header, prevent clipping, keep all 4 cards readable */
-  .scene-experiments {
+  /* Mobile Data Stream Experience */
+  .scene-experience {
     height: auto;
     min-height: 100svh;
     overflow: visible;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: clamp(80px, 12vh, 96px);
-    padding-bottom: clamp(40px, 6vh, 60px);
+    padding-top: clamp(90px, 12vh, 110px);
+    padding-bottom: clamp(70px, 9vh, 90px);
+    padding-left: clamp(16px, 4.5vw, 24px);
+    padding-right: clamp(16px, 4.5vw, 24px);
   }
 
-  .exp-section-header {
-    margin-bottom: 16px;
+  .stream-experience-container {
+    gap: clamp(24px, 4vh, 32px);
   }
 
-  .exp-main-title {
-    font-size: clamp(22px, 5.5vw, 30px);
-    margin-bottom: 4px;
+  .stream-section-header {
+    gap: 4px;
   }
 
-  .exp-sub-label {
-    font-size: 9.5px;
-  }
-
-  .experiments-cards-grid {
-    gap: 12px;
-  }
-
-  .exp-log-card {
-    padding: 14px 16px;
-  }
-
-  .exp-log-header {
+  .stream-header-tag {
     font-size: 9px;
-    margin-bottom: 6px;
+    letter-spacing: 0.14em;
   }
 
-  .exp-log-title {
-    font-size: 15px;
-    margin-bottom: 4px;
+  .stream-main-title {
+    font-size: clamp(24px, 6.2vw, 32px);
   }
 
-  .exp-log-desc {
-    font-size: 12.5px;
+  .stream-sub-caption {
+    font-size: 9px;
+  }
+
+  .stream-flow-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .stream-milestones-column {
+    gap: clamp(36px, 6vh, 52px);
+  }
+
+  .stream-milestone-lead {
+    gap: 10px;
+  }
+
+  .stream-node-unit {
+    gap: 8px;
+  }
+
+  .stream-node-num {
+    font-size: 11.5px;
+  }
+
+  .stream-node-dot-wrap {
+    width: 16px;
+    height: 16px;
+  }
+
+  .stream-category-wrap {
+    gap: 10px;
+  }
+
+  .stream-category-label {
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+  }
+
+  .stream-entry-body {
+    padding-left: 36px;
+    gap: 6px;
+  }
+
+  .stream-entry-title {
+    font-size: clamp(16px, 4.5vw, 19px);
+    line-height: 1.25;
+  }
+
+  .stream-badge-pill {
+    font-size: 8px;
+    padding: 2.5px 6px;
+  }
+
+  .stream-meta-strip {
+    font-size: 10.5px;
+    gap: 5px;
+  }
+
+  .stream-entry-desc {
+    font-size: clamp(11.5px, 3.2vw, 12.5px);
     line-height: 1.5;
   }
 
-  .exp-telemetry-strip {
-    margin-top: 8px;
-    font-size: 9.5px;
+  .stream-skills-flow {
+    gap: 4px 6px;
+  }
+
+  .stream-skill-token {
+    font-size: 9px;
+    padding: 2px 7px;
   }
 
   .exit-inner {
