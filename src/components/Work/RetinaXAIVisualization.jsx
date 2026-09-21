@@ -11,7 +11,7 @@ export function RetinaXAIVisualization({ stage = 1 }) {
 
     let rafId = null;
     let angle = 0;
-    let isVisible = false;
+    let isVisible = true;
 
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
@@ -27,24 +27,8 @@ export function RetinaXAIVisualization({ stage = 1 }) {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        isVisible = entry.isIntersecting;
-        if (isVisible) {
-          if (!rafId) rafId = requestAnimationFrame(render);
-        } else {
-          if (rafId) {
-            cancelAnimationFrame(rafId);
-            rafId = null;
-          }
-        }
-      });
-    }, { threshold: 0.05 });
-
-    observer.observe(canvas);
-
-    const render = () => {
-      if (!ctx || !canvas || !isVisible) return;
+    function render() {
+      if (!ctx || !canvas) return;
       const rect = canvas.getBoundingClientRect();
       const w = rect.width;
       const h = rect.height;
@@ -145,11 +129,12 @@ export function RetinaXAIVisualization({ stage = 1 }) {
       ctx.restore();
       angle += 0.01;
       rafId = requestAnimationFrame(render);
-    };
+    }
+
+    rafId = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      observer.disconnect();
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [stage]);

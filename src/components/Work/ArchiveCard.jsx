@@ -28,11 +28,8 @@ export function ArchiveCard() {
     <motion.article
       id="archive"
       className="project-card archive-card"
-      initial={{ opacity: 0, y: prefersReduced ? 0 : 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      whileHover={prefersReduced ? {} : { y: -5 }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={prefersReduced ? {} : { y: -3 }}
+      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
       aria-label="Project Archive Collection"
     >
       {/* Top Header Row */}
@@ -51,9 +48,8 @@ export function ArchiveCard() {
       <motion.div
         className="archive-card-list"
         variants={listContainerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        initial="visible"
+        animate="visible"
       >
         {archiveProjects.map((proj) => (
           <motion.a

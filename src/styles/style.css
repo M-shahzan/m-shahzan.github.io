@@ -1310,9 +1310,9 @@ button {
 
 .stacked-work-sticky-viewport {
   position: sticky;
-  top: clamp(70px, 9.5vh, 92px);
+  top: clamp(75px, 9.5vh, 92px);
   width: 100%;
-  height: min(650px, calc(100vh - clamp(85px, 11vh, 110px)));
+  height: min(680px, calc(100vh - clamp(90px, 11vh, 110px)));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1326,7 +1326,7 @@ button {
   max-width: 1200px;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
 }
 
@@ -1344,6 +1344,7 @@ button {
 .stacked-card-layer .project-card,
 .stacked-card-layer .archive-card {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1353,6 +1354,7 @@ button {
   background: var(--bg-card);
   background-color: var(--bg-card);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  box-sizing: border-box;
 }
 
 .reduced-work-stack {
@@ -1364,177 +1366,6 @@ button {
 
 .work-reduced-item {
   width: 100%;
-}
-
-@media (max-width: 960px) {
-  .scene-work-section {
-    padding: clamp(60px, 7.5vh, 80px) clamp(12px, 3.5vw, 24px) 32px;
-  }
-
-  .work-content-container {
-    gap: clamp(16px, 2.5vh, 24px);
-  }
-
-  .work-section-header {
-    gap: 6px;
-  }
-
-  .work-main-title {
-    font-size: clamp(24px, 5.5vw, 34px);
-  }
-
-  .work-header-desc {
-    font-size: clamp(12px, 2.8vw, 14px);
-    line-height: 1.45;
-  }
-
-  .stacked-work-track {
-    height: 320vh;
-  }
-
-  .stacked-work-sticky-viewport {
-    height: calc(100svh - clamp(72px, 8.5vh, 86px));
-    max-height: calc(100svh - 68px);
-    top: clamp(58px, 7.2vh, 70px);
-    align-items: stretch;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .stacked-cards-deck {
-    height: 100%;
-    width: 100%;
-  }
-
-  .stacked-card-layer {
-    height: 100%;
-    width: 100%;
-  }
-
-  .stacked-card-layer .project-card,
-  .stacked-card-layer .archive-card {
-    height: 100%;
-    max-height: 100%;
-    min-height: unset;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: clamp(14px, 3.5vw, 20px);
-    gap: clamp(10px, 1.5vh, 16px);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-radius: 14px;
-    box-sizing: border-box;
-  }
-
-  .project-card-header {
-    gap: 8px;
-  }
-
-  .project-card-title {
-    font-size: clamp(18px, 4.4vw, 24px);
-  }
-
-  .project-repo-link {
-    font-size: 9.5px;
-    padding: 4px 10px;
-    gap: 5px;
-  }
-
-  .project-card-body-grid {
-    grid-template-columns: 1fr;
-    gap: clamp(8px, 1.3vh, 12px);
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-
-  .project-canvas-frame {
-    height: clamp(130px, 19vh, 180px);
-    min-height: 120px;
-    border-radius: 9px;
-  }
-
-  .project-stages-pane {
-    padding: clamp(10px, 2.5vw, 14px);
-    gap: clamp(6px, 1vh, 10px);
-    border-radius: 9px;
-    flex: 1;
-    min-height: 0;
-  }
-
-  .project-stages-header {
-    padding-bottom: 8px;
-    gap: 6px;
-  }
-
-  .stages-eyebrow-label {
-    font-size: 8.5px;
-  }
-
-  .stage-nav-pill {
-    font-size: 9.5px;
-    padding: 3px 8px;
-  }
-
-  .stage-content-area {
-    min-height: auto;
-  }
-
-  .stage-content-inner {
-    gap: 4px;
-  }
-
-  .stage-eyebrow {
-    font-size: 9px;
-  }
-
-  .stage-title {
-    font-size: clamp(14px, 3.4vw, 17px);
-    line-height: 1.22;
-  }
-
-  .stage-desc {
-    font-size: clamp(11.5px, 2.6vw, 12.8px);
-    line-height: 1.45;
-  }
-
-  .project-card-footer {
-    padding-top: clamp(8px, 1.2vh, 10px);
-    gap: 8px;
-  }
-
-  .project-tech-tags {
-    gap: 5px;
-  }
-
-  .project-tech-pill {
-    font-size: 9px;
-    padding: 2.5px 7px;
-  }
-
-  .project-metric-highlight {
-    font-size: 9px;
-  }
-
-  .archive-card {
-    padding: clamp(14px, 3.5vw, 20px);
-    gap: clamp(10px, 1.5vh, 14px);
-  }
-
-  .archive-card-list {
-    gap: 6px;
-  }
-
-  .archive-card-row {
-    padding: clamp(8px, 1.4vh, 12px) clamp(10px, 2.5vw, 14px);
-  }
-
-  .archive-row-title {
-    font-size: clamp(13.5px, 3.2vw, 15.5px);
-  }
 }
 
 /* Reusable Project Card Container (Solid & Opaque) */
@@ -1635,14 +1466,9 @@ button {
   gap: clamp(20px, 2.5vw, 36px);
   align-items: stretch;
   width: 100%;
+  flex: 1;
+  min-height: 0;
   box-sizing: border-box;
-}
-
-@media (max-width: 960px) {
-  .project-card-body-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
 }
 
 /* Canvas Visual Pane */
@@ -1651,6 +1477,7 @@ button {
   flex-direction: column;
   width: 100%;
   min-width: 0;
+  height: 100%;
   position: relative;
   box-sizing: border-box;
 }
@@ -1658,8 +1485,8 @@ button {
 .project-canvas-frame {
   position: relative;
   width: 100%;
-  min-height: 280px;
-  height: clamp(280px, 36vh, 380px);
+  min-height: 260px;
+  height: 100%;
   border-radius: 12px;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-default);
@@ -1799,12 +1626,13 @@ button {
 .project-stages-pane {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  height: 100%;
   background: var(--bg-alt);
   border: 1px solid var(--border-default);
   border-radius: 12px;
   padding: clamp(18px, 2.2vw, 28px);
-  gap: 16px;
+  gap: clamp(14px, 1.8vh, 20px);
   min-width: 0;
   width: 100%;
   box-sizing: border-box;
@@ -1817,8 +1645,9 @@ button {
   flex-wrap: wrap;
   gap: 12px;
   border-bottom: 1px solid var(--border-default);
-  padding-bottom: 14px;
+  padding-bottom: 12px;
   width: 100%;
+  flex-shrink: 0;
   box-sizing: border-box;
 }
 
@@ -1890,10 +1719,12 @@ button {
 }
 
 .stage-content-area {
-  min-height: 160px;
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 4px;
 }
 
 .stage-content-inner {
@@ -1936,7 +1767,9 @@ button {
   flex-wrap: wrap;
   gap: 16px;
   border-top: 1px solid var(--border-default);
-  padding-top: 20px;
+  padding-top: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .project-tech-tags {
@@ -1977,7 +1810,12 @@ button {
    10. CARD 03: PROJECT ARCHIVE
    -------------------------------------------------------------------------- */
 .archive-card {
-  gap: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  box-sizing: border-box;
 }
 
 .archive-badge-counter {
@@ -1993,22 +1831,28 @@ button {
 }
 
 .archive-card-list {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 10px;
 }
 
 .archive-card-row {
+  flex: 1;
+  min-height: 52px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: clamp(12px, 1.6vh, 18px) clamp(16px, 2vw, 22px);
   background: var(--bg-alt);
   border: 1px solid var(--border-default);
   border-radius: 10px;
   text-decoration: none;
   transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .archive-card-row:hover {
@@ -2095,6 +1939,7 @@ button {
 
 .archive-footer {
   justify-content: space-between;
+  margin-top: auto;
 }
 
 .archive-footer-note {
@@ -2117,6 +1962,225 @@ button {
 
 .archive-all-repos-link:hover {
   color: var(--text-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Rules for Work & Stacked Deck (Mobile / Tablet)
+   -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .scene-work-section {
+    padding: clamp(60px, 7.5vh, 76px) clamp(12px, 3.5vw, 20px) 24px;
+  }
+
+  .work-content-container {
+    gap: clamp(12px, 1.8vh, 18px);
+  }
+
+  .work-section-header {
+    gap: 4px;
+  }
+
+  .work-main-title {
+    font-size: clamp(22px, 5.2vw, 30px);
+  }
+
+  .work-header-desc {
+    font-size: clamp(11.5px, 2.7vw, 13.5px);
+    line-height: 1.4;
+  }
+
+  .stacked-work-track {
+    height: 320vh;
+  }
+
+  /* Centered, generous full-screen sticky viewport clearing header with balanced margins */
+  .stacked-work-sticky-viewport {
+    height: calc(100svh - clamp(88px, 11.5vh, 104px));
+    max-height: calc(100svh - 86px);
+    top: clamp(74px, 9.5vh, 86px);
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .stacked-cards-deck {
+    height: 100%;
+    width: 100%;
+  }
+
+  .stacked-card-layer {
+    height: 100%;
+    width: 100%;
+  }
+
+  .stacked-card-layer .project-card,
+  .stacked-card-layer .archive-card {
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: clamp(14px, 3.8vw, 20px);
+    gap: clamp(10px, 1.5vh, 14px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 14px;
+    box-sizing: border-box;
+  }
+
+  /* Archive Card on Mobile / Tablet */
+  .archive-card {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: clamp(12px, 1.8vh, 18px);
+  }
+
+  .archive-card-list {
+    flex: none;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+    margin: 4px 0;
+  }
+
+  .archive-card-row {
+    flex: none;
+    min-height: 46px;
+    padding: clamp(8px, 1.3vh, 12px) clamp(12px, 3vw, 16px);
+    border-radius: 8px;
+  }
+
+  .archive-row-title {
+    font-size: clamp(13px, 3.4vw, 15px);
+  }
+
+  .archive-row-idx {
+    font-size: 10px;
+  }
+
+  .archive-row-metric-pill {
+    font-size: 9px;
+    padding: 2.5px 6px;
+  }
+
+  .archive-footer {
+    margin-top: auto;
+    padding-top: clamp(8px, 1.2vh, 12px);
+    gap: 8px;
+  }
+
+  .archive-footer-note {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .archive-all-repos-link {
+    font-size: 9.5px;
+  }
+
+  /* Project Card on Mobile */
+  .project-card-header {
+    gap: 6px;
+  }
+
+  .project-card-title {
+    font-size: clamp(17px, 4.2vw, 22px);
+  }
+
+  .project-repo-link {
+    font-size: 9px;
+    padding: 3.5px 9px;
+    gap: 4px;
+  }
+
+  .project-card-body-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(8px, 1.2vh, 12px);
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .project-canvas-frame {
+    flex: 1.15;
+    min-height: 130px;
+    max-height: clamp(160px, 24vh, 220px);
+    border-radius: 8px;
+  }
+
+  .project-stages-pane {
+    flex: 1;
+    min-height: 0;
+    padding: clamp(10px, 2.5vw, 14px);
+    gap: clamp(6px, 1vh, 10px);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .project-stages-header {
+    padding-bottom: 6px;
+    gap: 6px;
+  }
+
+  .stages-eyebrow-label {
+    font-size: 8px;
+  }
+
+  .stage-nav-pill {
+    font-size: 9px;
+    padding: 3px 7px;
+  }
+
+  .stage-content-area {
+    min-height: auto;
+  }
+
+  .stage-content-inner {
+    gap: 4px;
+  }
+
+  .stage-eyebrow {
+    font-size: 8.5px;
+  }
+
+  .stage-title {
+    font-size: clamp(13.5px, 3.2vw, 16px);
+    line-height: 1.2;
+  }
+
+  .stage-desc {
+    font-size: clamp(11px, 2.5vw, 12.5px);
+    line-height: 1.42;
+  }
+
+  .project-card-footer {
+    margin-top: auto;
+    padding-top: clamp(6px, 1vh, 10px);
+    gap: 6px;
+  }
+
+  .project-tech-tags {
+    gap: 4px;
+  }
+
+  .project-tech-pill {
+    font-size: 8.5px;
+    padding: 2px 6px;
+  }
+
+  .project-metric-highlight {
+    font-size: 8.5px;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -2359,149 +2423,214 @@ button {
      Mobile Work Section (RetinaXAI, SightLite, Archive)
      -------------------------------------------------------------------------- */
   .scene-work-section {
-    padding: clamp(64px, 8.5vh, 88px) clamp(12px, 3.5vw, 20px);
+    padding: clamp(60px, 7.5vh, 76px) clamp(12px, 3.5vw, 20px) 20px;
   }
 
   .work-content-container {
-    gap: clamp(24px, 3.5vh, 36px);
+    gap: clamp(16px, 2.5vh, 24px);
   }
 
   .work-section-header {
-    gap: 6px;
+    gap: 4px;
     margin-bottom: 2px;
   }
 
   .work-header-tag {
-    font-size: 9.5px;
+    font-size: 9px;
     letter-spacing: 0.16em;
   }
 
   .work-main-title {
-    font-size: clamp(24px, 6.2vw, 34px);
+    font-size: clamp(22px, 5.5vw, 30px);
     line-height: 1.1;
   }
 
   .work-header-desc {
-    font-size: clamp(12.5px, 3.2vw, 14px);
-    line-height: 1.5;
+    font-size: clamp(11.5px, 2.8vw, 13px);
+    line-height: 1.45;
   }
 
-  /* Mobile Stacked Deck Viewport */
+  /* Mobile Stacked Deck Viewport - fills ~84% of viewport centered below header */
   .stacked-work-track {
     height: 300vh;
   }
 
   .stacked-work-sticky-viewport {
-    top: clamp(72px, 9.5vh, 86px);
-    height: auto;
-    max-height: calc(100svh - clamp(76px, 10vh, 90px));
-    align-items: flex-start;
+    position: sticky;
+    top: clamp(68px, 8.5vh, 80px);
+    height: calc(100svh - clamp(82px, 10.5vh, 96px));
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
     padding: 0;
+    box-sizing: border-box;
+  }
+
+  .stacked-cards-deck {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
   }
 
   .stacked-card-layer {
-    height: auto;
-    max-height: calc(100svh - clamp(76px, 10vh, 90px));
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .stacked-card-layer .project-card,
   .stacked-card-layer .archive-card {
+    width: 100%;
     height: 100%;
-    min-height: clamp(380px, 58vh, 480px);
-    max-height: calc(100svh - clamp(76px, 10vh, 90px));
-    padding: clamp(12px, 3vw, 16px);
-    gap: clamp(6px, 1.1vh, 10px);
-    border-radius: 14px;
-    overflow: hidden;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
+    padding: clamp(12px, 3.2vw, 16px);
+    gap: clamp(6px, 1vh, 10px);
+    border-radius: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+    box-sizing: border-box;
   }
 
   .project-card-header {
-    gap: 6px;
+    display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 6px;
     flex-wrap: nowrap;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .project-header-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
   }
 
   .project-tag-wrap {
-    font-size: 8.5px;
+    font-size: 8px;
     letter-spacing: 0.12em;
-    gap: 5px;
+    gap: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .project-card-title {
-    font-size: clamp(17px, 4.4vw, 22px);
+    font-size: clamp(16px, 4.2vw, 21px);
     line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .project-repo-link {
-    font-size: 9px;
-    padding: 4px 10px;
-    gap: 4px;
-    min-height: 28px;
+    font-size: 8.5px;
+    padding: 3.5px 8px;
+    gap: 3px;
+    min-height: 26px;
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .project-card-body-grid {
-    grid-template-columns: 1fr;
-    gap: clamp(6px, 1vh, 10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(6px, 1vh, 8px);
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .project-visual-pane {
+    flex: 1.15;
+    min-height: 110px;
+    max-height: clamp(140px, 20vh, 190px);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .project-canvas-frame {
-    height: clamp(115px, 16vh, 145px);
-    min-height: 105px;
-    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    min-height: 100px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
   }
 
   .visual-stage-progress-indicator {
-    bottom: 6px;
-    left: 6px;
-    padding: 2.5px 7px;
-    gap: 5px;
-    border-radius: 5px;
+    bottom: 5px;
+    left: 5px;
+    padding: 2px 6px;
+    gap: 4px;
+    border-radius: 4px;
   }
 
   .visual-stage-node {
-    width: 5px;
-    height: 5px;
+    width: 4px;
+    height: 4px;
     border-width: 1px;
   }
 
   .visual-stage-line {
-    width: 7px;
+    width: 6px;
     height: 1px;
   }
 
   .visual-stage-label {
-    font-size: 7.5px;
+    font-size: 7px;
   }
 
   .project-telemetry-badge {
-    bottom: 6px;
-    right: 6px;
-    font-size: 8px;
-    padding: 2.5px 7px;
-    gap: 4px;
-    border-radius: 5px;
+    bottom: 5px;
+    right: 5px;
+    font-size: 7.5px;
+    padding: 2px 6px;
+    gap: 3px;
+    border-radius: 4px;
   }
 
   .project-stages-pane {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: clamp(6px, 2vw, 10px);
     gap: 4px;
     border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-default);
+    box-sizing: border-box;
   }
 
   .project-stages-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding-bottom: 4px;
     gap: 4px;
+    border-bottom: 1px solid var(--border-default);
+    flex-shrink: 0;
   }
 
   .stages-eyebrow-label {
-    font-size: 8px;
-    letter-spacing: 0.12em;
+    font-size: 7.5px;
+    letter-spacing: 0.1em;
   }
 
   .stage-navigation-track {
@@ -2510,13 +2639,17 @@ button {
   }
 
   .stage-nav-pill {
-    font-size: 9px;
-    padding: 3px 7px;
-    min-height: 26px;
+    font-size: 8.5px;
+    padding: 2.5px 6px;
+    min-height: 24px;
   }
 
   .stage-content-area {
-    min-height: unset;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     overflow: hidden;
   }
 
@@ -2525,18 +2658,18 @@ button {
   }
 
   .stage-eyebrow {
-    font-size: 8px;
-    letter-spacing: 0.1em;
+    font-size: 7.5px;
+    letter-spacing: 0.08em;
   }
 
   .stage-title {
-    font-size: clamp(12px, 3.2vw, 13.5px);
+    font-size: clamp(11.5px, 3vw, 13px);
     line-height: 1.2;
     margin: 0;
   }
 
   .stage-desc {
-    font-size: clamp(10.5px, 2.6vw, 11.5px);
+    font-size: clamp(10px, 2.5vw, 11px);
     line-height: 1.35;
     margin: 0;
     display: -webkit-box;
@@ -2547,16 +2680,19 @@ button {
   }
 
   .project-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding-top: 4px;
     gap: 4px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    flex-shrink: 0;
+    margin-top: auto;
   }
 
   .project-tech-tags {
-    gap: 3px 5px;
+    gap: 3px 4px;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .project-tech-pill {
@@ -2566,74 +2702,77 @@ button {
   }
 
   .project-metric-highlight {
-    font-size: 8px;
-    letter-spacing: 0.04em;
+    font-size: 7.5px;
+    letter-spacing: 0.03em;
   }
 
-  /* Archive Card on Mobile - Matched to Project Card height & proportions */
+  /* Archive Card on Mobile */
   .archive-badge-counter {
-    font-size: 9.5px;
-    padding: 3px 8px;
+    font-size: 8.5px;
+    padding: 2px 6px;
   }
 
   .archive-card-list {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    flex: 1 1 auto;
-    gap: clamp(6px, 1.2vh, 10px);
+    justify-content: flex-start;
+    flex: none;
+    gap: 7px;
     margin: 4px 0;
   }
 
   .archive-card-row {
-    padding: clamp(9px, 1.6vh, 13px) clamp(10px, 3vw, 14px);
+    padding: 9px 12px;
     border-radius: 8px;
-    flex: 1 1 auto;
+    flex: none;
+    min-height: 42px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
   .archive-row-lead {
-    gap: 8px;
+    gap: 6px;
   }
 
   .archive-row-idx {
-    font-size: 9px;
+    font-size: 8.5px;
   }
 
   .archive-row-title {
-    font-size: clamp(12.5px, 3.3vw, 14.5px);
+    font-size: clamp(12px, 3.2vw, 14px);
   }
 
   .archive-row-trail {
-    gap: 8px;
+    gap: 6px;
   }
 
   .archive-row-metric-pill {
-    font-size: 8px;
-    padding: 2px 5px;
+    font-size: 7.5px;
+    padding: 1.5px 4px;
   }
 
   .archive-row-arrow-wrap {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
   }
 
   .archive-footer {
-    padding-top: 6px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 4px;
+    flex-shrink: 0;
+    margin-top: auto;
   }
 
   .archive-footer-note {
-    font-size: 10px;
-    line-height: 1.35;
+    font-size: 9.5px;
+    line-height: 1.3;
   }
 
   .archive-all-repos-link {
-    font-size: 9px;
+    font-size: 8.5px;
     padding: 2px 0;
   }
 

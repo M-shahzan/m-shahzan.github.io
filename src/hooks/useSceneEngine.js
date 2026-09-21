@@ -417,39 +417,47 @@ export function useSceneEngine({ onRetinaStageChange, onSightStageChange } = {})
         });
       }
 
-      // Core Competencies scene build animation with delayed zone stagger
+      // Core Competencies scene build animation with delayed lower zones and earlier scroll-out
       const compEl = document.querySelector('#competencies');
       if (compEl) {
         const zonesConfig = [
           {
             // Zone 1: Languages (Upper-Left)
             items: ['lbl-languages', 'python', 'sql'],
-            start: 0.10,
-            end: 0.32
+            start: 0.08,
+            end: 0.22,
+            outStart: 0.62,
+            outEnd: 0.74
           },
           {
             // Zone 2: Machine Learning & Deep Learning (Upper-Right)
             items: ['lbl-ml', 'pytorch', 'scikit', 'tensorflow', 'efficientnet', 'gradcam', 'xgboost', 'opencv'],
-            start: 0.22,
-            end: 0.50
+            start: 0.14,
+            end: 0.30,
+            outStart: 0.64,
+            outEnd: 0.76
           },
           {
-            // Zone 3: Data Analysis & Visualization (Lower-Left) - Delayed stagger
+            // Zone 3: Data Analysis & Visualization (Lower-Left) - Delayed entrance
             items: ['lbl-data', 'pandas', 'numpy', 'matplotlib', 'seaborn', 'tableau', 'powerbi'],
-            start: 0.38,
-            end: 0.64
+            start: 0.28,
+            end: 0.44,
+            outStart: 0.68,
+            outEnd: 0.80
           },
           {
-            // Zone 4: Tools & Deployment (Lower-Right) - Delayed stagger
+            // Zone 4: Tools & Deployment (Lower-Right) - Delayed entrance
             items: ['lbl-tools', 'git', 'vscode', 'flask', 'streamlit', 'jupyter', 'linux', 'kaggle'],
-            start: 0.48,
-            end: 0.74
+            start: 0.34,
+            end: 0.50,
+            outStart: 0.70,
+            outEnd: 0.82
           }
         ];
 
         ScrollTrigger.create({
           trigger: '#competencies',
-          start: 'top 65%',
+          start: 'top 75%',
           end: 'bottom top',
           scrub: true,
           invalidateOnRefresh: true,
@@ -458,47 +466,67 @@ export function useSceneEngine({ onRetinaStageChange, onSightStageChange } = {})
             const compHeader = document.getElementById('comp-header');
 
             if (compHeader) {
-              const hdrP = Math.min(1, Math.max(0, (p - 0.04) / 0.16));
-              compHeader.style.opacity = hdrP.toFixed(3);
-              compHeader.style.transform = `translate3d(0, ${(16 * (1 - hdrP)).toFixed(1)}px, 0)`;
+              let hdrAlpha = 1;
+              let hdrY = 0;
+              if (p < 0.14) {
+                const inP = Math.max(0, (p - 0.04) / 0.10);
+                hdrAlpha = inP;
+                hdrY = 14 * (1 - inP);
+              } else if (p > 0.60) {
+                const outP = Math.min(1, (p - 0.60) / 0.14);
+                hdrAlpha = Math.max(0, 1 - outP);
+                hdrY = -14 * outP;
+              }
+              compHeader.style.opacity = hdrAlpha.toFixed(3);
+              compHeader.style.transform = `translate3d(0, ${hdrY.toFixed(1)}px, 0)`;
             }
 
             zonesConfig.forEach((zone) => {
               const count = zone.items.length;
-              const span = zone.end - zone.start;
-              const itemDur = Math.min(0.09, span / Math.max(1, count));
+              const inSpan = zone.end - zone.start;
+              const inItemDur = Math.min(0.06, inSpan / Math.max(1, count));
+
+              const outSpan = zone.outEnd - zone.outStart;
+              const outItemDur = Math.min(0.06, outSpan / Math.max(1, count));
 
               zone.items.forEach((id, idx) => {
                 const el = compEl.querySelector(`[data-comp-id="${id}"]`);
                 if (!el) return;
 
-                const inStart = zone.start + (count > 1 ? (idx / (count - 1)) * (span - itemDur) : 0);
-                const inEnd = inStart + itemDur;
+                const inStart = zone.start + (count > 1 ? (idx / (count - 1)) * (inSpan - inItemDur) : 0);
+                const inEnd = inStart + inItemDur;
+
+                const outStart = zone.outStart + (count > 1 ? (idx / (count - 1)) * (outSpan - outItemDur) : 0);
+                const outEnd = outStart + outItemDur;
 
                 let alpha = 0;
-                let y = 22;
-                let scale = 0.94;
+                let y = 20;
+                let scale = 0.95;
 
                 if (p < inStart) {
                   alpha = 0;
-                  y = 22;
-                  scale = 0.94;
+                  y = 20;
+                  scale = 0.95;
                 } else if (p < inEnd) {
                   const tIn = (p - inStart) / (inEnd - inStart);
-                  const smoothIn = 1 - Math.pow(1 - tIn, 2.4);
+                  const smoothIn = 1 - Math.pow(1 - tIn, 2.2);
                   alpha = smoothIn;
-                  y = 22 * (1 - smoothIn);
-                  scale = 0.94 + 0.06 * smoothIn;
-                } else if (p < 0.88) {
+                  y = 20 * (1 - smoothIn);
+                  scale = 0.95 + 0.05 * smoothIn;
+                } else if (p < outStart) {
                   alpha = 1;
                   y = 0;
                   scale = 1;
-                } else {
-                  const tOut = (p - 0.88) / 0.12;
+                } else if (p < outEnd) {
+                  const tOut = (p - outStart) / (outEnd - outStart);
                   const smoothOut = Math.pow(tOut, 2);
                   alpha = Math.max(0, 1 - smoothOut);
                   y = -18 * smoothOut;
                   scale = 1 - 0.03 * smoothOut;
+                } else {
+                  alpha = 0;
+                  y = -18;
+                  scale = 0.97;
                 }
 
                 el.style.opacity = alpha.toFixed(3);

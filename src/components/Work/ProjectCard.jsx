@@ -20,11 +20,8 @@ export function ProjectCard({
     <motion.article
       id={project.id}
       className="project-card"
-      initial={{ opacity: 0, y: prefersReduced ? 0 : 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      whileHover={prefersReduced ? {} : { y: -5 }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={prefersReduced ? {} : { y: -3 }}
+      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
       aria-label={`Project: ${project.title}`}
     >
       {/* Top Header Row */}

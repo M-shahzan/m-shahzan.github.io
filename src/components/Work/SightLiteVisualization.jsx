@@ -10,7 +10,7 @@ export function SightLiteVisualization({ stage = 1 }) {
     if (!ctx) return;
 
     let rafId = null;
-    let isVisible = false;
+    let isVisible = true;
     let pulse = 0;
 
     const resizeCanvas = () => {
@@ -27,24 +27,8 @@ export function SightLiteVisualization({ stage = 1 }) {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        isVisible = entry.isIntersecting;
-        if (isVisible) {
-          if (!rafId) rafId = requestAnimationFrame(render);
-        } else {
-          if (rafId) {
-            cancelAnimationFrame(rafId);
-            rafId = null;
-          }
-        }
-      });
-    }, { threshold: 0.05 });
-
-    observer.observe(canvas);
-
-    const render = () => {
-      if (!ctx || !canvas || !isVisible) return;
+    function render() {
+      if (!ctx || !canvas) return;
       const rect = canvas.getBoundingClientRect();
       const w = rect.width;
       const h = rect.height;
@@ -162,11 +146,12 @@ export function SightLiteVisualization({ stage = 1 }) {
       }
 
       rafId = requestAnimationFrame(render);
-    };
+    }
+
+    rafId = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      observer.disconnect();
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [stage]);
