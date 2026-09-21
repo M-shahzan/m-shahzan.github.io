@@ -230,7 +230,7 @@ export function useSceneEngine({ onRetinaStageChange, onSightStageChange } = {})
         activeIdx = 3;
       } else if (workTrack && viewportMid >= workTrack.getBoundingClientRect().top + scrollY) {
         activeIdx = 2;
-      } else if (aboutEl && viewportMid >= aboutEl.getBoundingClientRect().top + scrollY) {
+      } else if ((aboutEl || compEl) && viewportMid >= (aboutEl ? aboutEl.getBoundingClientRect().top + scrollY : 0)) {
         activeIdx = 1;
       } else {
         activeIdx = 0;
@@ -344,16 +344,9 @@ export function useSceneEngine({ onRetinaStageChange, onSightStageChange } = {})
         }
       });
 
-      // About pinned scene & Competencies build/hold/dismantle
+      // About scene entrance & motion
       const aboutEl = document.querySelector('#about');
       if (aboutEl) {
-        const compItemsOrder = [
-          'lbl-languages', 'python', 'sql',
-          'lbl-ml', 'pytorch', 'scikit', 'tensorflow', 'efficientnet', 'gradcam', 'xgboost', 'opencv',
-          'lbl-data', 'pandas', 'numpy', 'matplotlib', 'seaborn', 'tableau', 'powerbi',
-          'lbl-tools', 'git', 'vscode', 'flask', 'streamlit', 'jupyter', 'linux', 'kaggle'
-        ];
-
         const getSubProgress = (progress, start, end) => {
           if (progress <= start) return 0;
           if (progress >= end) return 1;
@@ -371,7 +364,7 @@ export function useSceneEngine({ onRetinaStageChange, onSightStageChange } = {})
 
         ScrollTrigger.create({
           trigger: '#about',
-          start: 'top bottom',
+          start: 'top 85%',
           end: 'bottom top',
           scrub: true,
           invalidateOnRefresh: true,
@@ -384,126 +377,140 @@ export function useSceneEngine({ onRetinaStageChange, onSightStageChange } = {})
             const leadParaEl = aboutEl.querySelector('.about-lead-para');
             const subParaEl = aboutEl.querySelector('.about-sub-para');
             const introGrid = document.getElementById('about-intro-grid');
-            const compBlock = document.getElementById('about-competencies-block');
-            const compHeader = document.getElementById('comp-header');
 
-            if (p <= 0.345) {
-              const inP = p / 0.345;
+            if (p < 0.45) {
+              const inP = p / 0.45;
               if (introGrid) {
                 introGrid.style.opacity = '1';
                 introGrid.style.transform = 'none';
               }
 
-              applyElementMotion(tagEl, getSubProgress(inP, 0.15, 0.35), 25, 1);
-              applyElementMotion(word1El, getSubProgress(inP, 0.25, 0.45), 40, 0.94);
-              applyElementMotion(word2El, getSubProgress(inP, 0.38, 0.60), 45, 0.94);
-              if (orbitalEl) orbitalEl.style.opacity = (0.88 * getSubProgress(inP, 0.45, 0.65)).toFixed(3);
-              applyElementMotion(leadParaEl, getSubProgress(inP, 0.55, 0.78), 22, 0.985);
-              applyElementMotion(subParaEl, getSubProgress(inP, 0.68, 0.90), 18, 0.99);
-
-              if (compBlock) compBlock.style.opacity = '0';
-              if (compHeader) compHeader.style.opacity = '0';
-
-              compItemsOrder.forEach((id) => {
-                const item = aboutEl.querySelector(`[data-comp-id="${id}"]`);
-                if (item) {
-                  item.style.opacity = '0';
-                  item.style.transform = 'translate3d(0, 24px, 0) scale(0.94)';
+              applyElementMotion(tagEl, getSubProgress(inP, 0.05, 0.30), 25, 1);
+              applyElementMotion(word1El, getSubProgress(inP, 0.15, 0.45), 40, 0.94);
+              applyElementMotion(word2El, getSubProgress(inP, 0.28, 0.60), 45, 0.94);
+              if (orbitalEl) orbitalEl.style.opacity = (0.88 * getSubProgress(inP, 0.35, 0.65)).toFixed(3);
+              applyElementMotion(leadParaEl, getSubProgress(inP, 0.45, 0.78), 22, 0.985);
+              applyElementMotion(subParaEl, getSubProgress(inP, 0.58, 0.90), 18, 0.99);
+            } else if (p < 0.80) {
+              if (introGrid) {
+                introGrid.style.opacity = '1';
+                introGrid.style.transform = 'none';
+              }
+              if (orbitalEl) orbitalEl.style.opacity = '0.88';
+              [tagEl, word1El, word2El, leadParaEl, subParaEl].forEach((el) => {
+                if (el) {
+                  el.style.opacity = '1';
+                  el.style.transform = 'none';
                 }
               });
-            } else if (p < 0.385) {
-              if (introGrid) {
-                introGrid.style.opacity = '1';
-                introGrid.style.transform = 'none';
-              }
-              if (compBlock) compBlock.style.opacity = '0';
             } else {
-              // Dismantle intro & build competencies
-              if (p < 0.435) {
-                const introOutP = (p - 0.385) / 0.05;
-                const introAlpha = Math.max(0, 1 - introOutP * 1.05);
-                const introY = -26 * introOutP;
-                if (introGrid) {
-                  introGrid.style.opacity = introAlpha.toFixed(3);
-                  introGrid.style.transform = `translate3d(0, ${introY.toFixed(1)}px, 0)`;
-                }
-                if (orbitalEl) orbitalEl.style.opacity = (0.88 * introAlpha).toFixed(3);
-              } else {
-                if (introGrid) introGrid.style.opacity = '0';
-                if (orbitalEl) orbitalEl.style.opacity = '0';
+              const outP = (p - 0.80) / 0.20;
+              const alpha = Math.max(0, 1 - outP * 1.1);
+              const y = -24 * outP;
+              if (introGrid) {
+                introGrid.style.opacity = alpha.toFixed(3);
+                introGrid.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
               }
+              if (orbitalEl) orbitalEl.style.opacity = (0.88 * alpha).toFixed(3);
+            }
+          }
+        });
+      }
 
-              if (compBlock) compBlock.style.opacity = '1';
-              if (compHeader) {
-                const hdrP = Math.min(1, Math.max(0, (p - 0.42) / 0.04));
-                compHeader.style.opacity = hdrP.toFixed(3);
-              }
+      // Core Competencies scene build animation with delayed zone stagger
+      const compEl = document.querySelector('#competencies');
+      if (compEl) {
+        const zonesConfig = [
+          {
+            // Zone 1: Languages (Upper-Left)
+            items: ['lbl-languages', 'python', 'sql'],
+            start: 0.10,
+            end: 0.32
+          },
+          {
+            // Zone 2: Machine Learning & Deep Learning (Upper-Right)
+            items: ['lbl-ml', 'pytorch', 'scikit', 'tensorflow', 'efficientnet', 'gradcam', 'xgboost', 'opencv'],
+            start: 0.22,
+            end: 0.50
+          },
+          {
+            // Zone 3: Data Analysis & Visualization (Lower-Left) - Delayed stagger
+            items: ['lbl-data', 'pandas', 'numpy', 'matplotlib', 'seaborn', 'tableau', 'powerbi'],
+            start: 0.38,
+            end: 0.64
+          },
+          {
+            // Zone 4: Tools & Deployment (Lower-Right) - Delayed stagger
+            items: ['lbl-tools', 'git', 'vscode', 'flask', 'streamlit', 'jupyter', 'linux', 'kaggle'],
+            start: 0.48,
+            end: 0.74
+          }
+        ];
 
-              // Build competencies items
-              const totalItems = compItemsOrder.length;
-              const buildStartBase = 0.43;
-              const buildSpan = 0.145;
-              const itemBuildDur = 0.016;
+        ScrollTrigger.create({
+          trigger: '#competencies',
+          start: 'top 65%',
+          end: 'bottom top',
+          scrub: true,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const p = self.progress;
+            const compHeader = document.getElementById('comp-header');
 
-              const catConfig = [
-                { startIdx: 0, endIdx: 2, start: 0.600, end: 0.630, dur: 0.008 },
-                { startIdx: 3, endIdx: 10, start: 0.625, end: 0.655, dur: 0.008 },
-                { startIdx: 11, endIdx: 17, start: 0.655, end: 0.785, dur: 0.012 },
-                { startIdx: 18, endIdx: 25, start: 0.785, end: 0.955, dur: 0.012 }
-              ];
+            if (compHeader) {
+              const hdrP = Math.min(1, Math.max(0, (p - 0.04) / 0.16));
+              compHeader.style.opacity = hdrP.toFixed(3);
+              compHeader.style.transform = `translate3d(0, ${(16 * (1 - hdrP)).toFixed(1)}px, 0)`;
+            }
 
-              for (let i = 0; i < totalItems; i++) {
-                const id = compItemsOrder[i];
-                const el = aboutEl.querySelector(`[data-comp-id="${id}"]`);
-                if (!el) continue;
+            zonesConfig.forEach((zone) => {
+              const count = zone.items.length;
+              const span = zone.end - zone.start;
+              const itemDur = Math.min(0.09, span / Math.max(1, count));
 
-                const inStart = buildStartBase + (i / (totalItems - 1)) * (buildSpan - itemBuildDur);
-                const inEnd = inStart + itemBuildDur;
+              zone.items.forEach((id, idx) => {
+                const el = compEl.querySelector(`[data-comp-id="${id}"]`);
+                if (!el) return;
 
-                let cfg = catConfig[0];
-                for (let c = 0; c < catConfig.length; c++) {
-                  if (i >= catConfig[c].startIdx && i <= catConfig[c].endIdx) {
-                    cfg = catConfig[c];
-                    break;
-                  }
-                }
-                const countInCat = cfg.endIdx - cfg.startIdx;
-                const relIdx = i - cfg.startIdx;
-                const outStart = cfg.start + (countInCat > 0 ? (relIdx / countInCat) * (cfg.end - cfg.start - cfg.dur) : 0);
-                const outEnd = outStart + cfg.dur;
+                const inStart = zone.start + (count > 1 ? (idx / (count - 1)) * (span - itemDur) : 0);
+                const inEnd = inStart + itemDur;
 
                 let alpha = 0;
-                let y = 16;
-                let scale = 0.96;
+                let y = 22;
+                let scale = 0.94;
 
                 if (p < inStart) {
                   alpha = 0;
-                  y = 16;
+                  y = 22;
+                  scale = 0.94;
                 } else if (p < inEnd) {
                   const tIn = (p - inStart) / (inEnd - inStart);
-                  const smoothIn = 1 - Math.pow(1 - tIn, 2.6);
+                  const smoothIn = 1 - Math.pow(1 - tIn, 2.4);
                   alpha = smoothIn;
-                  y = 16 * (1 - smoothIn);
-                  scale = 0.96 + 0.04 * smoothIn;
-                } else if (p < outStart) {
+                  y = 22 * (1 - smoothIn);
+                  scale = 0.94 + 0.06 * smoothIn;
+                } else if (p < 0.88) {
                   alpha = 1;
                   y = 0;
                   scale = 1;
-                } else if (p < outEnd) {
-                  const tOut = (p - outStart) / (outEnd - outStart);
-                  const smoothOut = Math.pow(tOut, 2.2);
-                  alpha = Math.max(0, 1 - smoothOut);
-                  y = -16 * smoothOut;
-                  scale = 1 - 0.04 * smoothOut;
                 } else {
-                  alpha = 0;
-                  y = -16;
+                  const tOut = (p - 0.88) / 0.12;
+                  const smoothOut = Math.pow(tOut, 2);
+                  alpha = Math.max(0, 1 - smoothOut);
+                  y = -18 * smoothOut;
+                  scale = 1 - 0.03 * smoothOut;
                 }
 
                 el.style.opacity = alpha.toFixed(3);
                 el.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
-              }
-            }
+
+                // Synchronize corresponding dot opacity
+                const dot = compEl.querySelector(`[data-dot-for="${id}"]`);
+                if (dot) {
+                  dot.style.opacity = alpha.toFixed(3);
+                }
+              });
+            });
           }
         });
       }

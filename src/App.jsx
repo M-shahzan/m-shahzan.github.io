@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { BackgroundLayers } from './components/BackgroundLayers';
-import { CustomCursor } from './components/CustomCursor';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
+import { Competencies } from './components/Competencies';
 import { WorkSection } from './components/Work/WorkSection';
 import { Experiments } from './components/Experiments';
 import { Contact } from './components/Contact';
@@ -24,12 +24,12 @@ export function App() {
   return (
     <>
       <BackgroundLayers />
-      <CustomCursor />
       <Navigation onNavigate={navigateToScene} />
 
       <main id="scenes-wrapper">
         <Hero theme={theme} onToggleTheme={toggleTheme} onNavigate={navigateToScene} />
         <About />
+        <Competencies />
         <WorkSection
           retinaStage={retinaStage}
           sightStage={sightStage}
