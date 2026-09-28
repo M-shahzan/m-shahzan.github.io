@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { HomeAmbientCanvas } from './HomeAmbientCanvas';
 import { personalLinks } from '../data/links';
 
-export function Hero({ theme, onToggleTheme, onNavigate }) {
+export function Hero({ theme, onToggleTheme, onNavigate, onOpenResume }) {
   const isLight = theme === 'light';
 
   const handleWorkClick = (e) => {
@@ -15,6 +15,13 @@ export function Hero({ theme, onToggleTheme, onNavigate }) {
       if (workEl) {
         workEl.scrollIntoView({ behavior: 'smooth' });
       }
+    }
+  };
+
+  const handleResumeClick = (e) => {
+    if (onOpenResume) {
+      e.preventDefault();
+      onOpenResume();
     }
   };
 
@@ -88,7 +95,8 @@ export function Hero({ theme, onToggleTheme, onNavigate }) {
             rel="noopener noreferrer"
             className="hero-editorial-link"
             data-cursor="OPEN"
-            aria-label="Open Resume in new tab"
+            aria-label="Open Resume Document"
+            onClick={handleResumeClick}
           >
             <span className="hero-link-text">Resume ↗</span>
             <span className="hero-link-underline" aria-hidden="true" />

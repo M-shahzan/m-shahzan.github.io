@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohammed Shahzan Armar — Resume</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 0.5in 0.6in 0.5in 0.6in;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Times New Roman", Times, "Computer Modern", Georgia, serif;
+      font-size: 10.2pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+      padding: 0.4in 0.55in;
+      max-width: 8.5in;
+      margin: 0 auto;
+    }
+    a {
+      color: #111;
+      text-decoration: underline;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .name {
+      font-size: 22pt;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+    }
+    .contact-line {
+      font-size: 9.5pt;
+      color: #222;
+    }
+    .contact-line a {
+      color: #111;
+      text-decoration: underline;
+    }
+    .contact-sep {
+      margin: 0 4px;
+      color: #555;
+    }
+    .section-title {
+      font-size: 10.8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-bottom: 1px solid #111;
+      padding-bottom: 1.5px;
+      margin-top: 10px;
+      margin-bottom: 6px;
+    }
+    .entry-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-weight: 700;
+      font-size: 10.2pt;
+    }
+    .entry-subrow {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-style: italic;
+      font-size: 9.8pt;
+      margin-bottom: 2px;
+    }
+    .project-header {
+      margin-top: 4px;
+      margin-bottom: 2px;
+    }
+    .project-title {
+      font-weight: 700;
+      font-size: 10.1pt;
+    }
+    .project-tech {
+      font-style: italic;
+      font-weight: normal;
+      font-size: 9.6pt;
+    }
+    ul {
+      list-style-type: disc;
+      padding-left: 17px;
+      margin-top: 2px;
+      margin-bottom: 5px;
+    }
+    li {
+      margin-bottom: 2px;
+      font-size: 9.8pt;
+      line-height: 1.32;
+    }
+    .skills-grid {
+      margin-top: 4px;
+      font-size: 9.8pt;
+      line-height: 1.4;
+    }
+    .skills-row {
+      margin-bottom: 2px;
+    }
+    .skills-label {
+      font-weight: 700;
+    }
+    .activity-entry {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+    @media print {
+      body {
+        padding: 0;
+        max-width: 100%;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="name">Mohammed Shahzan Armar</h1>
+    <div class="contact-line">
+      +91-9380736486 <span class="contact-sep">|</span>
+      <a href="mailto:shahzanarmar01@gmail.com">shahzanarmar01@gmail.com</a> <span class="contact-sep">|</span>
+      <a href="https://www.linkedin.com/in/mohammed-shahzan-armar-2ab1a82a4?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener">LinkedIn</a> <span class="contact-sep">|</span>
+      <a href="https://github.com/M-shahzan" target="_blank" rel="noopener">GitHub</a> <span class="contact-sep">|</span>
+      <a href="https://m-shahzan.github.io" target="_blank" rel="noopener">Portfolio</a>
+    </div>
+  </header>
+
+  <!-- EDUCATION -->
+  <section>
+    <h2 class="section-title">Education</h2>
+    <div class="entry-row">
+      <span>Anjuman Institute of Technology and Management (VTU)</span>
+      <span>Bhatkal, Karnataka</span>
+    </div>
+    <div class="entry-subrow">
+      <span>B.E. in Computer Science and Engineering (Data Science)</span>
+      <span>Expected 2027</span>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section>
+    <h2 class="section-title">Projects</h2>
+
+    <!-- RetinaXAI -->
+    <div class="project-header">
+      <span class="project-title">RetinaXAI: Explainable AI for Diabetic Retinopathy and DME Detection</span>
+      <span class="project-tech"> | Python, Deep Learning, Explainable AI</span>
+    </div>
+    <ul>
+      <li>Built a deep learning pipeline that grades diabetic retinopathy and detects diabetic macular edema from retinal fundus images, with explainability to support clinical interpretation.</li>
+      <li>Achieved a DR quadratic weighted kappa of 0.6452 and a DME ROC-AUC of 0.9244 in the Review 1 evaluation.</li>
+      <li>Diagnosed low Grade-4 (PDR) sensitivity of about 38% and planned a fix using oversampling and focal loss.</li>
+    </ul>
+
+    <!-- SightLite -->
+    <div class="project-header">
+      <span class="project-title">SightLite: On-Device Visual Perception for Browser Agents</span>
+      <span class="project-tech"> | Vision Transformer, LLM, Smart India Hackathon 2026</span>
+    </div>
+    <ul>
+      <li>Designed a hybrid client-server architecture pairing a local Vision Transformer for on-device perception with a remote LLM for reasoning, for an ISRO-backed problem statement (SIH26171).</li>
+      <li>Worked in a 6-member team (Dcoders); produced the pitch deck, technical report, and Q&A preparation mapped to the judging criteria.</li>
+    </ul>
+
+    <!-- AI Email Assistant -->
+    <div class="project-header">
+      <span class="project-title">AI Email Assistant</span>
+      <span class="project-tech"> | Flask, Hugging Face Transformers, SQLite, Bootstrap 5</span>
+    </div>
+    <ul>
+      <li>Built a web app that classifies emails using zero-shot NLI with <code>facebook/bart-large-mnli</code>, evaluated on the Enron corpus with a proper train/test split.</li>
+      <li>Stored results in SQLite and delivered a responsive Bootstrap 5 interface backed by a Flask API.</li>
+    </ul>
+
+    <!-- Titanic Survival Prediction -->
+    <div class="project-header">
+      <span class="project-title">Titanic Survival Prediction</span>
+      <span class="project-tech"> | Python, Pandas, scikit-learn</span>
+    </div>
+    <ul>
+      <li>Completed feature engineering and model tuning for the Kaggle Titanic competition, scoring 0.77751 (top ∼23%).</li>
+      <li>Published the full workflow on GitHub (<code>titanic-survival-ml</code>).</li>
+    </ul>
+  </section>
+
+  <!-- TECHNICAL SKILLS -->
+  <section>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skills-row">
+        <span class="skills-label">Languages:</span> Python, JavaScript, HTML/CSS, SQL
+      </div>
+      <div class="skills-row">
+        <span class="skills-label">ML &amp; Data:</span> Pandas, NumPy, scikit-learn, XGBoost, Hugging Face Transformers, Explainable AI
+      </div>
+      <div class="skills-row">
+        <span class="skills-label">Web &amp; Tools:</span> Flask, Bootstrap, SQLite, Git, GitHub, Kaggle
+      </div>
+      <div class="skills-row">
+        <span class="skills-label">Coursework:</span> Machine Learning, Exploratory Data Analysis, Data Visualization
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP AND ACTIVITIES -->
+  <section>
+    <h2 class="section-title">Leadership and Activities</h2>
+
+    <div class="activity-entry">
+      <div class="entry-row">
+        <span>ArenaX, STEM’25</span>
+        <span>Anjuman Institute of Technology and Management</span>
+      </div>
+      <div class="entry-subrow">
+        <span>Organizer</span>
+        <span>2025</span>
+      </div>
+      <ul>
+        <li>Contributed to organizing and coordinating ArenaX as part of STEM’25.</li>
+        <li>Assisted with event activities and participant coordination during the event.</li>
+      </ul>
+    </div>
+
+    <div class="activity-entry">
+      <div class="entry-row">
+        <span>Smart India Hackathon 2026</span>
+        <span>Team Dcoders</span>
+      </div>
+      <div class="entry-subrow">
+        <span>Participant, Problem Statement SIH26171</span>
+        <span>2026</span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
